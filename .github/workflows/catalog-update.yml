@@ -44,4 +44,4 @@ jobs:
           path: dist
       - name: Publish updated catalog
         if: vars.PAGES_ENABLED == 'true'
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
