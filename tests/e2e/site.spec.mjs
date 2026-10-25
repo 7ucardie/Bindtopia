@@ -24,11 +24,25 @@ test.describe('in English', () => {
     await page.locator('#grid .card', {hasText: 'base1-4'}).locator('.art').click();
     const detail = page.locator('#detail');
     await expect(detail.locator('h1')).toHaveText('Charizard');
+    await expect(detail.locator('tr', {hasText: 'Year of release'})).toContainText('1999');
     await expect(detail).toContainText('Indicative prices');
     await expect(detail).toContainText('€310.50');
     await expect(detail).toContainText('$410.25');
     await expect(detail.locator('.links a')).toHaveCount(3);
     await expect(detail.locator('#translateText')).toHaveCount(0);
+  });
+
+  test('cards and sets show the release year when the catalog has it', async ({page}) => {
+    await page.route('**/data/sets-en.json', async route => {
+      const sets = await (await route.fetch()).json();
+      await route.fulfill({json: sets.map(s => s.id === 'base1' ? {...s, releaseDate: '1999-01-09'} : s)});
+    });
+    await openHome(page);
+    await search(page, '4/102');
+    await expect(page.locator('#grid .card', {hasText: 'base1-4'}).locator('.meta')).toContainText('Base Set · 1999');
+    await search(page, 'Base Set');
+    await page.locator('[data-view=sets]').first().click();
+    await expect(page.locator('#grid .set', {hasText: 'Base Set'}).first()).toContainText('1999 ·');
   });
 
   test('card detail without pricing keeps the no-prices notice', async ({page}) => {

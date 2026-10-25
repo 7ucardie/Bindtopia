@@ -20,6 +20,8 @@ export const test = base.extend({
     await page.route(/^https?:\/\/(?!127\.0\.0\.1)/, route => {
       const url = new URL(route.request().url());
       if (url.host === 'assets.tcgdex.net') return route.fulfill({body: png, contentType: 'image/png'});
+      const set = url.host === 'api.tcgdex.net' && url.pathname.match(/^\/v2\/[a-z-]+\/sets\/(.+)$/);
+      if (set) return set[1] === 'base1' ? route.fulfill({json: {id: 'base1', name: 'Base Set', releaseDate: '1999-01-09'}}) : route.fulfill({status: 404, json: {}});
       const m = url.host === 'api.tcgdex.net' && url.pathname.match(/^\/v2\/([a-z-]+)\/cards\/(.+)$/);
       if (m) { const card = cards[m[1] + '/' + decodeURIComponent(m[2])]; return card ? route.fulfill({json: card}) : route.fulfill({status: 404, json: {error: 'not found'}}); }
       return route.abort('blockedbyclient');
