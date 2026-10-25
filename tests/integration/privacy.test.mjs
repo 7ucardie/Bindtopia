@@ -13,7 +13,7 @@ const hosts = [...new Set([...code.matchAll(/https:\/\/([a-z0-9.-]+\.[a-z]{2,})/
 
 test('every external host contacted by the site is named in both privacy statements', () => {
   assert.ok(hosts.includes('api.tcgdex.net'));
-  const name = h => ({'cardmarket.com': 'Cardmarket', 'tcgplayer.com': 'TCGplayer', 'ebay.nl': 'eBay'})[h] || h;
+  const name = h => ({'cardmarket.com': 'Cardmarket', 'tcgplayer.com': 'TCGplayer', 'ebay.nl': 'eBay', 'google.com': 'Google'})[h] || h;
   for (const h of hosts) {
     assert.ok(legalNl.includes(name(h)), `privacy.html mist ${h}`);
     assert.ok(legalEn.includes(name(h)), `legal-en.html misses ${h}`);

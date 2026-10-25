@@ -7,6 +7,7 @@ export const cards = {
     pricing: {cardmarket: {updated: '2026-10-20T00:00:00Z', unit: 'EUR', low: 120, trend: 310.5, avg: 290}, tcgplayer: {updated: '2026-10-20T00:00:00Z', unit: 'USD', holofoil: {lowPrice: 250, marketPrice: 410.25, highPrice: 900}}}},
   'nl/base1-4': {id: 'base1-4', localId: '4', name: 'Glurak', set: {id: 'base1', name: 'Basisset'},
     abilities: [{name: 'Energieverbranding', effect: 'NL-vaardigheidstekst'}], attacks: [{name: 'Vuurspiraal', damage: 100, effect: 'NL-aanvalstekst', cost: ['Fire']}]},
+  'en/miscp-001': {id: 'miscp-001', localId: '001', name: 'Ancient Mew', category: 'Pokemon', set: {id: 'miscp', name: 'Miscellaneous Promos', cardCount: {official: 1}}},
   'en/base1-2': {id: 'base1-2', localId: '2', name: 'Blastoise', category: 'Pokemon', image: 'https://assets.tcgdex.net/en/base/base1/2', set: {id: 'base1', name: 'Base Set', cardCount: {official: 102}},
     attacks: [{name: 'Hydro Pump', damage: '40+', effect: 'Extra damage.'}]},
 };

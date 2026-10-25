@@ -39,6 +39,15 @@ test.describe('in English', () => {
     await expect(page.locator('#detail')).not.toContainText('Indicative prices');
   });
 
+  test('a card without an image offers an online image search', async ({page}) => {
+    await openHome(page);
+    await search(page, 'Ancient Mew');
+    await page.locator('#grid .card', {hasText: 'miscp-001'}).locator('.art').click();
+    const link = page.locator('#detail .links a', {hasText: 'Google'});
+    await expect(link).toHaveAttribute('href', /google\.com\/search\?tbm=isch&q=Ancient%20Mew/);
+    await expect(link).toHaveAttribute('rel', 'noopener noreferrer');
+  });
+
   test('save, reload, export and import a card', async ({page}) => {
     await openHome(page);
     await search(page, '4/102');
