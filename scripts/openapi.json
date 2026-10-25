@@ -1,0 +1,276 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Bindtopia API",
+    "version": "1.0.0",
+    "description": "Free, read-only JSON API with the English Pokémon card catalog used by Bindtopia, including set release years. Static files on GitHub Pages: no key, CORS enabled, updated daily. Card data from TCGdex (MIT); card images belong to their rights holders. No warranty; see https://bindtopia.com/voorwaarden.html.",
+    "license": {
+      "name": "MIT (code); data per TCGdex",
+      "url": "https://github.com/7ucardie/Bindtopia/blob/main/LICENSE"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://bindtopia.com/api/v1"
+    }
+  ],
+  "paths": {
+    "/index.json": {
+      "get": {
+        "summary": "API metadata, counts and endpoint list",
+        "responses": {
+          "200": {
+            "description": "Metadata",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sets.json": {
+      "get": {
+        "summary": "All sets with release date and year",
+        "responses": {
+          "200": {
+            "description": "Sets",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Set"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sets/{setId}.json": {
+      "get": {
+        "summary": "One set with its cards",
+        "parameters": [
+          {
+            "name": "setId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "base1"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Set with cards",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/Set"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "cards": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/CardBrief"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown set"
+          }
+        }
+      }
+    },
+    "/cards.json": {
+      "get": {
+        "summary": "All cards (brief, about 6 MB)",
+        "responses": {
+          "200": {
+            "description": "Cards",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CardBrief"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cards/{cardFileId}.json": {
+      "get": {
+        "summary": "One card with its set",
+        "description": "cardFileId is the card ID with characters outside A-Z a-z 0-9 . _ - written as _ plus uppercase hex code point (exu-! becomes exu-_21). Every record's url field already contains the right path.",
+        "parameters": [
+          {
+            "name": "cardFileId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "base1-4"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Card",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/CardBrief"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "set": {
+                          "$ref": "#/components/schemas/Set"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown card"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Images": {
+        "type": [
+          "object",
+          "null"
+        ],
+        "properties": {
+          "small": {
+            "type": "string",
+            "format": "uri"
+          },
+          "large": {
+            "type": "string",
+            "format": "uri"
+          }
+        }
+      },
+      "Set": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "url"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "releaseDate": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date"
+          },
+          "year": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "cardCount": {
+            "type": "object",
+            "properties": {
+              "total": {
+                "type": "integer"
+              },
+              "official": {
+                "type": "integer"
+              }
+            }
+          },
+          "logo": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "symbol": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "url": {
+            "type": "string"
+          }
+        }
+      },
+      "CardBrief": {
+        "type": "object",
+        "required": [
+          "id",
+          "localId",
+          "name",
+          "setId",
+          "url"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "base1-4"
+          },
+          "localId": {
+            "type": "string",
+            "example": "4"
+          },
+          "name": {
+            "type": "string",
+            "example": "Charizard"
+          },
+          "setId": {
+            "type": "string",
+            "example": "base1"
+          },
+          "images": {
+            "$ref": "#/components/schemas/Images"
+          },
+          "url": {
+            "type": "string",
+            "example": "/api/v1/cards/base1-4.json"
+          }
+        }
+      }
+    }
+  }
+}

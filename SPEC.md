@@ -37,7 +37,7 @@ Cloud accounts/synchronization, shared collections, richer collection management
 
 ## Outside the current scope
 
-Marketplace transactions, investment guidance, authoritative grading, authenticity certification and a live valuation feed are not implemented. Visitor statistics use cookieless Cloudflare Web Analytics only when a token is configured, and never under Do Not Track or Global Privacy Control. The project has no revenue model; GitHub Sponsors is voluntary. Cards, sets and card details show the set's year of release. Card detail shows indicative prices supplied by TCGdex (Cardmarket, TCGplayer) when available, and an opt-in button loads the official card text in the interface language.
+Marketplace transactions, investment guidance, authoritative grading, authenticity certification and a live valuation feed are not implemented. Visitor statistics use cookieless Cloudflare Web Analytics only when a token is configured, and never under Do Not Track or Global Privacy Control. The project has no revenue model; GitHub Sponsors is voluntary. A free, read-only static JSON API (`/api/v1/`, OpenAPI 3.1) publishes the English catalog with set release years for public developers. Cards, sets and card details show the set's year of release. Card detail shows indicative prices supplied by TCGdex (Cardmarket, TCGplayer) when available, and an opt-in button loads the official card text in the interface language.
 
 ## Next changes
 

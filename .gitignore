@@ -13,3 +13,4 @@ xcuserdata/
 
 playwright-report/
 test-results/
+dist/api/
