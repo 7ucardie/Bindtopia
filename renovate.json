@@ -1,0 +1,13 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended", "helpers:pinGitHubActionDigests", ":pinDevDependencies"],
+  "timezone": "Europe/Amsterdam",
+  "minimumReleaseAge": "3 days",
+  "automerge": true,
+  "automergeType": "pr",
+  "platformAutomerge": false,
+  "lockFileMaintenance": {"enabled": true, "automerge": true},
+  "packageRules": [
+    {"matchManagers": ["github-actions"], "groupName": "GitHub Actions"}
+  ]
+}

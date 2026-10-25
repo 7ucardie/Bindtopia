@@ -1,0 +1,36 @@
+/* Shared, responsive layout; deliberately different visual directions. */
+
+/* Pokémon-inspired directions for the private design review. */
+[data-theme^="poke-"]{--surface:#fff;--field:#fff;--stage:#eef1f5;--accent:#2059b4;--buttonInk:white;--radius:14px;--subtle:#eef1f5;--tag:#e7effc;--tagInk:#234e8f}
+[data-theme^="poke-"] body{background:var(--bg)}
+[data-theme^="poke-"] header{background:var(--surface);border-bottom:2px solid var(--line)}
+[data-theme^="poke-"] .logo{background:var(--green);color:var(--buttonInk);border-radius:var(--radius)}
+[data-theme^="poke-"] h1 span{color:var(--accent)}
+[data-theme^="poke-"] .eyebrow{color:var(--accent)}
+[data-theme^="poke-"] .primary{background:var(--green);color:var(--buttonInk);border-radius:var(--radius);font-weight:700}
+[data-theme^="poke-"] .searchbox,[data-theme^="poke-"] select,[data-theme^="poke-"] .scan-panel,[data-theme^="poke-"] .outline{background:var(--field);color:var(--ink);border-color:var(--line);border-radius:var(--radius)}
+[data-theme^="poke-"] .searchbox input{color:var(--ink)}
+[data-theme^="poke-"] .searchbox input::placeholder,[data-theme^="poke-"] textarea::placeholder{color:var(--muted)}
+[data-theme^="poke-"] .card{background:var(--surface);border-color:var(--line);border-radius:var(--radius)}
+[data-theme^="poke-"] .art,[data-theme^="poke-"] .card:nth-child(3n+2) .art,[data-theme^="poke-"] .card:nth-child(3n) .art{background:var(--stage)}
+[data-theme^="poke-"] .heart{background:var(--surface);color:var(--ink);border-color:var(--line)}
+[data-theme^="poke-"] .heart.saved{color:#c73864}
+[data-theme^="poke-"] .tag{background:var(--tag);color:var(--tagInk)}
+[data-theme^="poke-"] .scanner,[data-theme^="poke-"] .note,[data-theme^="poke-"] .catalog-status,[data-theme^="poke-"] .quiet{background:var(--subtle);border-color:var(--line);border-radius:var(--radius);color:var(--ink)}
+[data-theme^="poke-"] .scanner p,[data-theme^="poke-"] .option,[data-theme^="poke-"] .notice{color:var(--muted)}
+[data-theme^="poke-"] .note strong{color:var(--green)}
+[data-theme^="poke-"] .popular button{background:var(--surface);color:var(--ink);border-color:var(--line)}
+[data-theme^="poke-"] dialog,[data-theme^="poke-"] textarea{background:var(--surface);color:var(--ink)}
+[data-theme^="poke-"] .attack,[data-theme^="poke-"] .match,[data-theme^="poke-"] .set{background:var(--subtle);color:var(--ink);border-color:var(--line)}
+[data-theme^="poke-"] .privacy-summary{color:var(--muted);background:var(--surface)}
+[data-theme^="poke-"] .close{color:var(--ink);background:var(--subtle)}
+[data-theme^="poke-"] .legal-nav a,[data-theme^="poke-"] .privacy-summary a{color:var(--accent)}
+
+/* 01: A red handheld field guide{--bg:#f0f2f5;--ink:#202d42;--muted:#59697e;--line:#cdd5e0;--green:#c82b41;--accent:#1556ad;--surface:#fff;--field:#fff;--stage:#e4eaf0;--subtle:#e5ebf2;--radius:11px;--tag:#e6effb;--tagInk:#214f8d}
+
+/* 02: Clean red-and-white arena graphics{--bg:#f9fafc;--ink:#1d2a40;--muted:#607087;--line:#dce2eb;--green:#d82e42;--accent:#2455a5;--stage:#f0f2f7;--subtle:#eff3f9;--radius:20px;--tag:#e5edfc;--tagInk:#244d94}
+
+/* 03: A monochrome handheld game screen{--bg:#d7dec1;--ink:#243c26;--muted:#415b36;--line:#6c8057;--green:#304c31;--accent:#304c31;--surface:#e4e9d2;--field:#e8edd9;--stage:#b5c59b;--subtle:#c6d1b0;--radius:2px;--tag:#c6d1b0;--tagInk:#29432a}
+
+/* 04: The three starter energy colors{--bg:#f5f8f3;--ink:#21372e;--muted:#596e61;--line:#d3e0d2;--green:#286a45;--accent:#286a45;--stage:#e7f0dc;--subtle:#eaf3e3;--radius:22px;--tag:#e0eed5;--tagInk:#31572c}
+@media(prefers-reduced-motion:reduce){[data-theme^="poke-"] .card{transition:none}[data-theme^="poke-"] .card:hover{transform:none}}

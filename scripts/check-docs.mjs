@@ -1,0 +1,8 @@
+import{readFileSync,readdirSync,existsSync,statSync}from'node:fs';import{resolve,dirname,relative,join}from'node:path';import{fileURLToPath}from'node:url';
+const root=fileURLToPath(new URL('../',import.meta.url));const files=[];
+function collect(directory){for(const entry of readdirSync(directory,{withFileTypes:true})){if(['.git','node_modules','__pycache__'].includes(entry.name))continue;const p=join(directory,entry.name);if(entry.isDirectory())collect(p);else if(p.endsWith('.md'))files.push(p)}}
+for(const entry of readdirSync(root,{withFileTypes:true}))if(entry.isFile()&&entry.name.endsWith('.md'))files.push(join(root,entry.name));
+for(const dir of ['docs','.agents/skills/bindtopia-design'])if(existsSync(join(root,dir)))collect(join(root,dir));
+let links=0;const errors=[];for(const file of files){const text=readFileSync(file,'utf8');const targets=[...text.matchAll(/!?\[[^\]]*\]\(([^)\s]+)(?:\s+"[^"]*")?\)/g)].map(m=>m[1]);targets.push(...[...text.matchAll(/<(?:a|img)\b[^>]*\b(?:href|src)="([^"]+)"/g)].map(m=>m[1]));for(let target of targets){if(/^(?:https?:|mailto:|data:|#)/i.test(target))continue;target=decodeURIComponent(target.split(/[?#]/)[0]);if(!target)continue;const p=resolve(dirname(file),target);if(relative(root,p).startsWith('..')||!existsSync(p))errors.push(relative(root,file)+': '+target);else links++}}
+if(!readFileSync(join(root,'AGENTS.md'),'utf8').includes('.agents/skills/bindtopia-design/SKILL.md'))errors.push('AGENTS.md must load the design skill.');
+if(errors.length){console.error(errors.join('\n'));process.exit(1)}console.log(`Documentation checked: ${files.length} Markdown files, ${links} local links.`);

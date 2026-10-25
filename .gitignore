@@ -1,0 +1,17 @@
+.DS_Store
+*.tmp
+__pycache__/
+node_modules/
+.env
+.env.*
+!.env.example
+*.p12
+*.mobileprovision
+*.cer
+*.xcuserstate
+xcuserdata/
+
+dist/*-project.zip
+dist/*-source.zip
+playwright-report/
+test-results/

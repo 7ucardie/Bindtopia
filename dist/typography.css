@@ -1,0 +1,53 @@
+/* Roboto is bundled under OFL. Flexo resolves only if locally installed until a licensed webfont kit is supplied. */
+@font-face{font-family:'Bindtopia Roboto';src:url('fonts/Roboto-Variable.ttf') format('truetype');font-weight:100 900;font-style:normal;font-display:swap}
+@font-face{font-family:'Bindtopia Flexo';src:local('Flexo-Regular'),local('Flexo Regular');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Bindtopia Flexo';src:local('Flexo-Medium'),local('Flexo Medium');font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:'Bindtopia Flexo';src:local('Flexo-Demi'),local('Flexo Demi');font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:'Bindtopia Flexo';src:local('Flexo-Bold'),local('Flexo Bold');font-weight:700 900;font-style:normal;font-display:swap}
+html body,html body p,html body input,html body select,html body textarea,html body button{font-family:'Bindtopia Roboto',Arial,sans-serif!important}
+html body h1,html body h2,html body h3,html body .brand,html body .eyebrow,html body nav button{font-family:'Bindtopia Flexo','Bindtopia Roboto',Arial,sans-serif!important}
+/* The background and cards remain separate assets: the original card images are never edited. */
+:root[data-theme="poke-island"]{--bg:#f3f7f4;--ink:#203b3d;--muted:#546d70;--line:#cfdfd9;--green:#176b61;--accent:#136a75;--surface:#fff;--field:#fff;--stage:#e6efeb;--subtle:#e1f0e9;--radius:16px;--tag:#e1f0e9;--tagInk:#226154}
+html[data-theme="poke-island"] header{border-top:3px solid #3a9386;background:#ffffffed}
+html[data-theme="poke-island"] .hero{position:relative;isolation:isolate;min-height:520px;padding:55px 40px 70px;margin:28px 0 26px;border:1px solid #a3cac4;border-radius:24px;overflow:hidden;background:linear-gradient(90deg,#092f44ce 0%,#0b405c91 35%,#104e5c10 67%,#104e5c00 100%),url('assets/bindtopia-island-day.png') center 46%/cover no-repeat;box-shadow:0 16px 42px #114e4d12}
+html[data-theme="poke-island"] .hero>div:first-child{max-width:550px;position:relative;z-index:2;align-self:flex-start}
+html[data-theme="poke-island"] .hero h1{font-size:clamp(43px,5vw,70px);line-height:1.08;letter-spacing:-2px;color:#fffdf2;text-shadow:0 2px 15px #072a3540}
+html[data-theme="poke-island"] .hero h1 span{display:inline-block;margin-top:17px;font-size:.55em;letter-spacing:-.8px;color:#e2f8d0;background:none;-webkit-text-fill-color:initial}
+html[data-theme="poke-island"] .hero p{max-width:440px;color:#f1faf9;text-shadow:0 1px 8px #07353e80}
+html[data-theme="poke-island"] .hero .eyebrow{color:#d4f0bc}
+html[data-theme="poke-island"] .hero-art{display:block;position:absolute;z-index:3;width:390px;height:270px;right:28px;bottom:23px;margin:0;pointer-events:none}
+html[data-theme="poke-island"] .hero-art:before{content:"";position:absolute;inset:120px 5px -10px;background:radial-gradient(ellipse,#0e414733,transparent 65%);filter:blur(10px)}
+html[data-theme="poke-island"] .hero-art img{position:absolute;width:132px;left:23px;top:42px;transform:rotate(-13deg);filter:drop-shadow(0 14px 12px #092e4a70);height:auto;object-fit:contain}
+html[data-theme="poke-island"] .hero-art img:nth-child(2){width:148px;left:123px;top:4px;transform:rotate(1deg);z-index:2}
+html[data-theme="poke-island"] .hero-art img:nth-child(3){left:246px;top:49px;transform:rotate(14deg)}
+html[data-theme="poke-island"] .scanner{background:#e0efe7;border:1px solid #c6dfd4}
+html[data-theme="poke-island"] .primary{box-shadow:0 3px 0 #105248}
+
+@media(max-width:1000px) and (min-width:701px){html[data-theme="poke-island"] .hero{min-height:560px;padding:34px 30px}html[data-theme="poke-island"] .hero-art{width:330px;height:230px;right:7px;bottom:10px;transform:scale(.85);transform-origin:bottom right}html[data-theme="poke-island"] .hero>div:first-child{max-width:440px}html[data-theme="poke-island"] .hero p{max-width:340px}}
+@media(max-width:700px){html[data-theme="poke-island"] .hero{min-height:645px;padding:30px 23px;margin-top:22px;border-radius:18px;background-position:57% center;background-image:linear-gradient(180deg,#092f44ce 0%,#0c3d549e 35%,#0b4c5e10 63%,#0b4c5e10 100%),url('assets/bindtopia-island-day.png')}html[data-theme="poke-island"] .hero h1{font-size:46px;letter-spacing:-1.3px}html[data-theme="poke-island"] .hero h1 span{font-size:25px}html[data-theme="poke-island"] .hero p{font-size:14px;line-height:1.8;max-width:295px}html[data-theme="poke-island"] .hero-art{right:50%;bottom:14px;transform:translateX(50%) scale(.86);transform-origin:bottom center}header nav{gap:13px}#themeToggle{font-size:11px;padding-left:4px;padding-right:0}}
+@media(max-width:360px){html[data-theme="poke-island"] .hero-art{transform:translateX(50%) scale(.72)}html[data-theme="poke-island"] .hero{min-height:630px}}
+/* Approved daytime brand artwork and its sky, lagoon, stone and sunlight palette. */
+:root[data-theme="poke-island"]{--bg:#f2f8fd;--ink:#16334f;--muted:#536b80;--line:#cbdde9;--green:#0d65b5;--accent:#126487;--surface:#fffef9;--field:#fff;--stage:#e8f3fa;--subtle:#e3f1f9;--radius:16px;--tag:#dcf0ee;--tagInk:#1c6065}
+.brand-landscape{display:none}
+html[data-theme="poke-island"] .hero{display:block;min-height:0;aspect-ratio:16/9;padding:0;margin:22px 0 27px;background:#bce1f4;border:1px solid #b2d4e9;box-shadow:0 12px 34px #20618b15}
+html[data-theme="poke-island"] .brand-landscape{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:0}
+html[data-theme="poke-island"] .hero>div:first-of-type{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+html[data-theme="poke-island"] .hero-art{right:20px;bottom:10px;width:285px;height:215px;transform:scale(.76);transform-origin:bottom right}
+html[data-theme="poke-island"] .hero-art img{width:112px;left:0;top:37px;transform:rotate(-11deg)}
+html[data-theme="poke-island"] .hero-art img:nth-child(2){width:125px;left:84px;top:5px;transform:rotate(1deg)}
+html[data-theme="poke-island"] .hero-art img:nth-child(3){width:112px;left:182px;top:42px;transform:rotate(12deg)}
+html[data-theme="poke-island"] header{border-top:3px solid #3289c3;background:#fffefa}
+html[data-theme="poke-island"] .brand{color:#082c55}
+html[data-theme="poke-island"] .scanner{background:linear-gradient(110deg,#e1f2fb,#e7f3ed);border-color:#c4dce9}
+html[data-theme="poke-island"] .quiet{background:#fff2c9;color:#65501b;border-color:#e8dcae}
+html[data-theme="poke-island"] .primary{box-shadow:0 3px 0 #094b89}
+html[data-theme="poke-island"] .card:nth-child(3n+1) .art{background:#e8f3fb}
+html[data-theme="poke-island"] .card:nth-child(3n+2) .art{background:#f8f1df}
+html[data-theme="poke-island"] .card:nth-child(3n) .art{background:#e7f1eb}
+html[data-theme="poke-island"] .info h3{color:#163657}
+@media(max-width:1000px) and (min-width:701px){html[data-theme="poke-island"] .hero{min-height:0;padding:0}html[data-theme="poke-island"] .hero-art{right:10px;bottom:3px;transform:scale(.6)}}
+@media(max-width:700px){html[data-theme="poke-island"] .hero{min-height:0;aspect-ratio:16/10;padding:0;margin-top:18px;border-radius:14px;background-image:none}html[data-theme="poke-island"] .hero-art{right:5px;bottom:-2px;transform:scale(.34);transform-origin:bottom right}html[data-theme="poke-island"] .brand-landscape{object-position:50% center}}
+@media(max-width:360px){html[data-theme="poke-island"] .hero{min-height:0}html[data-theme="poke-island"] .hero-art{transform:scale(.29)}}
+
+/* Outlined wordmarks render consistently without a commercial font dependency. */
+header .brand{text-decoration:none;display:flex;align-items:center;flex-shrink:0}header .brand-wordmark{display:block;width:203px;height:48px;object-fit:contain;object-position:left center}header .brand-wordmark--dark{display:none}@media(max-width:700px){header .brand-wordmark{width:175px;height:40px}header .brand{max-width:calc(100% - 125px)}}@media(max-width:350px){header .brand-wordmark{width:152px}}
