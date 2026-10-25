@@ -7,7 +7,7 @@ A fan-made, ad-free card catalog with local scanning and collection tools. Stati
 - English card/set JSON index, source metadata and validated upstream synchronization.
 - Live TCGdex card details, images and additional card languages.
 - Search by name, source ID or collector number; filters, sorting and detail dialogs.
-- Web OCR on device with name/number/set-total candidate matching; native Apple Vision scanning.
+- Web OCR on device with name/number/set-total candidate matching, from a chosen photo, the phone camera or a desktop browser webcam; native Apple Vision scanning.
 - Browser-local collection, version-2 backup import/export and scoped deletion controls.
 - Eight interface languages, browser-language fallback and separate card-language choice.
 - Approved sunny island theme (single theme; the dark theme was removed). Original card images remain separate CSS-positioned layers.

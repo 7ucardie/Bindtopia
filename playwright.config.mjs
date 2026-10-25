@@ -7,7 +7,8 @@ export default defineConfig({
   use: {baseURL: 'http://127.0.0.1:4173', trace: 'retain-on-failure'},
   webServer: {command: 'node tests/serve.mjs', url: 'http://127.0.0.1:4173', reuseExistingServer: !process.env.CI, env: {PORT: '4173'}},
   projects: [
-    {name: 'desktop', use: {...devices['Desktop Chrome']}},
+    // Chromium's fake camera lets the webcam flow run headless.
+    {name: 'desktop', use: {...devices['Desktop Chrome'], launchOptions: {args: ['--use-fake-device-for-media-stream', '--use-fake-ui-for-media-stream']}}},
     {name: 'mobile', use: {...devices['Pixel 7']}},
   ],
 });
