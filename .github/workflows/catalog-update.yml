@@ -1,0 +1,47 @@
+name: Update catalog and publish
+on:
+  schedule:
+    - cron: '23 5 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: catalog-and-pages
+  cancel-in-progress: false
+jobs:
+  update:
+    if: github.repository_owner == '7ucardie'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Fetch and validate upstream catalog
+        run: node scripts/sync-catalog.mjs
+      - name: Check matching and update guards
+        run: node scripts/check.mjs && node scripts/check-i18n.mjs && node scripts/check-sync.mjs && node --check dist/app.mjs && node scripts/check-docs.mjs
+      - name: Rebuild downloadable projects
+        run: node scripts/configure-project.mjs && python3 scripts/package-release.py
+      - name: Commit changed catalog and source archives
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add dist/data ios/Bindtopia/Resources
+          if ! git diff --cached --quiet; then
+            git commit -m 'Update TCGdex card catalog'
+            git push
+          fi
+      - uses: actions/configure-pages@v5
+        if: vars.PAGES_ENABLED == 'true'
+      - uses: actions/upload-pages-artifact@v3
+        if: vars.PAGES_ENABLED == 'true'
+        with:
+          path: dist
+      - name: Publish updated catalog
+        if: vars.PAGES_ENABLED == 'true'
+        uses: actions/deploy-pages@v4

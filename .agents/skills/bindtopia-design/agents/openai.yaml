@@ -1,0 +1,4 @@
+interface:
+  display_name: "Bindtopia Design"
+  short_description: "Keep Bindtopia features consistent with its design"
+  default_prompt: "Use $bindtopia-design to extend Bindtopia while preserving the approved island design, branding, and themes."

@@ -1,0 +1,31 @@
+name: Publish catalog to GitHub Pages
+# Manual only: running this workflow publishes the site to the Pages audience.
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: catalog-and-pages
+  cancel-in-progress: false
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node --check dist/app.mjs && node scripts/check.mjs && node scripts/check-i18n.mjs && node scripts/check-docs.mjs
+      - run: node scripts/configure-project.mjs && python3 scripts/package-release.py
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4

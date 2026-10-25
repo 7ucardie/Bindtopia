@@ -1,0 +1,165 @@
+/* Shared, responsive layout; deliberately different visual directions. */
+:root[data-theme=armory]{--green:#a5e3c1;--bg:#101620;--ink:#e8edf6;--muted:#a5b2c6;--line:#2d3b4e;color-scheme:dark}
+[data-theme=armory] body{background:radial-gradient(ellipse at 80% 0%,#28334c 0,transparent 45%),var(--bg)}
+[data-theme=armory] header{background:#111923e8;border-color:#324158;box-shadow:0 6px 25px #0003}
+[data-theme=armory] .logo{background:#a5e3c1;color:#13261f;box-shadow:0 0 25px #a5e3c120}
+[data-theme=armory] nav button{color:#b6c1d2}[data-theme=armory] nav button.active{color:#a5e3c1}
+[data-theme=armory] h1{letter-spacing:-1.4px}[data-theme=armory] h1 span{color:#a5e3c1}
+[data-theme=armory] .eyebrow{color:#c0b5ef}[data-theme=armory] .hero-art img{filter:drop-shadow(0 12px 20px #0008)}
+[data-theme=armory] .scanner{background:linear-gradient(110deg,#253548,#1b2e2c);border-color:#3a5260;box-shadow:inset 0 1px #ffffff08}
+[data-theme=armory] .scanner p,[data-theme=armory] .scanner .notice{color:#bdcbd6}
+[data-theme=armory] .primary{background:#a5e3c1;color:#13251c;font-weight:700}
+[data-theme=armory] .searchbox,[data-theme=armory] select,[data-theme=armory] .scan-panel{background:#1b2533;color:#e8edf6;border-color:#34445a}
+[data-theme=armory] .searchbox input{color:#edf3fc}[data-theme=armory] input::placeholder,[data-theme=armory] textarea::placeholder{color:#a5b1c2}
+[data-theme=armory] .popular button{color:#bfcbdf;background:#1b2533}
+[data-theme=armory] .card{background:#1b2533;border-color:#34455c;box-shadow:0 8px 22px #0003;border-radius:10px}
+[data-theme=armory] .card:hover{border-color:#a5e3c1;box-shadow:0 12px 32px #0007}
+[data-theme=armory] .art,[data-theme=armory] .card:nth-child(3n+2) .art,[data-theme=armory] .card:nth-child(3n) .art{background:radial-gradient(ellipse at 50% 35%,#35425a,#18212f)}
+[data-theme=armory] .art img{filter:drop-shadow(0 8px 10px #0008)}
+[data-theme=armory] .heart{background:#182130ed;color:#d3dbea;border-color:#465569}[data-theme=armory] .heart.saved{color:#ffb6c2}
+[data-theme=armory] .tag{background:#2a3550;color:#d7c9ff}[data-theme=armory] .note{background:#1d2d2b;color:#b1c9c0}
+[data-theme=armory] .note strong{color:#b8edcc}[data-theme=armory] .outline{background:#243246;color:#b9ebd0;border-color:#4c6475}
+[data-theme=armory] .catalog-status,[data-theme=armory] .quiet{background:#1c302b;color:#b9e6cb;border-color:#3c5b4d}
+[data-theme=armory] .privacy-summary{background:#171f2b;color:#b8c5d7}[data-theme=armory] a{color:#afe5c9}
+[data-theme=armory] dialog{background:#192333;color:#e8edf6}[data-theme=armory] .close{background:#2d3b4f;color:#e8edf6}
+[data-theme=armory] .attack,[data-theme=armory] .match,[data-theme=armory] .set{background:#202c3d;color:#e8edf6;border-color:#384961}
+[data-theme=armory] textarea{background:#131d2b;color:#e8edf6}[data-theme=armory] .option{color:#c1cada}
+:root[data-theme=museum]{--green:#51452d;--bg:#f4f0e6;--ink:#29251f;--muted:#736d61;--line:#d9d1c1}
+[data-theme=museum] body{background:#f4f0e6;font-family:Arial,sans-serif}
+[data-theme=museum] header{background:#f4f0e6;border-bottom:1px solid #cfc5b4}
+[data-theme=museum] .brand{font-family:Georgia,serif;font-size:28px;font-weight:400;letter-spacing:-1px}
+[data-theme=museum] .logo{border-radius:0;background:transparent;border:1px solid #51452d;color:#51452d}
+[data-theme=museum] h1,[data-theme=museum] .resultsbar h2{font-family:Georgia,serif;font-weight:400;letter-spacing:-1.5px}
+[data-theme=museum] h1{font-size:clamp(36px,5vw,58px)}[data-theme=museum] h1 span{color:#83704b}
+[data-theme=museum] .eyebrow{color:#7c6947;letter-spacing:2.6px}[data-theme=museum] .hero{padding-top:54px;padding-bottom:40px}
+[data-theme=museum] .hero-art img{filter:drop-shadow(0 14px 12px #45351d25)}
+[data-theme=museum] .scanner{background:#e8e1d2;border:0;border-radius:0;padding:24px}
+[data-theme=museum] .scanner p{color:#6e6453}[data-theme=museum] .primary{background:#51452d;border-radius:2px;color:#fffaf0}
+[data-theme=museum] .searchbox{background:#fffcf5;border-radius:0;box-shadow:none;border-color:#cfc4af}
+[data-theme=museum] .card{background:transparent;border:0;border-radius:0;box-shadow:none}
+[data-theme=museum] .card:hover{box-shadow:none;transform:translateY(-3px)}
+[data-theme=museum] .art,[data-theme=museum] .card:nth-child(3n+2) .art,[data-theme=museum] .card:nth-child(3n) .art{background:#e9e1d1;padding:25px 22px}
+[data-theme=museum] .info{padding:14px 0;border-bottom:1px solid #d5cbb9}[data-theme=museum] .info h3{font-family:Georgia,serif;font-size:17px;font-weight:400}
+[data-theme=museum] .tag{background:#e8e0d0;color:#65573a;border-radius:0}
+[data-theme=museum] .heart{border-radius:2px;background:#fffcf3e8;border-color:#d2c5ab}
+[data-theme=museum] .note,[data-theme=museum] .catalog-status{background:#e7decb;border-radius:0;color:#665a44}
+[data-theme=museum] .privacy-summary{border-radius:0;border-color:#d4c8b0;color:#6b6151}
+[data-theme=museum] select,[data-theme=museum] .outline,[data-theme=museum] .scan-panel{border-radius:2px;background:#fffcf5;color:#51452d;border-color:#cfc4af}
+[data-theme=museum] .popular button{border-radius:2px;background:#efe7d8;border-color:#d5c9b1}
+[data-theme=museum] .quiet{background:#e5decd;color:#51452d;border-color:#d5c9b1}
+[data-theme=museum] .set{border-radius:0;background:#fffcf5}
+
+/* Pokémon-inspired directions for the private design review. */
+[data-theme^="poke-"]{--surface:#fff;--field:#fff;--stage:#eef1f5;--accent:#2059b4;--buttonInk:white;--radius:14px;--subtle:#eef1f5;--tag:#e7effc;--tagInk:#234e8f}
+[data-theme^="poke-"] body{background:var(--bg)}
+[data-theme^="poke-"] header{background:var(--surface);border-bottom:2px solid var(--line)}
+[data-theme^="poke-"] .logo{background:var(--green);color:var(--buttonInk);border-radius:var(--radius)}
+[data-theme^="poke-"] h1 span{color:var(--accent)}
+[data-theme^="poke-"] .eyebrow{color:var(--accent)}
+[data-theme^="poke-"] .primary{background:var(--green);color:var(--buttonInk);border-radius:var(--radius);font-weight:700}
+[data-theme^="poke-"] .searchbox,[data-theme^="poke-"] select,[data-theme^="poke-"] .scan-panel,[data-theme^="poke-"] .outline{background:var(--field);color:var(--ink);border-color:var(--line);border-radius:var(--radius)}
+[data-theme^="poke-"] .searchbox input{color:var(--ink)}
+[data-theme^="poke-"] .searchbox input::placeholder,[data-theme^="poke-"] textarea::placeholder{color:var(--muted)}
+[data-theme^="poke-"] .card{background:var(--surface);border-color:var(--line);border-radius:var(--radius)}
+[data-theme^="poke-"] .art,[data-theme^="poke-"] .card:nth-child(3n+2) .art,[data-theme^="poke-"] .card:nth-child(3n) .art{background:var(--stage)}
+[data-theme^="poke-"] .heart{background:var(--surface);color:var(--ink);border-color:var(--line)}
+[data-theme^="poke-"] .heart.saved{color:#c73864}
+[data-theme^="poke-"] .tag{background:var(--tag);color:var(--tagInk)}
+[data-theme^="poke-"] .scanner,[data-theme^="poke-"] .note,[data-theme^="poke-"] .catalog-status,[data-theme^="poke-"] .quiet{background:var(--subtle);border-color:var(--line);border-radius:var(--radius);color:var(--ink)}
+[data-theme^="poke-"] .scanner p,[data-theme^="poke-"] .option,[data-theme^="poke-"] .notice{color:var(--muted)}
+[data-theme^="poke-"] .note strong{color:var(--green)}
+[data-theme^="poke-"] .popular button{background:var(--surface);color:var(--ink);border-color:var(--line)}
+[data-theme^="poke-"] dialog,[data-theme^="poke-"] textarea{background:var(--surface);color:var(--ink)}
+[data-theme^="poke-"] .attack,[data-theme^="poke-"] .match,[data-theme^="poke-"] .set{background:var(--subtle);color:var(--ink);border-color:var(--line)}
+[data-theme^="poke-"] .privacy-summary{color:var(--muted);background:var(--surface)}
+[data-theme^="poke-"] .close{color:var(--ink);background:var(--subtle)}
+[data-theme^="poke-"] .legal-nav a,[data-theme^="poke-"] .privacy-summary a{color:var(--accent)}
+
+/* 01: A red handheld field guide, with a blue status lens. */
+:root[data-theme="poke-dex"]{--bg:#f0f2f5;--ink:#202d42;--muted:#59697e;--line:#cdd5e0;--green:#c82b41;--accent:#1556ad;--surface:#fff;--field:#fff;--stage:#e4eaf0;--subtle:#e5ebf2;--radius:11px;--tag:#e6effb;--tagInk:#214f8d}
+[data-theme="poke-dex"] header{background:#cf3044;border-bottom:7px solid #273b52;color:white;box-shadow:0 5px 0 #b22237}
+[data-theme="poke-dex"] header .brand>span:last-child{color:#ffe4e7!important}
+[data-theme="poke-dex"] header nav button{color:#ffe8ed;font-weight:600}
+[data-theme="poke-dex"] header nav button.active{color:white;border-bottom-color:#70d9ff}
+[data-theme="poke-dex"] .logo{background:radial-gradient(circle at 35% 27%,#fff 0 7%,#69daff 9% 37%,#2499c6 45% 67%,#126089 70%);border:4px solid #eaf0f4;border-radius:50%;color:transparent;width:43px;height:43px;box-shadow:0 0 0 3px #951a2c}
+[data-theme="poke-dex"] .hero{position:relative;border-bottom:1px solid #ccd5df;margin-bottom:22px;padding-top:45px}
+[data-theme="poke-dex"] .hero h1{font-weight:800;letter-spacing:-2px}
+[data-theme="poke-dex"] .hero:after{content:"";position:absolute;right:0;bottom:20px;width:70px;height:8px;border-radius:10px;background:repeating-linear-gradient(90deg,#52647a 0 14px,transparent 14px 20px)}
+[data-theme="poke-dex"] .scanner{border-left:5px solid #c82b41;border-radius:4px 12px 12px 4px}
+[data-theme="poke-dex"] .searchbox{border:2px solid #99aabf;box-shadow:inset 0 2px 5px #17273c08}
+[data-theme="poke-dex"] .card{border:1px solid #c1cbd8;box-shadow:0 3px 0 #d3dbe5}
+[data-theme="poke-dex"] .art{background-image:linear-gradient(#ffffff55 1px,transparent 1px),linear-gradient(90deg,#ffffff55 1px,transparent 1px)!important;background-size:18px 18px!important}
+[data-theme="poke-dex"] .info h3{font-family:ui-monospace,monospace}
+
+/* 02: Clean red-and-white arena graphics, with a circular capture motif. */
+:root[data-theme="poke-league"]{--bg:#f9fafc;--ink:#1d2a40;--muted:#607087;--line:#dce2eb;--green:#d82e42;--accent:#2455a5;--stage:#f0f2f7;--subtle:#eff3f9;--radius:20px;--tag:#e5edfc;--tagInk:#244d94}
+[data-theme="poke-league"] header{border-top:5px solid #d82e42;border-bottom:1px solid #e0e5ed}
+[data-theme="poke-league"] .logo{border:3px solid #26364a;border-radius:50%;background:linear-gradient(#eb4556 0 43%,#26364a 43% 57%,#fff 57%);position:relative;color:transparent}
+[data-theme="poke-league"] .logo:after{content:"";width:11px;height:11px;background:white;border:3px solid #26364a;border-radius:50%;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)}
+[data-theme="poke-league"] .hero{background:radial-gradient(circle at 84% 50%,#ffffff 0 70px,#dce4f1 71px 73px,transparent 74px 118px,#e5eaf3 119px 121px,transparent 122px);padding-top:54px;padding-bottom:40px}
+[data-theme="poke-league"] .hero h1{font-weight:800;color:#193a70}
+[data-theme="poke-league"] .hero h1 span{color:#d32e43}
+[data-theme="poke-league"] .scanner{background:#203e70;color:#fff;border:0;border-radius:20px;box-shadow:0 6px 18px #203e7015}
+[data-theme="poke-league"] .scanner p{color:#d5e2f4}
+[data-theme="poke-league"] .scanner .primary{background:#f5d756;color:#26354a}
+[data-theme="poke-league"] .card{border-radius:17px;box-shadow:0 7px 22px #23446b08}
+[data-theme="poke-league"] .card:nth-child(odd) .art{background:linear-gradient(145deg,#fae9ec,#f7f9fc)}
+[data-theme="poke-league"] .card:nth-child(even) .art{background:linear-gradient(145deg,#e5edf9,#f7f9fc)}
+[data-theme="poke-league"] .primary{border-radius:30px}
+
+/* 03: A monochrome handheld game screen, without motion or downloaded fonts. */
+:root[data-theme="poke-retro"]{--bg:#d7dec1;--ink:#243c26;--muted:#415b36;--line:#6c8057;--green:#304c31;--accent:#304c31;--surface:#e4e9d2;--field:#e8edd9;--stage:#b5c59b;--subtle:#c6d1b0;--radius:2px;--tag:#c6d1b0;--tagInk:#29432a}
+[data-theme="poke-retro"] body{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;background-image:repeating-linear-gradient(0deg,transparent 0 3px,#304c3104 3px 4px)}
+[data-theme="poke-retro"] header{background:#c7c8bd;border-bottom:6px solid #7c8271;box-shadow:0 4px 0 #eef0df}
+[data-theme="poke-retro"] .brand,[data-theme="poke-retro"] h1,[data-theme="poke-retro"] .resultsbar h2{font-family:ui-monospace,monospace;font-weight:800}
+[data-theme="poke-retro"] .brand{letter-spacing:-1.5px}
+[data-theme="poke-retro"] .logo{border-radius:0;box-shadow:3px 3px 0 #7c8271}
+[data-theme="poke-retro"] .hero{border:8px solid #89947a;border-bottom-width:13px;margin:34px 0 25px;padding:28px 26px;background:#c3d1a8;box-shadow:inset 0 0 0 3px #5f734d;border-radius:8px 8px 32px 8px}
+[data-theme="poke-retro"] h1{font-size:clamp(25px,3.5vw,39px);line-height:1.25;letter-spacing:-1.4px;text-transform:uppercase}
+[data-theme="poke-retro"] .hero-art img{filter:grayscale(1) sepia(1) hue-rotate(25deg) saturate(.8) drop-shadow(3px 5px 0 #43583145)}
+[data-theme="poke-retro"] .eyebrow{letter-spacing:1px}
+[data-theme="poke-retro"] .scanner{border:2px solid #4d6740;box-shadow:4px 4px 0 #9cae81}
+[data-theme="poke-retro"] .primary,[data-theme="poke-retro"] .outline{border:2px solid #304c31;box-shadow:3px 3px 0 #91a479}
+[data-theme="poke-retro"] .card{border:2px solid #536e43;box-shadow:4px 4px 0 #a6b78e}
+[data-theme="poke-retro"] .art img{filter:drop-shadow(3px 4px 0 #304c3140)}
+[data-theme="poke-retro"] .info h3{font-family:ui-monospace,monospace}
+[data-theme="poke-retro"] .tag,[data-theme="poke-retro"] .heart,[data-theme="poke-retro"] .popular button{border-radius:0}
+[data-theme="poke-retro"] .quiet{border:1px solid #61794e}
+
+/* 04: The three starter energy colors, playful but readable. */
+:root[data-theme="poke-energy"]{--bg:#f5f8f3;--ink:#21372e;--muted:#596e61;--line:#d3e0d2;--green:#286a45;--accent:#286a45;--stage:#e7f0dc;--subtle:#eaf3e3;--radius:22px;--tag:#e0eed5;--tagInk:#31572c}
+[data-theme="poke-energy"] body{background:radial-gradient(ellipse at 12% 7%,#edf3cc 0,transparent 30%),radial-gradient(ellipse at 100% 20%,#e0f1fb 0,transparent 35%),#f7faf3}
+[data-theme="poke-energy"] header{background:#ffffffd9;border-top:5px solid transparent;border-image:linear-gradient(90deg,#66a963 0 33%,#e88052 33% 66%,#599cce 66%) 1}
+[data-theme="poke-energy"] .logo{border-radius:50%;background:#315f3e;box-shadow:0 0 0 5px #e3efcf}
+[data-theme="poke-energy"] h1 span{background:linear-gradient(90deg,#337d48,#367ca3);background-clip:text;-webkit-background-clip:text;color:transparent}
+[data-theme="poke-energy"] .eyebrow{color:#46773e}
+[data-theme="poke-energy"] .hero-art{background:radial-gradient(circle,#d4e8a866,transparent 70%);border-radius:50%}
+[data-theme="poke-energy"] .scanner{background:linear-gradient(110deg,#e3f0d0,#e0eff7);border:1px solid #d1dfcd}
+[data-theme="poke-energy"] .card{border:1px solid #d2dfcd;box-shadow:0 7px 24px #2a533708;border-radius:20px}
+[data-theme="poke-energy"] .card:nth-child(3n+1) .art{background:radial-gradient(circle at 50% 42%,#f3f8e6,#dae9c4)}
+[data-theme="poke-energy"] .card:nth-child(3n+2) .art{background:radial-gradient(circle at 50% 42%,#fff2e4,#f4d6bc)}
+[data-theme="poke-energy"] .card:nth-child(3n) .art{background:radial-gradient(circle at 50% 42%,#eff8ff,#cfe5f4)}
+[data-theme="poke-energy"] .heart{border-radius:50%;background:#ffffffdf}
+[data-theme="poke-energy"] .popular button{border-radius:15px;padding:6px 14px}
+[data-theme="poke-energy"] .primary{box-shadow:0 4px 0 #17472c;border-radius:14px}
+
+/* 05: A rare-card binder with static holographic foil edges. */
+:root[data-theme="poke-holo"]{--bg:#11101c;--ink:#eeeafc;--muted:#b8b1ce;--line:#3f3659;--green:#c3adff;--accent:#9ae8e1;--buttonInk:#23143f;--surface:#201a30;--field:#211b32;--stage:#28203d;--subtle:#2b2240;--radius:16px;--tag:#3e2d5c;--tagInk:#e0c7ff;color-scheme:dark}
+[data-theme="poke-holo"] body{background:radial-gradient(ellipse at 5% 0%,#38255988,transparent 45%),radial-gradient(ellipse at 90% 20%,#15575c44,transparent 35%),#11101c}
+[data-theme="poke-holo"] header{background:#151120e8;border-top:3px solid transparent;border-image:linear-gradient(90deg,#bd9cf5,#85e7dc,#e4c68b,#d5a0ec) 1}
+[data-theme="poke-holo"] .logo{background:linear-gradient(135deg,#bfabff,#9de8df);color:#2c1b49;box-shadow:0 0 25px #c7a5ff20}
+[data-theme="poke-holo"] header nav button{color:#c4b8d9}[data-theme="poke-holo"] header nav button.active{color:#d5c1ff}
+[data-theme="poke-holo"] h1 span{background:linear-gradient(100deg,#c2a2ff,#92e8df,#f4d291);background-clip:text;-webkit-background-clip:text;color:transparent}
+[data-theme="poke-holo"] .hero-art img{filter:drop-shadow(0 8px 18px #b784ff30)}
+[data-theme="poke-holo"] .scanner{background:linear-gradient(110deg,#312344,#233c42);border:1px solid #63527e}
+[data-theme="poke-holo"] .primary{background:linear-gradient(115deg,#d3b8ff,#a4e9df);color:#241a36}
+[data-theme="poke-holo"] .card{border:1px solid #67527f;background:linear-gradient(#211a30,#211a30) padding-box,linear-gradient(135deg,#bd9cf5,#85e7dc,#e4c68b) border-box;box-shadow:0 7px 28px #0004}
+[data-theme="poke-holo"] .card:hover{border-color:#c2a3f1;box-shadow:0 10px 32px #b68ae51b}
+[data-theme="poke-holo"] .art,[data-theme="poke-holo"] .card:nth-child(3n+2) .art,[data-theme="poke-holo"] .card:nth-child(3n) .art{background:radial-gradient(ellipse at 35% 25%,#7153a03b,transparent 60%),linear-gradient(135deg,#2e243f,#1f303c)}
+[data-theme="poke-holo"] .art img{filter:drop-shadow(0 10px 12px #0007)}
+[data-theme="poke-holo"] .heart.saved{color:#ffb7dc}
+[data-theme="poke-holo"] .popular button{border-color:#4b3c67}
+[data-theme="poke-holo"] .note strong{color:#d0bbfb}
+[data-theme="poke-holo"] .set span{color:#b8b1ce}
+@media(max-width:700px){[data-theme="poke-retro"] .hero{padding:22px 18px;margin-top:24px;border-width:6px}[data-theme="poke-dex"] header .logo{width:33px;height:33px;border-width:3px}[data-theme="poke-league"] .hero{background-size:cover}[data-theme="poke-holo"] .scanner{padding:17px}}
+@media(prefers-reduced-motion:reduce){[data-theme^="poke-"] .card{transition:none}[data-theme^="poke-"] .card:hover{transform:none}}
