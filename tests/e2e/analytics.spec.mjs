@@ -10,6 +10,7 @@ async function withToken(page, value) {
 }
 
 test('no analytics without a token', async ({page}) => {
+  await withToken(page, '');
   const requests = [];
   page.on('request', r => beacon(r) && requests.push(r.url()));
   await openHome(page);
