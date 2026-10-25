@@ -23,7 +23,7 @@ jobs:
       - run: node --check dist/app.mjs && node scripts/check.mjs && node scripts/check-i18n.mjs && node scripts/check-docs.mjs
       - run: node scripts/configure-project.mjs && python3 scripts/package-release.py
       - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: dist
       - name: Deploy
