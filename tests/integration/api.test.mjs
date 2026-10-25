@@ -16,6 +16,12 @@ test('index lists the endpoints and matches the catalog size', async () => {
   for (const path of Object.values(index.endpoints)) if (!path.includes('{')) await get(path);
 });
 
+test('the bare base URL answers 200 with a landing page', async () => {
+  const r = await fetch(base + '/api/v1/');
+  assert.equal(r.status, 200);
+  assert.match(await r.text(), /Bindtopia API v1/);
+});
+
 test('every set file exists and lists its cards', async () => {
   const sets = await get('/api/v1/sets.json');
   let total = 0;

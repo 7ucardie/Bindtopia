@@ -33,11 +33,14 @@ export async function writeApi(root = new URL('../', import.meta.url)) {
   const [cards, sets, meta] = await Promise.all(['cards-en.json', 'sets-en.json', 'meta.json'].map(async f => JSON.parse(await readFile(new URL(f, data), 'utf8'))));
   const files = buildApi(cards, sets, meta);
   files.set('openapi.json', JSON.parse(await readFile(new URL('scripts/openapi.json', root), 'utf8')));
+  // A landing page so the bare base URL answers 200 for people and API-directory health checks.
+  const index = files.get('index.json');
+  files.set('index.html', `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Free, read-only JSON API for the English Pokémon card catalog of Bindtopia."><title>Bindtopia API v1</title></head><body><h1>Bindtopia API v1</h1><p>Free, read-only JSON API: ${index.cards} cards and ${index.sets} sets, no key required. Updated ${index.updated}.</p><ul>${Object.entries(index.endpoints).map(([k, v]) => `<li>${k}: ${v.includes('{') ? `<code>${v}</code>` : `<a href="${v}">${v}</a>`}</li>`).join('')}</ul><p><a href="https://github.com/7ucardie/Bindtopia/blob/main/docs/reference/api.md">Documentation and usage policy</a> · Data: <a href="https://tcgdex.dev">TCGdex</a></p></body></html>`);
   await rm(out, {recursive: true, force: true});
   await mkdir(new URL('sets/', out), {recursive: true});
   await mkdir(new URL('cards/', out), {recursive: true});
   const entries = [...files];
-  for (let i = 0; i < entries.length; i += 256) await Promise.all(entries.slice(i, i + 256).map(([path, body]) => writeFile(new URL(path, out), JSON.stringify(body))));
+  for (let i = 0; i < entries.length; i += 256) await Promise.all(entries.slice(i, i + 256).map(([path, body]) => writeFile(new URL(path, out), typeof body === 'string' ? body : JSON.stringify(body))));
   return files.size;
 }
 
