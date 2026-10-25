@@ -60,7 +60,17 @@ test('published config holds no secrets', () => {
   assert.ok(!Object.keys(config).some(k => !publicKeys.has(k) && /token|secret|key|password/i.test(k)));
 });
 
-test('the iPhone project is not offered as a download', () => {
-  assert.ok(!readdirSync(dist).some(f => /iphone/i.test(f)));
-  assert.doesNotMatch(readFileSync(new URL('index.html', dist), 'utf8'), /iphone-project/);
+test('no download archives are published; the source lives on GitHub', () => {
+  assert.ok(!readdirSync(dist).some(f => f.endsWith('.zip')));
+  const index = readFileSync(new URL('index.html', dist), 'utf8');
+  assert.doesNotMatch(index, /href="[^"]+\.zip"/);
+  assert.match(index, /href="https:\/\/github\.com\/7ucardie\/Bindtopia"/);
+});
+
+test('every page has a title and a meta description', () => {
+  for (const page of pages) {
+    const html = readFileSync(new URL(page, dist), 'utf8');
+    assert.match(html, /<title>[^<]+<\/title>/, page);
+    assert.match(html, /<meta name="description" content="[^"]{40,}">/, page);
+  }
 });

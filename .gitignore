@@ -11,7 +11,5 @@ node_modules/
 *.xcuserstate
 xcuserdata/
 
-dist/*-project.zip
-dist/*-source.zip
 playwright-report/
 test-results/

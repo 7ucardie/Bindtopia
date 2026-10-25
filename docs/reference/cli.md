@@ -17,7 +17,6 @@ Run commands from the repository root.
 | `npm test` | All checks and test suites |
 | `node scripts/sync-catalog.mjs` | Fetch and validate an English catalog update |
 | `node scripts/configure-project.mjs` | Generate sponsor/project/domain files from project.config.json |
-| `python3 scripts/package-release.py` | Build the source archive |
 | `python3 scripts/create-brand.py` | Regenerate brand vectors/raster icons; requires Pillow and fontTools |
 
 Ordinary web use and catalog validation do not require npm installation; only the test suites do. Brand regeneration requires its Python dependencies; keep the checked-in assets when not changing the brand. The native app requires Xcode on macOS.

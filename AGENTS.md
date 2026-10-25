@@ -24,7 +24,7 @@ Run the relevant existing checks; do not introduce a framework, package installa
 - `node scripts/check-docs.mjs`
 - `npm run test:unit`, `npm run test:integration` and `npm run test:e2e` (after `npm ci`)
 
-Use `python3 scripts/package-release.py` when source download inputs change. That export must include this file and `.agents/skills/bindtopia-design/`.
+The source is published through the GitHub repository; there is no separate download archive.
 
 Keep the current publication audience unless the user requests a change. Do not infer that a domain or configured repository is already deployed. Report actual GitHub/source push outcomes and any browser/native-build verification limits accurately.
 

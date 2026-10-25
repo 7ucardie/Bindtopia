@@ -1,5 +1,6 @@
 {
   "name": "bindtopia",
+  "description": "Free, ad-free fan-made Pokémon card catalog: search, local photo recognition, local collection, release years, card text and price indications.",
   "private": true,
   "type": "module",
   "scripts": {

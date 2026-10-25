@@ -46,4 +46,4 @@ Inspect the existing audience and hosting configuration before deployment. Do no
 
 Run checks proportionate to the actual change: `node --check dist/app.mjs`, `node scripts/check.mjs`, `node scripts/check-i18n.mjs`, and `node scripts/check-sync.mjs` when their behavior is affected. Check local asset links and mobile and desktop presentation for UI work. Report browser or native-build verification limits accurately.
 
-If a user explicitly changes an approved design decision, update the implementation and this skill's reference together. Rebuild the downloadable source archive with `python3 scripts/package-release.py` when their inputs change. Keep this skill and root `AGENTS.md` included in that source export. Commit and push to the actual destination before claiming it is saved there; distinguish source-host persistence from GitHub delivery if permissions block one of them.
+If a user explicitly changes an approved design decision, update the implementation and this skill's reference together. Commit and push to the actual destination before claiming it is saved there; distinguish source-host persistence from GitHub delivery if permissions block one of them.

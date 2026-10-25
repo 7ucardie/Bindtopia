@@ -25,9 +25,7 @@ jobs:
         run: node scripts/sync-catalog.mjs
       - name: Check matching and update guards
         run: node scripts/check.mjs && node scripts/check-i18n.mjs && node scripts/check-sync.mjs && node --check dist/app.mjs && node scripts/check-docs.mjs
-      - name: Rebuild downloadable projects
-        run: node scripts/configure-project.mjs && python3 scripts/package-release.py
-      - name: Commit changed catalog and source archives
+      - name: Commit changed catalog
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'

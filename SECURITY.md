@@ -19,4 +19,4 @@ CI runs source/catalog/localization/update and documentation checks, unit, integ
 
 ## Downloads
 
-Current downloads are source projects, not signed app installers. There is no published signed checksum manifest yet. See [verify a download](docs/how-to/verify-download.md).
+There are no downloadable builds. The source code is available from the GitHub repository; there is no signed app installer.

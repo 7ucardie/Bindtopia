@@ -75,7 +75,7 @@ The collection is local to the current browser. It is not automatically synchron
 The docs use the Diátaxis structure. Start at [docs/README.md](docs/README.md).
 
 - **Tutorial:** [Getting started](docs/tutorials/getting-started.md)
-- **How-to:** [Scan a card](docs/how-to/scan-a-card.md) · [Export and import](docs/how-to/export.md) · [Change language](docs/how-to/change-language.md) · [Change theme](docs/how-to/change-theme.md) · [Update the catalog](docs/how-to/update-catalog.md) · [Publish](docs/how-to/publish.md) · [Connect a domain](docs/how-to/custom-domain.md) · [Check a download](docs/how-to/verify-download.md) · [Make a release](docs/how-to/release.md)
+- **How-to:** [Scan a card](docs/how-to/scan-a-card.md) · [Export and import](docs/how-to/export.md) · [Change language](docs/how-to/change-language.md) · [Change theme](docs/how-to/change-theme.md) · [Update the catalog](docs/how-to/update-catalog.md) · [Publish](docs/how-to/publish.md) · [Connect a domain](docs/how-to/custom-domain.md) · [Make a release](docs/how-to/release.md)
 - **Reference:** [Commands](docs/reference/cli.md) · [Configuration](docs/reference/configuration.md) · [Card fields](docs/reference/card-fields.md) · [Sources](docs/reference/sources.md) · [Stability](docs/reference/stability.md)
 - **Explanation:** [How Bindtopia works](docs/explanation/how-bindtopia-works.md)
 
