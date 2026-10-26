@@ -103,7 +103,7 @@ test.describe('trade mode', () => {
     await page.goBack();
     await expect(page.locator('#trade')).toBeHidden();
     expect(page.url()).toBe(url);
-    expect(await page.evaluate(() => document.querySelector('#tradeVideo').srcObject)).toBeNull();
+    await expect.poll(() => page.evaluate(() => document.querySelector('#tradeVideo').srcObject)).toBeNull();
   });
 
   test('closing trade mode turns the camera off', async ({page, context}) => {
@@ -111,7 +111,7 @@ test.describe('trade mode', () => {
     await expect.poll(() => page.locator('#tradeVideo').evaluate(v => v.videoWidth)).toBeGreaterThan(0);
     await page.click('#tradeClose');
     await expect(page.locator('#trade')).toBeHidden();
-    expect(await page.evaluate(() => document.querySelector('#tradeVideo').srcObject)).toBeNull();
+    await expect.poll(() => page.evaluate(() => document.querySelector('#tradeVideo').srcObject)).toBeNull();
   });
 
   test('without a camera it falls back to typing', async ({page}) => {

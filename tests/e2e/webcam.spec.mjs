@@ -13,7 +13,7 @@ test('Take photo opens the in-site camera and uses the captured frame', async ({
   await expect(dialog).toBeHidden();
   await expect(page.locator('#scanPreview')).toBeVisible();
   await expect(page.locator('#scanPreview')).toHaveAttribute('src', /^blob:/);
-  expect(await page.evaluate(() => document.querySelector('#webcamVideo').srcObject)).toBeNull();
+  await expect.poll(() => page.evaluate(() => document.querySelector('#webcamVideo').srcObject)).toBeNull();
 });
 
 test('cancelling turns the camera off', async ({page, context}) => {
@@ -24,7 +24,7 @@ test('cancelling turns the camera off', async ({page, context}) => {
   await expect(page.locator('#webcam')).toBeVisible();
   await page.click('#webcamCancel');
   await expect(page.locator('#webcam')).toBeHidden();
-  expect(await page.evaluate(() => document.querySelector('#webcamVideo').srcObject)).toBeNull();
+  await expect.poll(() => page.evaluate(() => document.querySelector('#webcamVideo').srcObject)).toBeNull();
   await expect(page.locator('#scanPreview')).toBeHidden();
 });
 
@@ -36,7 +36,7 @@ test('the camera view has a close button in its header', async ({page, context})
   await expect(page.locator('#webcamClose')).toBeVisible();
   await page.click('#webcamClose');
   await expect(page.locator('#webcam')).toBeHidden();
-  expect(await page.evaluate(() => document.querySelector('#webcamVideo').srcObject)).toBeNull();
+  await expect.poll(() => page.evaluate(() => document.querySelector('#webcamVideo').srcObject)).toBeNull();
 });
 
 test('a denied camera falls back to a message', async ({page}) => {

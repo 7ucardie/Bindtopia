@@ -2,7 +2,7 @@
 import {convert} from './markets.mjs';
 
 // From the camera only name + number is certain enough: OCR noise from artwork, sleeves or a card in another
-// language can produce a plausible "18/91" on its own. Typed input may also be accepted on number + set total.
+// language can produce a believable "18/91" on its own. Typed input may also be accepted on number + set total.
 export const confident = (hits, {typed = false} = {}) => hits[0] && hits[0].score >= (typed ? 80 : 112) && (!hits[1] || hits[0].score > hits[1].score) ? hits[0] : null;
 
 const positive = (...values) => values.find(v => typeof v === 'number' && isFinite(v) && v > 0);
