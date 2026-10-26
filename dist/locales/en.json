@@ -148,7 +148,6 @@
   "Afbeelding zoeken via Google ↗": "Find an image on Google ↗",
   "Jaar van uitgave": "Year of release",
   "Maak een foto met je camera": "Take a photo with your camera",
-  "Houd de kaart recht en goed belicht voor de camera. Het beeld blijft op dit toestel.": "Hold the card straight and well lit in front of the camera. The image stays on this device.",
   "Foto maken": "Take photo",
   "Annuleren": "Cancel",
   "De camera is niet beschikbaar of er is geen toestemming gegeven. Kies een foto.": "The camera is unavailable or permission was not given. Choose a photo instead.",
@@ -184,5 +183,13 @@
   "Je geeft meer waarde:": "You give more value:",
   "Gelijke ruil": "Even trade",
   "niet meegeteld (geen prijs of koers)": "not counted (no price or rate)",
-  "Geen kaart gevonden voor deze tekst.": "No card found for this text."
+  "Geen kaart gevonden voor deze tekst.": "No card found for this text.",
+  "Naam": "Name",
+  "Nummer": "Number",
+  "Kom wat dichterbij: laat de kaart het kader vullen.": "Come a bit closer: let the card fill the frame.",
+  "Iets verder weg: de hele kaart moet in het kader passen.": "A bit further away: the whole card must fit inside the frame.",
+  "Ik zie nog geen tekst: houd de kaart stil in het kader, met genoeg licht en zonder glans.": "I can’t see any text yet: hold the card still in the frame, with enough light and no glare.",
+  "Afstand is goed.": "Distance is good.",
+  "Tip:": "Tip:",
+  "Houd de kaart recht en goed belicht in het kader, met de naam en het nummer in de gemarkeerde vlakken. Het beeld blijft op dit toestel.": "Hold the card straight and well lit inside the frame, with the name and number in the marked areas. The image stays on this device."
 }

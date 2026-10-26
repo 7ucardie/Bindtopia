@@ -148,7 +148,6 @@
   "Afbeelding zoeken via Google ↗": "Cerca un’immagine su Google ↗",
   "Jaar van uitgave": "Anno di uscita",
   "Maak een foto met je camera": "Scatta una foto con la fotocamera",
-  "Houd de kaart recht en goed belicht voor de camera. Het beeld blijft op dit toestel.": "Tieni la carta dritta e ben illuminata davanti alla fotocamera. L’immagine resta su questo dispositivo.",
   "Foto maken": "Scatta",
   "Annuleren": "Annulla",
   "De camera is niet beschikbaar of er is geen toestemming gegeven. Kies een foto.": "La fotocamera non è disponibile o non è stato dato il permesso. Scegli una foto.",
@@ -184,5 +183,13 @@
   "Je geeft meer waarde:": "Dai più valore:",
   "Gelijke ruil": "Scambio equo",
   "niet meegeteld (geen prijs of koers)": "non conteggiate (nessun prezzo o cambio)",
-  "Geen kaart gevonden voor deze tekst.": "Nessuna carta trovata per questo testo."
+  "Geen kaart gevonden voor deze tekst.": "Nessuna carta trovata per questo testo.",
+  "Naam": "Nome",
+  "Nummer": "Numero",
+  "Kom wat dichterbij: laat de kaart het kader vullen.": "Avvicinati un po’: la carta deve riempire la cornice.",
+  "Iets verder weg: de hele kaart moet in het kader passen.": "Un po’ più lontano: tutta la carta deve stare nella cornice.",
+  "Ik zie nog geen tekst: houd de kaart stil in het kader, met genoeg licht en zonder glans.": "Non vedo ancora testo: tieni la carta ferma nella cornice, con luce sufficiente e senza riflessi.",
+  "Afstand is goed.": "La distanza è buona.",
+  "Tip:": "Suggerimento:",
+  "Houd de kaart recht en goed belicht in het kader, met de naam en het nummer in de gemarkeerde vlakken. Het beeld blijft op dit toestel.": "Tieni la carta dritta e ben illuminata nella cornice, con nome e numero nelle aree segnate. L’immagine resta su questo dispositivo."
 }

@@ -148,7 +148,6 @@
   "Afbeelding zoeken via Google ↗": "Bild bei Google suchen ↗",
   "Jaar van uitgave": "Erscheinungsjahr",
   "Maak een foto met je camera": "Mach ein Foto mit deiner Kamera",
-  "Houd de kaart recht en goed belicht voor de camera. Het beeld blijft op dit toestel.": "Halte die Karte gerade und gut beleuchtet vor die Kamera. Das Bild bleibt auf diesem Gerät.",
   "Foto maken": "Foto aufnehmen",
   "Annuleren": "Abbrechen",
   "De camera is niet beschikbaar of er is geen toestemming gegeven. Kies een foto.": "Die Kamera ist nicht verfügbar oder es wurde keine Erlaubnis erteilt. Wähle ein Foto.",
@@ -184,5 +183,13 @@
   "Je geeft meer waarde:": "Du gibst mehr Wert:",
   "Gelijke ruil": "Ausgeglichener Tausch",
   "niet meegeteld (geen prijs of koers)": "nicht gezählt (kein Preis oder Kurs)",
-  "Geen kaart gevonden voor deze tekst.": "Keine Karte für diesen Text gefunden."
+  "Geen kaart gevonden voor deze tekst.": "Keine Karte für diesen Text gefunden.",
+  "Naam": "Name",
+  "Nummer": "Nummer",
+  "Kom wat dichterbij: laat de kaart het kader vullen.": "Etwas näher: Die Karte sollte den Rahmen ausfüllen.",
+  "Iets verder weg: de hele kaart moet in het kader passen.": "Etwas weiter weg: Die ganze Karte muss in den Rahmen passen.",
+  "Ik zie nog geen tekst: houd de kaart stil in het kader, met genoeg licht en zonder glans.": "Ich sehe noch keinen Text: Halte die Karte ruhig im Rahmen, mit genug Licht und ohne Spiegelung.",
+  "Afstand is goed.": "Abstand ist gut.",
+  "Tip:": "Tipp:",
+  "Houd de kaart recht en goed belicht in het kader, met de naam en het nummer in de gemarkeerde vlakken. Het beeld blijft op dit toestel.": "Halte die Karte gerade und gut beleuchtet im Rahmen, mit Name und Nummer in den markierten Feldern. Das Bild bleibt auf diesem Gerät."
 }

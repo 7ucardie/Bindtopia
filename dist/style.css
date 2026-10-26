@@ -3,13 +3,11 @@
 .legal-nav{display:flex;gap:14px;flex-wrap:wrap;margin-top:12px}.legal-nav a{color:var(--green)}.legal-page{max-width:880px;margin:45px auto;padding:0 22px;line-height:1.8}.legal-page h1{font-size:34px}.legal-page h2{font-size:20px;margin-top:32px}.legal-page table{border-collapse:collapse;width:100%;font-size:13px}.legal-page th,.legal-page td{border:1px solid var(--line);padding:12px;text-align:left;vertical-align:top}.legal-page a{color:var(--green)}.draft{background:#faf1da;border:1px solid #e6d6ad;padding:15px 20px;border-radius:10px}.privacy-summary{padding:14px 18px;border:1px solid var(--line);border-radius:10px;margin-bottom:22px;color:#687969;font-size:12px;line-height:1.7}.legal-page button{margin:8px 8px 8px 0}.legal-page code{overflow-wrap:anywhere}.legal-page ul{padding-left:23px}@media(max-width:600px){.legal-page table{display:block;overflow-x:auto}.legal-page h1{font-size:29px}}
 
 .interface-language{display:flex;align-items:center;gap:6px}.interface-language select{max-width:130px;font-size:12px;padding:8px}header .quiet{white-space:nowrap}header{flex-wrap:wrap;height:auto;min-height:86px}header nav{min-height:60px}header .brand{font-size:22px}@media(max-width:1000px){header .quiet{display:none}}@media(max-width:700px){.interface-language{position:absolute;right:18px;top:15px}.brand{max-width:calc(100% - 130px)}.interface-language select{max-width:110px}header nav{min-height:42px}header{position:relative}.hero h1{overflow-wrap:anywhere}}
-.webcam-video{display:block;width:100%;max-height:60vh;margin:12px 0;border-radius:12px;background:#000;object-fit:contain}
 .market-select{display:flex;gap:10px;align-items:center;margin:22px 0 4px;font-weight:600}.market-select select{padding:8px 12px;border-radius:10px;border:1px solid var(--line);background:var(--surface,#fff);color:var(--ink);font:inherit}
 .scanner-actions{display:flex;gap:10px;flex-wrap:wrap}
 dialog.trade{max-width:760px;width:96vw;max-height:96vh;overflow:auto;padding:18px 20px}
 .trade-head{display:flex;justify-content:space-between;align-items:center;gap:12px}.trade-head h2{margin:0}
-.trade-camera{position:relative;margin:12px 0;border-radius:14px;overflow:hidden;background:#000}.trade-camera video{display:block;width:100%;max-height:46vh;object-fit:cover}
-.trade-frame{position:absolute;inset:10% 22%;border:3px dashed #ffffffcc;border-radius:14px;pointer-events:none}
+.trade-camera,.camera-view{position:relative;margin:12px 0;border-radius:14px;overflow:hidden;background:#000}.trade-camera video{display:block;width:100%;height:min(52vh,480px);object-fit:cover}.camera-view video{display:block;width:100%;height:min(60vh,520px);object-fit:cover}
 .trade-status{display:flex;align-items:center;gap:10px;font-weight:600;margin-top:4px}.trade-attempt{margin-left:auto;font-weight:400;color:var(--muted);font-size:13px;white-space:nowrap}
 .trade-dot{flex:none;width:12px;height:12px;border-radius:50%;background:var(--muted)}.trade-dot.busy{background:#0d65b5;animation:tradepulse 1s ease-in-out infinite}.trade-dot.found{background:#1f9d55;animation:none}
 @keyframes tradepulse{50%{opacity:.25;transform:scale(.7)}}@media(prefers-reduced-motion:reduce){.trade-dot.busy{animation:none}}
@@ -21,3 +19,8 @@ dialog.trade{max-width:760px;width:96vw;max-height:96vh;overflow:auto;padding:18
 .trade-lists{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}.trade-lists h3{margin:0 0 6px}.trade-lists ul{list-style:none;margin:0;padding:0;min-height:24px}
 .trade-lists li{display:flex;justify-content:space-between;gap:6px;padding:6px 0;border-bottom:1px solid var(--line);font-size:13px}.trade-lists li button{border:0;background:none;color:var(--muted);cursor:pointer;padding:0 4px}
 .trade-total{margin:6px 0 0;font-size:14px}.trade-balance{font-weight:700;font-size:16px;margin:12px 0 4px}
+/* Card-shaped guide: darkens the surroundings and marks where the name and collector number must be. */
+.card-guide{position:absolute;top:50%;left:50%;height:86%;aspect-ratio:63/88;transform:translate(-50%,-50%);border:3px solid #fff;border-radius:4%/3%;box-shadow:0 0 0 200vmax #0006;pointer-events:none}
+.zone{position:absolute;background:#0d65b52e;border:2px dashed #fff;border-radius:6px;font-size:0}.zone::before{content:attr(data-label);position:absolute;left:-2px;bottom:100%;margin-bottom:2px;padding:1px 6px;border-radius:4px;background:#0d65b5;color:#fff;font-size:11px;font-weight:700;line-height:1.5;white-space:nowrap}
+.zone-name{left:4%;right:4%;top:2.5%;height:9%}.zone-number{bottom:2%;height:6.5%;width:40%}.zone-left{left:4%}.zone-right{right:4%}
+.trade-guide{margin:4px 0 0;font-size:14px;font-weight:600;color:#0d65b5;min-height:1.2em}

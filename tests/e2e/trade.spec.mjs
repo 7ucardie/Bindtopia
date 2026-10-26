@@ -1,9 +1,11 @@
 import {test, expect, openHome} from './fixtures.mjs';
 
 // The real OCR engine loads from a CDN that tests cannot reach; this stand-in "reads" window.__ocrText.
+// window.__wordSize (fraction of the image height) adds word boxes so the distance advice can be checked.
 const fakeOcr = text => {
   window.__ocrText = text;
-  window.Tesseract = {createWorker: async () => ({setParameters: async () => {}, recognize: async () => { await new Promise(r => setTimeout(r, 50)); return {data: {text: window.__ocrText}}; }, terminate: async () => {}})};
+  const words = canvas => window.__wordSize ? [{paragraphs: [{lines: [{words: ['alpha', 'bravo', 'charlie'].map(t => ({text: t, confidence: 90, bbox: {y0: 0, y1: canvas.height * window.__wordSize}}))}]}]}] : [];
+  window.Tesseract = {createWorker: async () => ({setParameters: async () => {}, recognize: async canvas => { await new Promise(r => setTimeout(r, 50)); return {data: {text: window.__ocrText, blocks: words(canvas)}}; }, terminate: async () => {}})};
 };
 async function openTrade(page, context, text) {
   await context.grantPermissions(['camera']);
@@ -50,6 +52,18 @@ test.describe('trade mode', () => {
     await page.press('#tradeQuery', 'Enter');
     await expect(page.locator('#tradePrice')).toHaveText('$410.25');
     await expect(page.locator('#tradeDot')).toHaveClass(/found/);
+  });
+
+  test('gives distance advice from the size of the text it reads', async ({page, context}) => {
+    await openTrade(page, context, 'blurry');
+    await expect(page.locator('#tradeGuide')).toHaveText(/can’t see any text yet/);
+    await page.evaluate(() => { window.__wordSize = 0.01; });
+    await expect(page.locator('#tradeGuide')).toHaveText('Come a bit closer: let the card fill the frame.');
+    await page.evaluate(() => { window.__wordSize = 0.12; });
+    await expect(page.locator('#tradeGuide')).toHaveText('A bit further away: the whole card must fit inside the frame.');
+    await page.evaluate(() => { window.__wordSize = 0.04; });
+    await expect(page.locator('#tradeGuide')).toHaveText('Distance is good.');
+    await expect(page.locator('#tradeCamera .card-guide .zone-name')).toHaveAttribute('data-label', 'Name');
   });
 
   test('a name alone offers choices instead of guessing', async ({page, context}) => {
