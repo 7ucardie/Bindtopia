@@ -34,7 +34,7 @@ Do not introduce a new framework, remote font loader, animation library or desig
 
 Use self-hosted **Roboto** for body text and the configured **Flexo** heading stack with Roboto fallback. Flexo is not embedded: exact Flexo requires licensed webfont files. Do not copy or hotlink commercial font files from pokemon.com. Preserve the outlined wordmarks independently of font availability.
 
-Route new interface copy through all eight `dist/locales/*.json` dictionaries. Keep interface language separate from card language. Preserve official card names and descriptions from their selected source language. Keep English fallback, regional browser-language detection and keyboard accessibility working.
+Route new interface copy through all eight `dist/locales/*.json` dictionaries. Keep interface language separate from card language. Preserve official card names and descriptions from their selected source language. Keep English as the default interface language (an explicit ?ui= link or the visitor's remembered choice overrides it) and keep keyboard accessibility working.
 
 ## Preserve behavior and privacy
 

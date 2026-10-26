@@ -115,7 +115,7 @@ test.describe('in Dutch', () => {
   test.use({locale: 'nl-NL'});
 
   test('translate button shows official Dutch text and switches back', async ({page}) => {
-    await openHome(page);
+    await openHome(page, '/?ui=nl');
     await search(page, '4/102');
     await page.locator('#grid .card', {hasText: 'base1-4'}).locator('.art').click();
     const button = page.locator('#translateText');
@@ -130,7 +130,7 @@ test.describe('in Dutch', () => {
   });
 
   test('translate button reports a missing translation', async ({page}) => {
-    await openHome(page);
+    await openHome(page, '/?ui=nl');
     await search(page, '2/102');
     await page.locator('#grid .card', {hasText: 'base1-2'}).locator('.art').click();
     await page.click('#translateText');
@@ -138,10 +138,19 @@ test.describe('in Dutch', () => {
     await expect(page.locator('#cardText')).toContainText('Hydro Pump');
   });
 
-  test('interface language can be switched', async ({page}) => {
+  test('English is the default even for a Dutch browser', async ({page}) => {
     await openHome(page);
-    await expect(page.locator('html')).toHaveAttribute('lang', 'nl');
+    await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+    await expect(page.locator('#interfaceLanguage')).toHaveValue('en');
+  });
+
+  test('a chosen interface language is remembered on the next visit', async ({page}) => {
+    await openHome(page);
     await page.selectOption('#interfaceLanguage', 'de');
     await expect(page.locator('html')).toHaveAttribute('lang', 'de');
+    await openHome(page);
+    await expect(page.locator('html')).toHaveAttribute('lang', 'de');
+    await openHome(page, '/?ui=nl');
+    await expect(page.locator('html')).toHaveAttribute('lang', 'nl');
   });
 });

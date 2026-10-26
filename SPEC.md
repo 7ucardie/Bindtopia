@@ -9,7 +9,7 @@ A fan-made, ad-free card catalog with local scanning and collection tools. Stati
 - Search by name, source ID or collector number; filters, sorting and detail dialogs.
 - Web OCR on device with name/number/set-total candidate matching, from a chosen photo, the phone camera or a desktop browser webcam; native Apple Vision scanning.
 - Browser-local collection, version-2 backup import/export and scoped deletion controls.
-- Eight interface languages, browser-language fallback and separate card-language choice.
+- Eight interface languages with English as the default (a visitor's own choice is remembered), and a separate card-language choice.
 - Approved sunny island theme (single theme; the dark theme was removed). Original card images remain separate CSS-positioned layers.
 - Original ocean-orb brand, light/dark outlined wordmarks, favicon, PWA and native icon assets.
 - Draft privacy/cookie/usage/rights information in Dutch and English.
