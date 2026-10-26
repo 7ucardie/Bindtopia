@@ -45,6 +45,10 @@ const oldest = sets.filter(s => s.year).sort((a, b) => a.year - b.year)[0];
 - `v1` stays backward compatible: fields may be added but are not removed or renamed. Breaking changes get a new version path.
 - Requests are served by GitHub Pages, which logs IP addresses for security; Bindtopia itself stores nothing about API calls and the JSON files contain no analytics.
 
+## MCP server
+
+AI assistants can use the same data through the Bindtopia MCP server (`search_cards`, `get_card`, `list_sets`, `get_set`). Setup instructions are in the [README](../../README.md#api-and-mcp-server).
+
 ## Building locally
 
 ```sh

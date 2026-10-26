@@ -1,19 +1,33 @@
 {
   "name": "bindtopia",
+  "version": "1.0.0",
   "description": "Free, ad-free fan-made Pokémon card catalog: search, local photo recognition, local collection, release years, card text and price indications.",
   "private": true,
   "type": "module",
+  "bin": {
+    "bindtopia-mcp": "mcp/server.mjs"
+  },
+  "files": [
+    "mcp/",
+    "dist/matcher.mjs",
+    "dist/markets.mjs"
+  ],
   "scripts": {
     "check": "node --check dist/app.mjs && node scripts/check.mjs && node scripts/check-i18n.mjs && node scripts/check-sync.mjs && node scripts/check-docs.mjs",
     "test:unit": "node --test \"tests/unit/*.test.mjs\"",
     "test:integration": "node --test \"tests/integration/*.test.mjs\"",
     "test:e2e": "playwright test",
-    "test": "npm run check && npm run test:unit && npm run test:integration && npm run test:e2e"
+    "test": "npm run check && npm run test:unit && npm run test:integration && npm run test:e2e",
+    "mcp": "node mcp/server.mjs"
   },
   "devDependencies": {
     "@playwright/test": "1.64.1"
   },
   "engines": {
     "node": ">=22"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.32.2",
+    "zod": "4.6.7"
   }
 }

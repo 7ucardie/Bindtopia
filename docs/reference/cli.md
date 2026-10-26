@@ -16,6 +16,8 @@ Run commands from the repository root.
 | `npx playwright install chromium` then `npm run test:e2e` | Browser tests on desktop and phone viewports with mocked TCGdex responses |
 | `npm test` | All checks and test suites |
 | `node scripts/sync-catalog.mjs` | Fetch and validate an English catalog update |
+| `npm run mcp` | Start the MCP server over stdio (normally started by an AI client) |
+| `node scripts/sync-rates.mjs` | Fetch the ECB exchange rates used for price conversions |
 | `node scripts/build-api.mjs` | Generate the public JSON API in `dist/api/v1` |
 | `node scripts/configure-project.mjs` | Generate sponsor/project/domain files from project.config.json |
 | `python3 scripts/create-brand.py` | Regenerate brand vectors/raster icons; requires Pillow and fontTools |

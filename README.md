@@ -38,7 +38,9 @@ An ad-free Pokémon card catalog and collection companion. Explore cards, identi
 - **Reads a photo:** perform OCR on the device and suggest matches using the name and collector number.
 - **Shows card details:** fetch set information, illustrator, HP, abilities and attacks when available.
 - **Saves a collection:** use browser-local storage, with backup export/import and explicit deletion.
-- **Prices:** indicative Cardmarket/TCGplayer prices from TCGdex when available, plus links to independent providers; no price history or transaction handling.
+- **Prices by market:** indicative Cardmarket/TCGplayer prices from TCGdex, ordered for your market (US, UK, Australia, Canada, Europe or International) with approximate amounts in your local currency (ECB rates) and regional marketplace links; no price history or transaction handling.
+- **Release years:** every card and set shows the year its set came out.
+- **Public API and MCP server:** a free read-only JSON API at `bindtopia.com/api/v1/` and an MCP server so AI assistants can look up cards (see below).
 - **Card text translation:** a button shows the official card text in the interface language when TCGdex has it.
 - **Speaks eight interface languages:** Dutch, English, German, French, Spanish, Italian, Portuguese and Polish, with English fallback for untranslated text.
 - **Updates the catalog:** a prepared daily GitHub Actions workflow validates upstream data before committing it.
@@ -70,6 +72,43 @@ Open `http://localhost:8000`. Use HTTPS when hosting remotely; direct `file://` 
 
 The collection is local to the current browser. It is not automatically synchronized with another device or the native app.
 
+## API and MCP server
+
+**Public API.** Free, read-only JSON at `https://bindtopia.com/api/v1/` — no key, CORS enabled, OpenAPI 3.1 at [`/api/v1/openapi.json`](https://bindtopia.com/api/v1/openapi.json). See the [API reference](docs/reference/api.md) for endpoints and the usage policy.
+
+```sh
+curl https://bindtopia.com/api/v1/cards/base1-4.json
+```
+
+**MCP server.** Lets AI assistants such as Claude, Cursor or VS Code search the catalog. It runs locally over stdio, needs Node.js 22+, and reads the public API (plus TCGdex for card details and prices). It is hosted in this repository, so no npm account is needed.
+
+| Tool | What it does |
+| --- | --- |
+| `search_cards` | Find cards by name, collector number (`4/102`) or card ID, typo-tolerant |
+| `get_card` | Set, release year, images, HP, attacks, abilities and indicative prices; optional `market` (`us`, `gb`, `au`, `ca`, `de`, …) converts prices to that currency |
+| `list_sets` | All sets with release date; filter by name or year |
+| `get_set` | One set with all its cards |
+
+Add it to **Claude Code**:
+
+```sh
+claude mcp add bindtopia -- npx -y github:7ucardie/Bindtopia
+```
+
+Or to **Claude Desktop, Cursor or VS Code** (`claude_desktop_config.json`, `.cursor/mcp.json` or `.vscode/mcp.json`):
+
+```json
+{
+  "mcpServers": {
+    "bindtopia": { "command": "npx", "args": ["-y", "github:7ucardie/Bindtopia"] }
+  }
+}
+```
+
+From a clone instead: `npm ci` and point the client at `node /path/to/Bindtopia/mcp/server.mjs`. Optional environment variables: `BINDTOPIA_API` (another API base URL) and `BINDTOPIA_TCGDEX` (another TCGdex base URL). Try it interactively with `npx @modelcontextprotocol/inspector node mcp/server.mjs`.
+
+Example prompts: *"What year did Charizard 4/102 come out and what is it worth in pounds?"* · *"List all Pokémon sets from 1999."*
+
 ## Documentation
 
 The docs use the Diátaxis structure. Start at [docs/README.md](docs/README.md).
@@ -83,7 +122,7 @@ The docs use the Diátaxis structure. Start at [docs/README.md](docs/README.md).
 
 Scope and launch conditions are in [SPEC.md](SPEC.md).
 
-**Next:** finish GitHub delivery and Pages configuration, finalize operator/privacy details, verify image rights, and test camera/OCR on real phones. Complete Xcode validation before TestFlight.
+**Next:** API rate limiting through Cloudflare, listing the API in public API directories, and testing camera/OCR on more real phones and webcams. Complete Xcode validation before TestFlight.
 
 **Later, if needed:** collection accounts and synchronization, richer collection views and more localization. These require explicit data-model and privacy work.
 
