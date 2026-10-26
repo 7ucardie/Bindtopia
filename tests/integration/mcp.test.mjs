@@ -3,14 +3,13 @@ import assert from 'node:assert/strict';
 import {fileURLToPath} from 'node:url';
 import {Client} from '@modelcontextprotocol/sdk/client/index.js';
 import {StdioClientTransport} from '@modelcontextprotocol/sdk/client/stdio.js';
-import {writeApi} from '../../scripts/build-api.mjs';
 import {serve} from '../serve.mjs';
+// dist/api is built once by `npm run test:integration` (scripts/build-api.mjs) before the files run in parallel.
 
 let server, client;
 const call = async (name, args) => { const r = await client.callTool({name, arguments: args}); return r.isError ? {error: r.content[0].text} : JSON.parse(r.content[0].text); };
 
 before(async () => {
-  await writeApi();
   server = await serve();
   const base = `http://127.0.0.1:${server.address().port}/`;
   // TCGdex points at the local server, which has no such route, so details degrade gracefully offline.

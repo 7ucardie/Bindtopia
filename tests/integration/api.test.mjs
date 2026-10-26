@@ -1,11 +1,11 @@
 import {test, before, after} from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {writeApi} from '../../scripts/build-api.mjs';
 import {serve} from '../serve.mjs';
+// dist/api is built once by `npm run test:integration` (scripts/build-api.mjs) before the files run in parallel.
 
 let server, base;
-before(async () => { await writeApi(); server = await serve(); base = 'http://127.0.0.1:' + server.address().port; });
+before(async () => { server = await serve(); base = 'http://127.0.0.1:' + server.address().port; });
 after(() => server.close());
 const get = async path => { const r = await fetch(base + path); assert.equal(r.status, 200, path); return r.json(); };
 const catalog = JSON.parse(readFileSync(new URL('../../dist/data/cards-en.json', import.meta.url)));
