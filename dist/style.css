@@ -4,3 +4,4 @@
 
 .interface-language{display:flex;align-items:center;gap:6px}.interface-language select{max-width:130px;font-size:12px;padding:8px}header .quiet{white-space:nowrap}header{flex-wrap:wrap;height:auto;min-height:86px}header nav{min-height:60px}header .brand{font-size:22px}@media(max-width:1000px){header .quiet{display:none}}@media(max-width:700px){.interface-language{position:absolute;right:18px;top:15px}.brand{max-width:calc(100% - 130px)}.interface-language select{max-width:110px}header nav{min-height:42px}header{position:relative}.hero h1{overflow-wrap:anywhere}}
 .webcam-video{display:block;width:100%;max-height:60vh;margin:12px 0;border-radius:12px;background:#000;object-fit:contain}
+.market-select{display:flex;gap:10px;align-items:center;margin:22px 0 4px;font-weight:600}.market-select select{padding:8px 12px;border-radius:10px;border:1px solid var(--line);background:var(--surface,#fff);color:var(--ink);font:inherit}

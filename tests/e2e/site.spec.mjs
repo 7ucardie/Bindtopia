@@ -1,7 +1,8 @@
 import {test, expect, openHome, search} from './fixtures.mjs';
 
 test.describe('in English', () => {
-  test.use({locale: 'en-US'});
+  // No region in the language and an unmapped time zone: the International market.
+  test.use({locale: 'en', timezoneId: 'Asia/Tokyo'});
 
   test('home loads the catalog', async ({page}) => {
     await openHome(page);
