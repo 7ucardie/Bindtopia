@@ -46,6 +46,18 @@ test.describe('in English', () => {
     await expect(page.locator('#grid .set', {hasText: 'Base Set'}).first()).toContainText('1999 ·');
   });
 
+  test('the back button closes the card details instead of leaving the site', async ({page}) => {
+    await openHome(page);
+    await search(page, '4/102');
+    await page.locator('#grid .card', {hasText: 'base1-4'}).locator('.art').click();
+    await expect(page.locator('#modal')).toBeVisible();
+    const url = page.url();
+    await page.goBack();
+    await expect(page.locator('#modal')).toBeHidden();
+    expect(page.url()).toBe(url);
+    await expect(page.locator('#grid .card').first()).toBeVisible();
+  });
+
   test('card detail without pricing keeps the no-prices notice', async ({page}) => {
     await openHome(page);
     await search(page, '2/102');

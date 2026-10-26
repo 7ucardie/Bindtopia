@@ -28,6 +28,17 @@ test('cancelling turns the camera off', async ({page, context}) => {
   await expect(page.locator('#scanPreview')).toBeHidden();
 });
 
+test('the camera view has a close button in its header', async ({page, context}) => {
+  await context.grantPermissions(['camera']);
+  await openHome(page);
+  await page.click('#openScan');
+  await page.click('#cameraButton');
+  await expect(page.locator('#webcamClose')).toBeVisible();
+  await page.click('#webcamClose');
+  await expect(page.locator('#webcam')).toBeHidden();
+  expect(await page.evaluate(() => document.querySelector('#webcamVideo').srcObject)).toBeNull();
+});
+
 test('a denied camera falls back to a message', async ({page}) => {
   await page.addInitScript(() => { navigator.mediaDevices.getUserMedia = () => Promise.reject(new DOMException('denied', 'NotAllowedError')); });
   await openHome(page);

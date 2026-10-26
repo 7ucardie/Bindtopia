@@ -1,8 +1,9 @@
 // Trade mode helpers: confident scan matches, the headline price per card and the trade totals.
 import {convert} from './markets.mjs';
 
-// Name + number, or number + set total, is specific enough to accept without asking.
-export const confident = hits => hits[0] && hits[0].score >= 80 && (!hits[1] || hits[0].score > hits[1].score) ? hits[0] : null;
+// From the camera only name + number is certain enough: OCR noise from artwork, sleeves or a card in another
+// language can produce a plausible "18/91" on its own. Typed input may also be accepted on number + set total.
+export const confident = (hits, {typed = false} = {}) => hits[0] && hits[0].score >= (typed ? 80 : 112) && (!hits[1] || hits[0].score > hits[1].score) ? hits[0] : null;
 
 const positive = (...values) => values.find(v => typeof v === 'number' && isFinite(v) && v > 0);
 // One price per card: the market's preferred source first (TCGplayer market price or Cardmarket trend).

@@ -87,6 +87,25 @@ test.describe('trade mode', () => {
     await expect(page.locator('#tradeGet li')).toHaveCount(1);
   });
 
+  test('a number read from noise is not taken as a find', async ({page, context}) => {
+    // e.g. a card in another language: no name the catalog knows, but something that looks like "18/91".
+    await openTrade(page, context, '燃烧 火焰 18/91 ~~');
+    await expect(page.locator('#tradeAttempt')).toHaveText(/Attempt ([3-9]|\d{2,})$/, {timeout: 15000});
+    await expect(page.locator('#tradeStatus')).not.toContainText('Found');
+    await expect(page.locator('#tradeResult [data-side]')).toHaveCount(0);
+  });
+
+  test('the header with the close button stays visible and the back button closes trade mode', async ({page, context}) => {
+    await openTrade(page, context, 'nothing');
+    await page.locator('#trade').evaluate(d => d.scrollTo(0, d.scrollHeight));
+    await expect(page.locator('#tradeClose')).toBeInViewport();
+    const url = page.url();
+    await page.goBack();
+    await expect(page.locator('#trade')).toBeHidden();
+    expect(page.url()).toBe(url);
+    expect(await page.evaluate(() => document.querySelector('#tradeVideo').srcObject)).toBeNull();
+  });
+
   test('closing trade mode turns the camera off', async ({page, context}) => {
     await openTrade(page, context, 'nothing');
     await expect.poll(() => page.locator('#tradeVideo').evaluate(v => v.videoWidth)).toBeGreaterThan(0);

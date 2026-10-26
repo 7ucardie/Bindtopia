@@ -5,8 +5,8 @@
 .interface-language{display:flex;align-items:center;gap:6px}.interface-language select{max-width:130px;font-size:12px;padding:8px}header .quiet{white-space:nowrap}header{flex-wrap:wrap;height:auto;min-height:86px}header nav{min-height:60px}header .brand{font-size:22px}@media(max-width:1000px){header .quiet{display:none}}@media(max-width:700px){.interface-language{position:absolute;right:18px;top:15px}.brand{max-width:calc(100% - 130px)}.interface-language select{max-width:110px}header nav{min-height:42px}header{position:relative}.hero h1{overflow-wrap:anywhere}}
 .market-select{display:flex;gap:10px;align-items:center;margin:22px 0 4px;font-weight:600}.market-select select{padding:8px 12px;border-radius:10px;border:1px solid var(--line);background:var(--surface,#fff);color:var(--ink);font:inherit}
 .scanner-actions{display:flex;gap:10px;flex-wrap:wrap}
-dialog.trade{max-width:760px;width:96vw;max-height:96vh;overflow:auto;padding:18px 20px}
-.trade-head{display:flex;justify-content:space-between;align-items:center;gap:12px}.trade-head h2{margin:0}
+dialog.trade{max-width:760px;width:96vw;max-height:96vh;max-height:96dvh;overflow:auto;padding:0 20px 18px}
+.trade-head{display:flex;justify-content:space-between;align-items:center;gap:12px;position:sticky;top:0;z-index:2;margin:0 -20px;padding:14px 20px 10px;background:var(--surface,#fff)}.trade-head h2{margin:0;font-size:22px}.trade-head .close{flex:none;float:none}
 .trade-camera,.camera-view{position:relative;margin:12px 0;border-radius:14px;overflow:hidden;background:#000}.trade-camera video{display:block;width:100%;height:min(52vh,480px);object-fit:cover}.camera-view video{display:block;width:100%;height:min(60vh,520px);object-fit:cover}
 .trade-status{display:flex;align-items:center;gap:10px;font-weight:600;margin-top:4px}.trade-attempt{margin-left:auto;font-weight:400;color:var(--muted);font-size:13px;white-space:nowrap}
 .trade-dot{flex:none;width:12px;height:12px;border-radius:50%;background:var(--muted)}.trade-dot.busy{background:#0d65b5;animation:tradepulse 1s ease-in-out infinite}.trade-dot.found{background:#1f9d55;animation:none}

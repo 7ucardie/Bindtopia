@@ -2,11 +2,14 @@ import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {confident, headlinePrice, tradeTotals} from '../../dist/trade.mjs';
 
-test('confident accepts a clear name+number or number+total match only', () => {
+test('confident needs name and number from the camera; typed input may use number + set total', () => {
   const card = {id: 'base1-4'};
-  assert.equal(confident([{card, score: 145}, {card: {id: 'x'}, score: 50}]).card, card);
-  assert.equal(confident([{card, score: 80}]).card, card);
-  assert.equal(confident([{card, score: 65}]), null, 'a name alone is ambiguous');
+  assert.equal(confident([{card, score: 145}, {card: {id: 'x'}, score: 50}]).card, card, 'name + number + total');
+  assert.equal(confident([{card, score: 115}]).card, card, 'name + number');
+  assert.equal(confident([{card, score: 112}]).card, card, 'similar name + number + total');
+  assert.equal(confident([{card, score: 80}]), null, 'number + total alone can come from noise');
+  assert.equal(confident([{card, score: 80}], {typed: true}).card, card, 'but is fine when typed');
+  assert.equal(confident([{card, score: 65}], {typed: true}), null, 'a name alone is ambiguous');
   assert.equal(confident([{card, score: 115}, {card: {id: 'y'}, score: 115}]), null, 'a tie needs the user');
   assert.equal(confident([]), null);
 });
