@@ -12,4 +12,4 @@ Trade mode is for card shows and trading tables: point your phone at a card, see
 
 The headline price follows your **market**: TCGplayer market price first for the US, Canada and Australia, Cardmarket trend first for the UK and Europe, converted to your currency with ECB rates where needed. Prices are indications from TCGdex and can be a day old; check variant (holo, reverse holo, 1st edition) and condition yourself.
 
-Recognition reads the printed text locally, so it is slower than image-recognition apps and struggles with glare, sleeves and poor light. The camera image never leaves the device, and the trade list disappears when you close or reload the page.
+Each attempt alternates between a black-and-white read (best for the small collector number) and a greyscale read. Recognition reads the printed text locally, so it is slower than image-recognition apps and struggles with glare, sleeves and poor light. The camera image never leaves the device, and the trade list disappears when you close or reload the page.

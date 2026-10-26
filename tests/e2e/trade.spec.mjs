@@ -3,7 +3,7 @@ import {test, expect, openHome} from './fixtures.mjs';
 // The real OCR engine loads from a CDN that tests cannot reach; this stand-in "reads" window.__ocrText.
 const fakeOcr = text => {
   window.__ocrText = text;
-  window.Tesseract = {createWorker: async () => ({recognize: async () => { await new Promise(r => setTimeout(r, 50)); return {data: {text: window.__ocrText}}; }, terminate: async () => {}})};
+  window.Tesseract = {createWorker: async () => ({setParameters: async () => {}, recognize: async () => { await new Promise(r => setTimeout(r, 50)); return {data: {text: window.__ocrText}}; }, terminate: async () => {}})};
 };
 async function openTrade(page, context, text) {
   await context.grantPermissions(['camera']);
