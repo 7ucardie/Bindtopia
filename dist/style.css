@@ -5,3 +5,19 @@
 .interface-language{display:flex;align-items:center;gap:6px}.interface-language select{max-width:130px;font-size:12px;padding:8px}header .quiet{white-space:nowrap}header{flex-wrap:wrap;height:auto;min-height:86px}header nav{min-height:60px}header .brand{font-size:22px}@media(max-width:1000px){header .quiet{display:none}}@media(max-width:700px){.interface-language{position:absolute;right:18px;top:15px}.brand{max-width:calc(100% - 130px)}.interface-language select{max-width:110px}header nav{min-height:42px}header{position:relative}.hero h1{overflow-wrap:anywhere}}
 .webcam-video{display:block;width:100%;max-height:60vh;margin:12px 0;border-radius:12px;background:#000;object-fit:contain}
 .market-select{display:flex;gap:10px;align-items:center;margin:22px 0 4px;font-weight:600}.market-select select{padding:8px 12px;border-radius:10px;border:1px solid var(--line);background:var(--surface,#fff);color:var(--ink);font:inherit}
+.scanner-actions{display:flex;gap:10px;flex-wrap:wrap}
+dialog.trade{max-width:760px;width:96vw;max-height:96vh;overflow:auto;padding:18px 20px}
+.trade-head{display:flex;justify-content:space-between;align-items:center;gap:12px}.trade-head h2{margin:0}
+.trade-camera{position:relative;margin:12px 0;border-radius:14px;overflow:hidden;background:#000}.trade-camera video{display:block;width:100%;max-height:46vh;object-fit:cover}
+.trade-frame{position:absolute;inset:10% 22%;border:3px dashed #ffffffcc;border-radius:14px;pointer-events:none}
+.trade-status{display:flex;align-items:center;gap:10px;font-weight:600;margin-top:4px}.trade-attempt{margin-left:auto;font-weight:400;color:var(--muted);font-size:13px;white-space:nowrap}
+.trade-dot{flex:none;width:12px;height:12px;border-radius:50%;background:var(--muted)}.trade-dot.busy{background:#0d65b5;animation:tradepulse 1s ease-in-out infinite}.trade-dot.found{background:#1f9d55;animation:none}
+@keyframes tradepulse{50%{opacity:.25;transform:scale(.7)}}@media(prefers-reduced-motion:reduce){.trade-dot.busy{animation:none}}
+#tradeProgress{width:100%;height:6px;margin:6px 0}
+.trade-search{display:flex;gap:8px;margin:10px 0}.trade-search input{flex:1;min-width:0;padding:10px 12px;border:1px solid var(--line);border-radius:10px;font:inherit;background:var(--surface,#fff);color:var(--ink)}
+.trade-result{border:1px solid var(--line);border-radius:14px;padding:12px;margin:10px 0;display:grid;grid-template-columns:90px 1fr;gap:12px;align-items:start}.trade-result img,.trade-result .placeholder{width:90px;border-radius:6px}
+.trade-meta{display:flex;flex-direction:column;gap:3px;color:var(--ink)}.trade-meta strong{font-size:18px}.trade-meta small{color:var(--muted)}.trade-price{font-size:20px;font-weight:700}.trade-result .scan-tools{grid-column:1/-1;margin:0}
+.trade-alts{grid-column:1/-1;display:flex;gap:6px;flex-wrap:wrap;align-items:center;font-size:13px}.trade-alts button{font-size:13px;padding:6px 10px}
+.trade-lists{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}.trade-lists h3{margin:0 0 6px}.trade-lists ul{list-style:none;margin:0;padding:0;min-height:24px}
+.trade-lists li{display:flex;justify-content:space-between;gap:6px;padding:6px 0;border-bottom:1px solid var(--line);font-size:13px}.trade-lists li button{border:0;background:none;color:var(--muted);cursor:pointer;padding:0 4px}
+.trade-total{margin:6px 0 0;font-size:14px}.trade-balance{font-weight:700;font-size:16px;margin:12px 0 4px}

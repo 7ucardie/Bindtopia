@@ -35,6 +35,7 @@ An ad-free Pokémon card catalog and collection companion. Explore cards, identi
 ## What it does
 
 - **Finds cards:** search the bundled English index or load another supported card language from TCGdex.
+- **Trade mode:** point the phone at a card, see its price straight away, and keep a running give/get total at card shows and trades.
 - **Reads a photo:** perform OCR on the device and suggest matches using the name and collector number.
 - **Shows card details:** fetch set information, illustrator, HP, abilities and attacks when available.
 - **Saves a collection:** use browser-local storage, with backup export/import and explicit deletion.
@@ -114,7 +115,7 @@ Example prompts: *"What year did Charizard 4/102 come out and what is it worth i
 The docs use the Diátaxis structure. Start at [docs/README.md](docs/README.md).
 
 - **Tutorial:** [Getting started](docs/tutorials/getting-started.md)
-- **How-to:** [Scan a card](docs/how-to/scan-a-card.md) · [Export and import](docs/how-to/export.md) · [Change language](docs/how-to/change-language.md) · [Change theme](docs/how-to/change-theme.md) · [Update the catalog](docs/how-to/update-catalog.md) · [Publish](docs/how-to/publish.md) · [Connect a domain](docs/how-to/custom-domain.md) · [Make a release](docs/how-to/release.md)
+- **How-to:** [Scan a card](docs/how-to/scan-a-card.md) · [Trade mode](docs/how-to/trade-mode.md) · [Export and import](docs/how-to/export.md) · [Change language](docs/how-to/change-language.md) · [Change theme](docs/how-to/change-theme.md) · [Update the catalog](docs/how-to/update-catalog.md) · [Publish](docs/how-to/publish.md) · [Connect a domain](docs/how-to/custom-domain.md) · [Make a release](docs/how-to/release.md)
 - **Reference:** [Public API](docs/reference/api.md) · [Commands](docs/reference/cli.md) · [Configuration](docs/reference/configuration.md) · [Card fields](docs/reference/card-fields.md) · [Sources](docs/reference/sources.md) · [Stability](docs/reference/stability.md)
 - **Explanation:** [How Bindtopia works](docs/explanation/how-bindtopia-works.md)
 
@@ -122,7 +123,7 @@ The docs use the Diátaxis structure. Start at [docs/README.md](docs/README.md).
 
 Scope and launch conditions are in [SPEC.md](SPEC.md).
 
-**Next:** API rate limiting through Cloudflare, listing the API in public API directories, and testing camera/OCR on more real phones and webcams. Complete Xcode validation before TestFlight.
+**Next:** testing trade mode, camera and OCR on more real phones and webcams, and listing the API in public API directories. Complete Xcode validation before TestFlight.
 
 **Later, if needed:** collection accounts and synchronization, richer collection views and more localization. These require explicit data-model and privacy work.
 

@@ -9,6 +9,6 @@ export default defineConfig({
   projects: [
     // Chromium's fake camera lets the webcam flow run headless.
     {name: 'desktop', use: {...devices['Desktop Chrome'], launchOptions: {args: ['--use-fake-device-for-media-stream', '--use-fake-ui-for-media-stream']}}},
-    {name: 'mobile', use: {...devices['Pixel 7']}},
+    {name: 'mobile', use: {...devices['Pixel 7'], launchOptions: {args: ['--use-fake-device-for-media-stream', '--use-fake-ui-for-media-stream']}}},
   ],
 });
