@@ -1,0 +1,40 @@
+name: Build card image fingerprints
+# Downloads catalog images once (incrementally) and stores a fingerprint per card for camera recognition by artwork.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '41 6 * * 1'
+permissions:
+  contents: write
+concurrency:
+  group: catalog-and-pages
+  cancel-in-progress: false
+jobs:
+  fingerprints:
+    if: github.repository_owner == '7ucardie'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Fingerprint new catalog images
+        run: node scripts/build-fingerprints.mjs
+        env:
+          MAX_MINUTES: '45'
+      - name: Measure recognition accuracy
+        run: node scripts/build-fingerprints.mjs --evaluate
+      - name: Commit fingerprints
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add dist/data/fingerprints-en.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Update card image fingerprints'
+            git push
+          fi
