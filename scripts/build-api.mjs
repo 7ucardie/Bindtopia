@@ -1,10 +1,11 @@
 // Builds the public read-only JSON API (dist/api/v1) from the catalog index.
 import {readFile, writeFile, mkdir, rm} from 'node:fs/promises';
 import {pathToFileURL} from 'node:url';
+import {fileId} from '../dist/card-detail.mjs';
 
 export const BASE = '/api/v1/';
 // Card IDs may contain characters that are unsafe in a URL path (e.g. "exu-!"); encode those as _HEX.
-export const fileId = id => id.replace(/[^A-Za-z0-9._-]/g, c => '_' + c.codePointAt(0).toString(16).toUpperCase());
+export {fileId};
 const year = s => s.releaseDate ? Number(s.releaseDate.slice(0, 4)) : null;
 const images = c => c.image ? {small: c.image + '/low.webp', large: c.image + '/high.webp'} : null;
 

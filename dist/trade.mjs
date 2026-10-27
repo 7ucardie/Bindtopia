@@ -36,3 +36,20 @@ export function tradeTotals(items, currency, rates) {
   totals.diff = Math.round((totals.get - totals.give) * 100) / 100;
   return totals;
 }
+
+// Picture thresholds (fingerprint distance 0-128), tuned on the catalog evaluation in the fingerprint workflow.
+export const IMAGE = {accept: 22, gap: 8, loose: 28}; // first run: right card median 14 (22 when rotated 3°), nearest wrong ~30-32; real photo 18 vs 36
+// Combines text and picture: a sure text match wins; a name with several prints is settled by the picture;
+// otherwise the picture alone must be close and clearly better than the runner-up. Returns {id, card?, by} or null.
+export function decide(textHits, imageHits = [], t = IMAGE) {
+  const sure = confident(textHits);
+  if (sure) return {id: sure.card.id, card: sure.card, by: 'text'};
+  if (textHits.length && imageHits.length) {
+    const d = new Map(imageHits.map(h => [h.id, h.distance]));
+    const best = textHits.filter(h => d.has(h.card.id)).sort((x, y) => d.get(x.card.id) - d.get(y.card.id))[0];
+    if (best && d.get(best.card.id) <= t.loose) return {id: best.card.id, card: best.card, by: 'text+image'};
+  }
+  const [a, b] = imageHits;
+  if (a && a.distance <= t.accept && (!b || b.distance - a.distance >= t.gap)) return {id: a.id, by: 'image'};
+  return null;
+}

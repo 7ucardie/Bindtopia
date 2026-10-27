@@ -24,3 +24,4 @@ dialog.trade{max-width:760px;width:96vw;max-height:96vh;max-height:96dvh;overflo
 .zone{position:absolute;background:#0d65b52e;border:2px dashed #fff;border-radius:6px;font-size:0}.zone::before{content:attr(data-label);position:absolute;left:-2px;bottom:100%;margin-bottom:2px;padding:1px 6px;border-radius:4px;background:#0d65b5;color:#fff;font-size:11px;font-weight:700;line-height:1.5;white-space:nowrap}
 .zone-name{left:4%;right:4%;top:2.5%;height:9%}.zone-number{bottom:2%;height:6.5%;width:40%}.zone-left{left:4%}.zone-right{right:4%}
 .trade-guide{margin:4px 0 0;font-size:14px;font-weight:600;color:#0d65b5;min-height:1.2em}
+.trade-how{color:#1f7a45;font-weight:600}

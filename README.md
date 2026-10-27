@@ -35,7 +35,7 @@ An ad-free Pokémon card catalog and collection companion. Explore cards, identi
 ## What it does
 
 - **Finds cards:** search the bundled English index or load another supported card language from TCGdex.
-- **Trade mode:** point the phone at a card, see its price straight away, and keep a running give/get total at card shows and trades.
+- **Trade mode:** point the phone at a card, see its price straight away, and keep a running give/get total at card shows and trades. Cards are recognised by their printed name and number and by their picture, which also finds the English print of a card in another language.
 - **Reads a photo:** perform OCR on the device and suggest matches using the name and collector number.
 - **Shows card details:** fetch set information, illustrator, HP, abilities and attacks when available.
 - **Saves a collection:** use browser-local storage, with backup export/import and explicit deletion.

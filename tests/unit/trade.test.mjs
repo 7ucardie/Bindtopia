@@ -34,3 +34,16 @@ test('tradeTotals converts to one currency and reports what it could not count',
   assert.deepEqual(tradeTotals(items, 'EUR', rates), {give: 10, get: 20, skipped: 2, diff: 10});
   assert.deepEqual(tradeTotals([], 'USD', null), {give: 0, get: 0, skipped: 0, diff: 0});
 });
+
+import {decide, IMAGE} from '../../dist/trade.mjs';
+test('decide: text first, then text settled by the picture, then the picture alone', () => {
+  const card = id => ({id, name: 'Charizard'});
+  const text = [{card: card('base1-4'), score: 65}, {card: card('base2-4'), score: 65}, {card: card('sm3-20'), score: 65}];
+  assert.deepEqual(decide([{card: card('base1-4'), score: 145}], [{id: 'x', distance: 2}]), {id: 'base1-4', card: card('base1-4'), by: 'text'});
+  assert.equal(decide(text, [{id: 'other', distance: 9}, {id: 'base2-4', distance: 14}, {id: 'base1-4', distance: 30}]).id, 'base2-4', 'name + closest print');
+  assert.equal(decide(text, [{id: 'base2-4', distance: IMAGE.loose + 1}]), null, 'too far even with a name');
+  assert.deepEqual(decide([], [{id: 'me02-009', distance: 10}, {id: 'sv01-1', distance: 30}]), {id: 'me02-009', by: 'image'});
+  assert.equal(decide([], [{id: 'a', distance: 10}, {id: 'b', distance: 13}]), null, 'no clear winner');
+  assert.equal(decide([], [{id: 'a', distance: IMAGE.accept + 1}, {id: 'b', distance: 60}]), null, 'not close enough');
+  assert.equal(decide([], []), null);
+});
