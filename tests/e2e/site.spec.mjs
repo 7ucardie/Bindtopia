@@ -27,6 +27,8 @@ test.describe('in English', () => {
     await expect(detail.locator('h1')).toHaveText('Charizard');
     await expect(detail.locator('tr', {hasText: 'Year of release'})).toContainText('1999');
     await expect(detail).toContainText('Indicative prices');
+    await expect(detail.locator('.price-date')).toHaveText('Price date: 10/20/2026');
+    await expect(detail).toContainText('always check the current price at the provider below');
     await expect(detail).toContainText('€310.50');
     await expect(detail).toContainText('$410.25');
     await expect(detail.locator('.links a')).toHaveCount(3);

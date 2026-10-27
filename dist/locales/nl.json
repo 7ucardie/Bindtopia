@@ -137,7 +137,6 @@
   "Toon origineel": "Toon origineel",
   "Geen officiële vertaling beschikbaar voor deze kaart.": "Geen officiële vertaling beschikbaar voor deze kaart.",
   "Indicatieve prijzen": "Indicatieve prijzen",
-  "Prijzen via TCGdex (Cardmarket, TCGplayer) zijn indicaties en kunnen afwijken van de actuele marktprijs. Controleer conditie en drukvariant.": "Prijzen via TCGdex (Cardmarket, TCGplayer) zijn indicaties en kunnen afwijken van de actuele marktprijs. Controleer conditie en drukvariant.",
   "De links openen zoekresultaten bij de aanbieder. Controleer taal, conditie en drukvariant.": "De links openen zoekresultaten bij de aanbieder. Controleer taal, conditie en drukvariant.",
   "Laagste": "Laagste",
   "Trend": "Trend",
@@ -164,7 +163,6 @@
   "Ik krijg": "Ik krijg",
   "Totaal": "Totaal",
   "Wis ruil": "Wis ruil",
-  "Prijzen zijn indicaties van TCGdex en kunnen een dag oud zijn. Controleer variant en conditie. Het camerabeeld blijft op dit toestel.": "Prijzen zijn indicaties van TCGdex en kunnen een dag oud zijn. Controleer variant en conditie. Het camerabeeld blijft op dit toestel.",
   "Geen prijs bekend": "Geen prijs bekend",
   "De camera is niet beschikbaar of er is geen toestemming gegeven. Typ hieronder de naam en het nummer.": "De camera is niet beschikbaar of er is geen toestemming gegeven. Typ hieronder de naam en het nummer.",
   "Tekstherkenning kon niet worden geladen. Typ hieronder de naam en het nummer.": "Tekstherkenning kon niet worden geladen. Typ hieronder de naam en het nummer.",
@@ -194,5 +192,9 @@
   "Houd de kaart recht en goed belicht in het kader, met de naam en het nummer in de gemarkeerde vlakken. Het beeld blijft op dit toestel.": "Houd de kaart recht en goed belicht in het kader, met de naam en het nummer in de gemarkeerde vlakken. Het beeld blijft op dit toestel.",
   "Herkend aan de afbeelding": "Herkend aan de afbeelding",
   "Engelse uitgave met dezelfde illustratie": "Engelse uitgave met dezelfde illustratie",
-  "Herkend aan de afbeelding. Controleer de naam en het kaartnummer hieronder.": "Herkend aan de afbeelding. Controleer de naam en het kaartnummer hieronder."
+  "Herkend aan de afbeelding. Controleer de naam en het kaartnummer hieronder.": "Herkend aan de afbeelding. Controleer de naam en het kaartnummer hieronder.",
+  "Prijsdatum:": "Prijsdatum:",
+  "Dit zijn indicaties via TCGdex (Cardmarket, TCGplayer): bekijk altijd de actuele prijs bij de aanbieder hieronder en controleer conditie en drukvariant.": "Dit zijn indicaties via TCGdex (Cardmarket, TCGplayer): bekijk altijd de actuele prijs bij de aanbieder hieronder en controleer conditie en drukvariant.",
+  "Actuele prijs bij": "Actuele prijs bij",
+  "Prijzen zijn indicaties van TCGdex met de getoonde datum. Bekijk altijd de actuele prijs bij de aanbieder en controleer variant en conditie. Het camerabeeld blijft op dit toestel.": "Prijzen zijn indicaties van TCGdex met de getoonde datum. Bekijk altijd de actuele prijs bij de aanbieder en controleer variant en conditie. Het camerabeeld blijft op dit toestel."
 }

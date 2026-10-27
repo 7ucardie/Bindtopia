@@ -137,7 +137,6 @@
   "Toon origineel": "Mostrar original",
   "Geen officiële vertaling beschikbaar voor deze kaart.": "Não há tradução oficial disponível para esta carta.",
   "Indicatieve prijzen": "Preços indicativos",
-  "Prijzen via TCGdex (Cardmarket, TCGplayer) zijn indicaties en kunnen afwijken van de actuele marktprijs. Controleer conditie en drukvariant.": "Os preços via TCGdex (Cardmarket, TCGplayer) são indicativos e podem diferir do preço de mercado atual. Verifica o estado e a variante de impressão.",
   "De links openen zoekresultaten bij de aanbieder. Controleer taal, conditie en drukvariant.": "Os links abrem resultados de pesquisa no fornecedor. Verifica o idioma, o estado e a variante de impressão.",
   "Laagste": "Mais baixo",
   "Trend": "Tendência",
@@ -164,7 +163,6 @@
   "Ik krijg": "Recebo",
   "Totaal": "Total",
   "Wis ruil": "Limpar troca",
-  "Prijzen zijn indicaties van TCGdex en kunnen een dag oud zijn. Controleer variant en conditie. Het camerabeeld blijft op dit toestel.": "Os preços são indicativos do TCGdex e podem ter um dia. Verifica a variante e o estado. A imagem da câmara fica neste dispositivo.",
   "Geen prijs bekend": "Preço desconhecido",
   "De camera is niet beschikbaar of er is geen toestemming gegeven. Typ hieronder de naam en het nummer.": "A câmara não está disponível ou não foi dada permissão. Escreve o nome e o número abaixo.",
   "Tekstherkenning kon niet worden geladen. Typ hieronder de naam en het nummer.": "Não foi possível carregar o reconhecimento de texto. Escreve o nome e o número abaixo.",
@@ -194,5 +192,9 @@
   "Houd de kaart recht en goed belicht in het kader, met de naam en het nummer in de gemarkeerde vlakken. Het beeld blijft op dit toestel.": "Segura a carta direita e bem iluminada dentro da moldura, com o nome e o número nas áreas marcadas. A imagem fica neste dispositivo.",
   "Herkend aan de afbeelding": "Reconhecida pela imagem",
   "Engelse uitgave met dezelfde illustratie": "Edição inglesa com a mesma ilustração",
-  "Herkend aan de afbeelding. Controleer de naam en het kaartnummer hieronder.": "Reconhecida pela imagem. Verifica o nome e o número abaixo."
+  "Herkend aan de afbeelding. Controleer de naam en het kaartnummer hieronder.": "Reconhecida pela imagem. Verifica o nome e o número abaixo.",
+  "Prijsdatum:": "Data do preço:",
+  "Dit zijn indicaties via TCGdex (Cardmarket, TCGplayer): bekijk altijd de actuele prijs bij de aanbieder hieronder en controleer conditie en drukvariant.": "São indicações via TCGdex (Cardmarket, TCGplayer): consulta sempre o preço atual no fornecedor abaixo e verifica o estado e a variante de impressão.",
+  "Actuele prijs bij": "Preço atual em",
+  "Prijzen zijn indicaties van TCGdex met de getoonde datum. Bekijk altijd de actuele prijs bij de aanbieder en controleer variant en conditie. Het camerabeeld blijft op dit toestel.": "Os preços são indicações do TCGdex à data mostrada. Consulta sempre o preço atual no fornecedor e verifica a variante e o estado. A imagem da câmara fica neste dispositivo."
 }

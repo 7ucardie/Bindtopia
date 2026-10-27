@@ -1,6 +1,6 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {escape, cardTextHtml, priceBlock} from '../../dist/card-detail.mjs';
+import {escape, cardTextHtml, priceBlock, priceDate} from '../../dist/card-detail.mjs';
 
 test('escape neutralises HTML from the API', () => {
   assert.equal(escape('<img src=x onerror="a">&\''), '&lt;img src=x onerror=&quot;a&quot;&gt;&amp;&#39;');
@@ -31,4 +31,10 @@ test('priceBlock tolerates missing or malformed data', () => {
   for (const p of [undefined, null, 'x', {}, {cardmarket: 'x'}, {cardmarket: {low: 'NaN'}}]) assert.equal(priceBlock(p, 'nl'), '');
   assert.match(priceBlock({cardmarket: {unit: 'bad', low: 2}}, 'nl'), /€/, 'invalid unit falls back to EUR');
   assert.equal(priceBlock({tcgplayer: {a: {lowPrice: 1}, b: {lowPrice: 1}, c: {lowPrice: 1}, d: {lowPrice: 1}}}, 'en').split('<h4>').length - 1, 3);
+});
+
+test('priceDate is the most recent valid update of the price sources', () => {
+  assert.equal(priceDate({cardmarket: {updated: '2026-10-18T00:00:00Z'}, tcgplayer: {updated: '2026-10-20T00:00:00Z'}}), '2026-10-20T00:00:00Z');
+  assert.equal(priceDate({cardmarket: {updated: 'not a date'}}), '');
+  assert.equal(priceDate(undefined), '');
 });

@@ -23,6 +23,9 @@ test.describe('trade mode', () => {
     await expect(page.locator('#tradeResult')).toContainText('Charizard');
     await expect(page.locator('#tradeResult')).toContainText('Base Set · 1999 · #4');
     await expect(page.locator('#tradePrice')).toHaveText('$410.25');
+    await expect(page.locator('#tradeSource')).toHaveText('TCGplayer · holofoil · 10/20/2026');
+    await expect(page.locator('#tradeLive')).toHaveText('Current price at TCGplayer ↗');
+    await expect(page.locator('#tradeLive')).toHaveAttribute('href', /^https:\/\/www\.tcgplayer\.com\/search\/pokemon\/product\?.*q=Charizard%204%20Base%20Set/);
     await expect(page.locator('#tradeStatus')).toContainText('Found: Charizard');
     await expect(page.locator('#tradeAttempt')).toContainText('Attempt');
     await page.evaluate(() => { window.__ocrText = 'Blastoise 2/102'; });
@@ -132,7 +135,8 @@ test.describe('trade mode in the UK', () => {
     await page.route('**/data/rates.json', route => route.fulfill({json: {date: '2026-10-23', rates: {USD: 1.1, GBP: 0.85, AUD: 1.65, CAD: 1.5, PLN: 4.3}}}));
     await openTrade(page, context, 'Charizard 4/102');
     await expect(page.locator('#tradePrice')).toHaveText('€310.50 (≈ £263.93)');
-    await expect(page.locator('#tradeSource')).toHaveText('Cardmarket');
+    await expect(page.locator('#tradeSource')).toHaveText(/^Cardmarket · /);
+    await expect(page.locator('#tradeLive')).toHaveAttribute('href', /^https:\/\/www\.cardmarket\.com\/en\//);
     await page.click('#tradeResult [data-side=give]');
     await expect(page.locator('#tradeGiveTotal')).toHaveText('£263.93');
   });

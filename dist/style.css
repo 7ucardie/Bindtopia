@@ -25,3 +25,5 @@ dialog.trade{max-width:760px;width:96vw;max-height:96vh;max-height:96dvh;overflo
 .zone-name{left:4%;right:4%;top:2.5%;height:9%}.zone-number{bottom:2%;height:6.5%;width:40%}.zone-left{left:4%}.zone-right{right:4%}
 .trade-guide{margin:4px 0 0;font-size:14px;font-weight:600;color:#0d65b5;min-height:1.2em}
 .trade-how{color:#1f7a45;font-weight:600}
+.price-date{margin:4px 0 2px;font-size:14px}.trade-live{font-weight:600;font-size:14px}
+.detail-content .price-date{font-size:14px;color:var(--ink)}

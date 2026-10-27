@@ -16,8 +16,9 @@ test('confident needs name and number from the camera; typed input may use numbe
 
 test('headlinePrice follows the market preference and falls back', () => {
   const pricing = {cardmarket: {unit: 'EUR', trend: 0, avg: 290, low: 120}, tcgplayer: {unit: 'USD', normal: {}, holofoil: {marketPrice: 410.25}}};
-  assert.deepEqual(headlinePrice(pricing, 'cardmarket'), {amount: 290, currency: 'EUR', source: 'Cardmarket'});
-  assert.deepEqual(headlinePrice(pricing, 'tcgplayer'), {amount: 410.25, currency: 'USD', source: 'TCGplayer', variant: 'holofoil'});
+  assert.deepEqual(headlinePrice(pricing, 'cardmarket'), {amount: 290, currency: 'EUR', source: 'Cardmarket', updated: null});
+  assert.deepEqual(headlinePrice(pricing, 'tcgplayer'), {amount: 410.25, currency: 'USD', source: 'TCGplayer', variant: 'holofoil', updated: null});
+  assert.equal(headlinePrice({cardmarket: {trend: 5, updated: '2026-10-20T00:00:00Z'}}).updated, '2026-10-20T00:00:00Z', 'the price keeps its date');
   assert.equal(headlinePrice({cardmarket: {trend: 0}}, 'tcgplayer'), null);
   assert.deepEqual(headlinePrice({tcgplayer: {holofoil: {midPrice: 5}}}, 'cardmarket').source, 'TCGplayer');
   assert.equal(headlinePrice(null), null);

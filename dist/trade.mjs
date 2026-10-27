@@ -10,12 +10,12 @@ const positive = (...values) => values.find(v => typeof v === 'number' && isFini
 export function headlinePrice(pricing, prefer = 'cardmarket') {
   if (!pricing || typeof pricing !== 'object') return null;
   const cm = pricing.cardmarket, tp = pricing.tcgplayer;
-  const fromCm = () => { const a = cm && positive(cm.trend, cm.avg, cm.low); return a ? {amount: a, currency: /^[A-Z]{3}$/.test(cm.unit) ? cm.unit : 'EUR', source: 'Cardmarket'} : null; };
+  const fromCm = () => { const a = cm && positive(cm.trend, cm.avg, cm.low); return a ? {amount: a, currency: /^[A-Z]{3}$/.test(cm.unit) ? cm.unit : 'EUR', source: 'Cardmarket', updated: cm.updated || null} : null; };
   const fromTp = () => {
     if (!tp || typeof tp !== 'object') return null;
     for (const [variant, v] of Object.entries(tp)) {
       const a = v && typeof v === 'object' && positive(v.marketPrice, v.midPrice, v.lowPrice);
-      if (a) return {amount: a, currency: /^[A-Z]{3}$/.test(tp.unit) ? tp.unit : 'USD', source: 'TCGplayer', variant};
+      if (a) return {amount: a, currency: /^[A-Z]{3}$/.test(tp.unit) ? tp.unit : 'USD', source: 'TCGplayer', variant, updated: tp.updated || null};
     }
     return null;
   };
