@@ -23,6 +23,8 @@ jobs:
           node-version: 24
       - name: Fetch and validate upstream catalog
         run: node scripts/sync-catalog.mjs
+      - name: Measure which TCGdex card languages have a usable catalog
+        run: node scripts/sync-languages.mjs
       - name: Fetch ECB exchange rates for price conversions
         run: node scripts/sync-rates.mjs
       - name: Check matching and update guards

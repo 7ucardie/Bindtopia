@@ -17,6 +17,7 @@ Run commands from the repository root.
 | `npm test` | All checks and test suites |
 | `node scripts/sync-catalog.mjs` | Fetch and validate an English catalog update |
 | `npm run mcp` | Start the MCP server over stdio (normally started by an AI client) |
+| `node scripts/sync-languages.mjs` | Measure which TCGdex card languages have a usable catalog |
 | `node scripts/sync-rates.mjs` | Fetch the ECB exchange rates used for price conversions |
 | `node scripts/build-api.mjs` | Generate the public JSON API in `dist/api/v1` |
 | `node scripts/configure-project.mjs` | Generate sponsor/project/domain files from project.config.json |
