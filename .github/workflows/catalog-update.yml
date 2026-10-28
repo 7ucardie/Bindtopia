@@ -20,7 +20,7 @@ jobs:
           ref: ${{ github.event.repository.default_branch }}
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
-          node-version: 24
+          node-version: 26
       - name: Fetch and validate upstream catalog
         run: node scripts/sync-catalog.mjs
       - name: Measure which TCGdex card languages have a usable catalog
