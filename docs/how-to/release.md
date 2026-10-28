@@ -8,4 +8,4 @@ There is no tagged public release yet. Do not imply that a version badge, app ar
 4. Commit and push to the actual repository, review the changes and create a version/tag only when a release is requested.
 5. Publish release assets and notes with explicit limitations. Do not describe a development Xcode project as an App Store build.
 
-The manual Pages and daily catalog workflows are separate from versioned release management. Apple signing files and tokens must never enter the repository.
+The Pages publication and daily catalog workflows are separate from versioned release management. Apple signing files and tokens must never enter the repository.

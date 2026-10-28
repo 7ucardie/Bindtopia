@@ -6,11 +6,11 @@ De portal bestaat uit statische HTML/CSS/JavaScript en een eigen JSON-kaartindex
 
 ## GitHub Pages
 
-De site staat op https://bindtopia.com via GitHub Pages (bron: https://github.com/7ucardie/Bindtopia, branch `main`). De workflow `.github/workflows/github-pages.yml` publiceert de map `dist/` en draait handmatig. Settings → Pages → Source staat op "GitHub Actions"; het custom domain en Enforce HTTPS zijn in Settings → Pages ingesteld.
+De site staat op https://bindtopia.com via GitHub Pages (bron: https://github.com/7ucardie/Bindtopia, branch `main`). De workflow `.github/workflows/github-pages.yml` publiceert de map `dist/`: vanzelf zodra CI op een push naar `main` groen is (alleen als die commit nog de nieuwste is), of handmatig via Run workflow. Settings → Pages → Source staat op "GitHub Actions"; het custom domain en Enforce HTTPS zijn in Settings → Pages ingesteld.
 
 Na een wijziging:
-1. Laat CI groen worden (checks, unit-, integratie- en e2e-tests, npm audit, Gitleaks, Trivy).
-2. Start Actions → "Publish catalog to GitHub Pages" → Run workflow.
+1. CI draait (checks, unit-, integratie- en e2e-tests, npm audit, Gitleaks, Trivy).
+2. Is CI groen, dan publiceert "Publish catalog to GitHub Pages" vanzelf. Bij rood wordt niets gepubliceerd.
 3. Controleer de site, camera/fotokeuze, OCR en externe verzoeken op een echte telefoon.
 
 GitHub Pages is openbaar. Zet geen persoonlijke gegevens, exports, tokens of sleutels in de bron of `dist/`. GitHub Pages is niet bedoeld als hosting voor een commerciële dienst; Bindtopia heeft geen verdienmodel.

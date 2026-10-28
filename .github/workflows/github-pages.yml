@@ -1,7 +1,11 @@
 name: Publish catalog to GitHub Pages
-# Manual only: running this workflow publishes the site to the Pages audience.
+# Publishes the site after CI passes on a push to main, or by hand (Run workflow).
 on:
   workflow_dispatch:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+    branches: [main]
 permissions:
   contents: read
   pages: write
@@ -10,7 +14,29 @@ concurrency:
   group: catalog-and-pages
   cancel-in-progress: false
 jobs:
+  # Only a green CI run for a push to main in this repository, never a pull request or a fork; and only while the
+  # tested commit is still the newest on main (a newer push publishes itself after its own CI).
+  gate:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.event == 'push' &&
+       github.event.workflow_run.head_repository.full_name == github.repository)
+    runs-on: ubuntu-latest
+    permissions: {}
+    outputs:
+      publish: ${{ steps.newest.outputs.publish }}
+    steps:
+      - id: newest
+        env:
+          TESTED: ${{ github.event.workflow_run.head_sha }}
+          NEWEST: ${{ github.sha }}
+        run: |
+          if [ -z "$TESTED" ] || [ "$TESTED" = "$NEWEST" ]; then echo "publish=true" >> "$GITHUB_OUTPUT"
+          else echo "main moved on from $TESTED to $NEWEST; its own CI run publishes it"; echo "publish=false" >> "$GITHUB_OUTPUT"; fi
   deploy:
+    needs: gate
+    if: needs.gate.outputs.publish == 'true'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
