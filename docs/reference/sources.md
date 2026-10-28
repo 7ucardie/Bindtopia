@@ -10,6 +10,7 @@
 | Cloudflare Web Analytics | Cookieless visitor statistics (only with a configured token; off under Do Not Track / Global Privacy Control) | Page load |
 | GitHub Sponsors | Voluntary external support | User follows the link |
 | TCGdex pricing field | Indicative Cardmarket/TCGplayer prices | Opening a card detail |
+| Offline copy (service worker, Cache Storage on the device) | Site, English catalog, OCR files and viewed card details, prices and images, for use without internet | Saved while browsing; nothing is sent anywhere |
 | External marketplaces | Card-price searches | User follows a price link |
 
 App code does not upload the photo or OCR text. External requests still expose ordinary connection metadata to providers. Analytics is limited to cookieless Cloudflare Web Analytics. There is no embedded payment widget or remote Google Fonts loader. Roboto is self-hosted; exact Flexo remains dependent on licensed files.

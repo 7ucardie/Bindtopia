@@ -7,9 +7,9 @@ If GitHub Private Vulnerability Reporting is enabled for this repository, use th
 ## What the application accesses
 
 - **Reads locally:** the selected card photo, recognition text, filters and imported backup.
-- **Writes locally:** the browser collection key and user-requested downloaded backup. The native app has separate local UserDefaults storage.
+- **Writes locally:** the browser collection, language, market and trade-list keys, the offline copy in Cache Storage (`dist/sw.js`) and user-requested downloaded backups. The native app has separate local UserDefaults storage.
 - **Network:** its host, TCGdex images/API, OCR program/language downloads and destinations the user opens. The application code does not upload photographs or OCR text.
-- **Deletes:** its own collection keys after confirmation, or temporary scan state. It does not delete the original photo, separate backups or host authentication cookies.
+- **Deletes:** its own collection keys after confirmation, the offline copy and trade list on request, or temporary scan state. It does not delete the original photo, separate backups or host authentication cookies.
 
 Treat source data and imported JSON as untrusted. Preserve escaping, allowed image hosts and the import validation. Read [network sources](docs/reference/sources.md) and the deployed privacy statements for the current boundaries.
 

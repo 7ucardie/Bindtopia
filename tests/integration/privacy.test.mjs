@@ -52,7 +52,8 @@ test('legal pages are final and complete', () => {
 });
 
 test('fetches send no credentials or referrer', () => {
-  const calls = [...code.matchAll(/fetch\(/g)].length;
-  const safe = [...code.matchAll(/credentials:["']omit["'],referrerPolicy:["']no-referrer["']/g)].length;
+  // The service worker may pass the browser's own request on unchanged (fetch(request)); every request it makes itself must be safe.
+  const calls = [...code.matchAll(/fetch\((?!request\))/g)].length;
+  const safe = [...code.matchAll(/credentials:\s*["']omit["'],\s*referrerPolicy:\s*["']no-referrer["']/g)].length;
   assert.equal(safe, calls, 'every fetch() sets credentials omit and no-referrer');
 });

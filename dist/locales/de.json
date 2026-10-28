@@ -196,5 +196,8 @@
   "Prijsdatum:": "Preisdatum:",
   "Dit zijn indicaties via TCGdex (Cardmarket, TCGplayer): bekijk altijd de actuele prijs bij de aanbieder hieronder en controleer conditie en drukvariant.": "Dies sind Richtwerte über TCGdex (Cardmarket, TCGplayer): Prüfe immer den aktuellen Preis beim Anbieter unten sowie Zustand und Druckvariante.",
   "Actuele prijs bij": "Aktueller Preis bei",
-  "Prijzen zijn indicaties van TCGdex met de getoonde datum. Bekijk altijd de actuele prijs bij de aanbieder en controleer variant en conditie. Het camerabeeld blijft op dit toestel.": "Preise sind Richtwerte von TCGdex zum angezeigten Datum. Prüfe immer den aktuellen Preis beim Anbieter sowie Variante und Zustand. Das Kamerabild bleibt auf diesem Gerät."
+  "Prijzen zijn indicaties van TCGdex met de getoonde datum. Bekijk altijd de actuele prijs bij de aanbieder en controleer variant en conditie. Het camerabeeld blijft op dit toestel.": "Preise sind Richtwerte von TCGdex zum angezeigten Datum. Prüfe immer den aktuellen Preis beim Anbieter sowie Variante und Zustand. Das Kamerabild bleibt auf diesem Gerät.",
+  "offline, laatst bekende prijs": "offline, letzter bekannter Preis",
+  "Offline: dit is de laatst bekende informatie die op dit toestel is bewaard.": "Offline: Dies sind die zuletzt auf diesem Gerät gespeicherten Informationen.",
+  "Werkt ook zonder internet: na één bezoek blijven herkenning, je ruillijst en de laatst bekende prijzen op dit toestel. Zet Bindtopia op een iPhone op je beginscherm, anders wist Safari dit na een week zonder gebruik.": "Funktioniert auch ohne Internet: Nach einem Besuch bleiben Erkennung, deine Tauschliste und die zuletzt bekannten Preise auf diesem Gerät. Füge Bindtopia auf dem iPhone zum Home-Bildschirm hinzu, sonst löscht Safari dies nach einer Woche ohne Nutzung."
 }

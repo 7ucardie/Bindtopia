@@ -4,7 +4,8 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: 0,
   reporter: process.env.CI ? [['list'], ['html', {open: 'never'}]] : 'list',
-  use: {baseURL: 'http://127.0.0.1:4173', trace: 'retain-on-failure'},
+  // The offline service worker is blocked by default so page.route() keeps seeing every request; offline.spec.mjs enables it.
+  use: {baseURL: 'http://127.0.0.1:4173', trace: 'retain-on-failure', serviceWorkers: 'block'},
   webServer: {command: 'node tests/serve.mjs', url: 'http://127.0.0.1:4173', reuseExistingServer: !process.env.CI, env: {PORT: '4173'}},
   projects: [
     // Chromium's fake camera lets the webcam flow run headless.
