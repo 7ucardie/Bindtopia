@@ -1,4 +1,4 @@
-# Bindtopia — preview specification
+# Bindtopia — specification
 
 A fan-made, ad-free card catalog with local scanning and collection tools. Static web frontend; native SwiftUI development project for iOS 17+.
 
@@ -12,7 +12,7 @@ A fan-made, ad-free card catalog with local scanning and collection tools. Stati
 - Eight interface languages with English as the default (a visitor's own choice is remembered), and a separate card-language choice.
 - Approved sunny island theme (single theme; the dark theme was removed). Original card images remain separate CSS-positioned layers.
 - Original ocean-orb brand, light/dark outlined wordmarks, favicon, PWA and native icon assets.
-- Draft privacy/cookie/usage/rights information in Dutch and English.
+- Privacy, cookie, terms and rights pages in Dutch and English; the operator is the GitHub account 7ucardie, contact through GitHub Issues.
 
 ## Repository contract
 
@@ -22,14 +22,12 @@ A fan-made, ad-free card catalog with local scanning and collection tools. Stati
 - REVIEW.md and the PR template define review evidence; CLAUDE.md points to the same project instructions.
 - Include skills, docs and applicable notices in source archives.
 
-## Delivery and launch work
+## Delivery
 
-- GitHub target: `7ucardie/Bindtopia`; source writes currently fail with integration permissions.
-- Registered domain: `bindtopia.com`; prepared configuration does not mean DNS or Pages is active.
-- Keep the existing preview private while visual iterations are underway; follow explicit publication instructions.
-- Finalize legal operator/contact information, hosting disclosures and third-party image rights before public launch.
-- Compile, sign and device-test the native app in Xcode before TestFlight. A source archive is not a signed app.
-- The daily Actions update becomes active only after source delivery to the default branch; deployment requires Pages setup and its repository variable.
+- GitHub: `7ucardie/Bindtopia`, branch `main`; CI runs on every push.
+- Live at https://bindtopia.com through GitHub Pages (custom domain, Enforce HTTPS). Changes are published with the Pages workflow after CI passes. The daily catalog update validates and commits data; it also publishes when the repository variable `PAGES_ENABLED` is `true` (currently not set).
+- Third-party image and card-text rights stay with their owners (see the rights page).
+- The native app is not built in CI: compile, sign and device-test it in Xcode before TestFlight. It does not yet have the web's trade mode, market prices or picture recognition.
 
 ## Deferred
 
@@ -37,7 +35,7 @@ Cloud accounts/synchronization, shared collections, richer collection management
 
 ## Outside the current scope
 
-Marketplace transactions, investment guidance, authoritative grading, authenticity certification and a live valuation feed are not implemented. Visitor statistics use cookieless Cloudflare Web Analytics only when a token is configured, and never under Do Not Track or Global Privacy Control. The project has no revenue model; GitHub Sponsors is voluntary. Card languages are measured daily against TCGdex (up to 15, including Chinese, Korean, Thai and Indonesian) with a matching OCR model each. Camera recognition also compares the card picture with perceptual fingerprints of about 22,000 catalog images (weekly workflow, accuracy reported per run), which also maps other-language cards to the English print with the same artwork. Trade mode scans the live camera locally until a card is recognised (with progress, attempt count and a not-found remark), shows the market's headline price, and keeps an in-memory give/get list with totals. An MCP server (`mcp/server.mjs`, stdio, hosted in this repository) exposes search_cards, get_card, list_sets and get_set to AI assistants. Prices are ordered for a regional market (estimated locally from time zone and language, never from IP) with approximate local currency via ECB rates. A free, read-only static JSON API (`/api/v1/`, OpenAPI 3.1) publishes the English catalog with set release years for public developers. Cards, sets and card details show the set's year of release. Card detail shows indicative prices supplied by TCGdex (Cardmarket, TCGplayer) when available, and an opt-in button loads the official card text in the interface language.
+Marketplace transactions, investment guidance, authoritative grading, authenticity certification and a live valuation feed are not implemented. Visitor statistics use cookieless Cloudflare Web Analytics only when a token is configured, and never under Do Not Track or Global Privacy Control. The project has no revenue model; GitHub Sponsors is voluntary. Card languages are measured daily against TCGdex: a language with at least 300 cards is offered with a matching OCR model (currently 11, including Chinese, Thai and Indonesian; Korean is below the threshold). Camera recognition also compares the card picture with perceptual fingerprints of about 22,000 catalog images (weekly workflow, accuracy reported per run), which also maps other-language cards to the English print with the same artwork. Trade mode scans the live camera locally until a card is recognised (with progress, attempt count and a not-found remark), shows the market's headline price, and keeps an in-memory give/get list with totals. An MCP server (`mcp/server.mjs`, stdio, hosted in this repository) exposes search_cards, get_card, list_sets and get_set to AI assistants. Prices are ordered for a regional market (estimated locally from time zone and language, never from IP) with approximate local currency via ECB rates. A free, read-only static JSON API (`/api/v1/`, OpenAPI 3.1) publishes the English catalog with set release years for public developers. Cards, sets and card details show the set's year of release. Card detail shows indicative prices supplied by TCGdex (Cardmarket, TCGplayer) when available, and an opt-in button loads the official card text in the interface language.
 
 ## Next changes
 

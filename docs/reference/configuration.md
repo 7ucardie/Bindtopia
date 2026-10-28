@@ -23,4 +23,4 @@ The native app uses local UserDefaults and a bundled index. It does not share br
 - `.github/workflows/catalog-update.yml`: daily data update; Pages steps require `PAGES_ENABLED=true`.
 - `.github/workflows/github-pages.yml`: manual static deployment.
 
-Do not add user data, API tokens, Apple certificates or signing keys to public configuration. For the complete prepared DNS records, see [HOSTING.md](../../HOSTING.md).
+Do not add user data, API tokens, Apple certificates or signing keys to public configuration. For the DNS records, see [HOSTING.md](../../HOSTING.md).

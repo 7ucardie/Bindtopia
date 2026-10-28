@@ -4,6 +4,8 @@
 
 Use the sunny cinematic island and original full-card overlays. The approved banner contains the Bindtopia name and `FAN-MADE COLLECTOR PROJECT`. Its visual palette comes from the sky, lagoon, sunlit stone and warm sunlight.
 
+`dist/assets/bindtopia-cinematic-day.png` is the master file. The site serves WebP renditions of it (`-720`, `-1100`, `-1672.webp`, via `srcset`); regenerate them with sharp when the master changes and keep the artwork itself unchanged.
+
 | Role | Value / token |
 | --- | --- |
 | Brand wordmark, strongest headings | `#082C55` |

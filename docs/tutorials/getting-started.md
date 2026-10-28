@@ -4,7 +4,7 @@ Use the portal to find a card, save it and make your first backup.
 
 ## 1. Open the catalog
 
-Use the current private preview or serve the source locally as described in the root README. The registered target domain is not evidence that the public site has launched.
+Open https://bindtopia.com, or serve the source locally as described in the root README.
 
 ## 2. Pick the languages
 

@@ -27,10 +27,10 @@
 
 An ad-free Pokémon card catalog and collection companion. Explore cards, identify a card from a photo, save your favorites locally, and check prices at independent sources. Built as a static web portal with a native iPhone development project.
 
-<p align="center"><img src="dist/assets/bindtopia-cinematic-day.png" alt="Approved Bindtopia daytime island artwork with the fan-made collector project title"></p>
+<p align="center"><img src="dist/assets/bindtopia-cinematic-day-1100.webp" alt="Approved Bindtopia daytime island artwork with the fan-made collector project title"></p>
 <p align="center"><sub>Approved daytime brand artwork; not an application screenshot.</sub></p>
 
-**Status:** private preview; no tagged release yet. The target repository is `7ucardie/Bindtopia` and the registered domain is `bindtopia.com`. GitHub write access and public deployment have not been completed. Workflow files and badges are prepared; a CI badge does not establish that a run has occurred. Legal/operator details and the rights basis for card imagery remain launch work.
+**Status:** live at [bindtopia.com](https://bindtopia.com) on GitHub Pages; no tagged release yet. Changes and the daily catalog update are published with the Pages workflow after CI passes. The site is run by the GitHub account 7ucardie (contact through GitHub Issues). Card images and card text belong to their rights holders; see the rights page on the site.
 
 ## What it does
 
@@ -44,8 +44,8 @@ An ad-free Pokémon card catalog and collection companion. Explore cards, identi
 - **Public API and MCP server:** a free read-only JSON API at `bindtopia.com/api/v1/` and an MCP server so AI assistants can look up cards (see below).
 - **Card text translation:** a button shows the official card text in the interface language when TCGdex has it.
 - **Speaks eight interface languages:** Dutch, English, German, French, Spanish, Italian, Portuguese and Polish, with English fallback for untranslated text.
-- **Updates the catalog:** a prepared daily GitHub Actions workflow validates upstream data before committing it.
-- **Includes an iPhone project:** SwiftUI, Apple Vision and a bundled English index. Xcode signing, compilation and device tests still need a Mac.
+- **Updates the catalog:** a daily GitHub Actions workflow validates upstream data before committing it.
+- **Includes an iPhone project:** SwiftUI, Apple Vision and a bundled English index. It is not built in CI, needs a Mac for signing and device tests, and does not yet have trade mode, market prices or picture recognition.
 
 Photos and OCR text stay on the device in the application code. External image, data and OCR-file requests still occur; see [privacy and network behavior](docs/reference/sources.md).
 

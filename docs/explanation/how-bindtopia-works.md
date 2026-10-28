@@ -16,6 +16,6 @@ The island is background/brand artwork. Original full card images remain indepen
 
 ## Updates and hosting
 
-The scheduled workflow fetches and validates source data, updates the checked-in web/native indexes and can deploy the static portal when Pages is enabled. It does not buy domains or bypass repository permissions. GitHub delivery, the current private host and the custom domain are separate states.
+The site runs on GitHub Pages at bindtopia.com. The daily workflow fetches and validates source data, and updates the checked-in web/native indexes; it also publishes when `PAGES_ENABLED` is set. Code changes are published with the Pages workflow after CI passes. Neither bypasses repository permissions.
 
 A backend is warranted when accounts, shared collections or cross-device synchronization become requirements. That would require explicit authentication, authorization, retention and privacy design rather than replacing local storage incidentally.

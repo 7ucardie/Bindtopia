@@ -1,6 +1,6 @@
 # Connect bindtopia.com
 
-The domain has been registered by the owner; code configuration is prepared. DNS and GitHub Pages settings still need to be changed.
+bindtopia.com is connected to GitHub Pages and HTTPS is enforced. Use these steps to check the setup or to connect the domain again, for example after moving DNS.
 
 1. Verify ownership in the correct GitHub account.
 2. Set **Settings → Pages → Custom domain** to `bindtopia.com` before pointing DNS to Pages. With Actions publishing, a CNAME file does not replace this setting.
@@ -8,4 +8,4 @@ The domain has been registered by the owner; code configuration is prepared. DNS
 4. Preserve unrelated MX/TXT records, wait for DNS checks, then enable **Enforce HTTPS** when available.
 5. Check both the apex and www address and update public support/privacy URLs in the app when the new site is confirmed live.
 
-The prepared record values are in [HOSTING.md](../../HOSTING.md). Consult the [GitHub domain instructions](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site) when applying them. A generated CNAME is configuration, not a purchase or DNS change.
+The record values are in [HOSTING.md](../../HOSTING.md). Consult the [GitHub domain instructions](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site) when applying them. A generated CNAME is configuration, not a purchase or DNS change.

@@ -14,6 +14,6 @@
 
 App code does not upload the photo or OCR text. External requests still expose ordinary connection metadata to providers. Analytics is limited to cookieless Cloudflare Web Analytics. There is no embedded payment widget or remote Google Fonts loader. Roboto is self-hosted; exact Flexo remains dependent on licensed files.
 
-Read the deployed privacy/cookie statements before public launch; operator details, hosting contracts and international-processing specifics remain incomplete. Native scanning uses Apple Vision locally, while native card images/details still load externally.
+The privacy and cookie statements on the site describe these requests, the operator (GitHub account 7ucardie) and the hosting. Native scanning uses Apple Vision locally, while native card images/details still load externally.
 
 TCGdex's database license and original artwork rights are separate. See [third-party notices](../../THIRD_PARTY_NOTICES.md). Fan-made attribution does not grant missing rights.

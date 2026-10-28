@@ -1,5 +1,5 @@
 /* Roboto is bundled under OFL. Flexo resolves only if locally installed until a licensed webfont kit is supplied. */
-@font-face{font-family:'Bindtopia Roboto';src:url('fonts/Roboto-Variable.ttf') format('truetype');font-weight:100 900;font-style:normal;font-display:swap}
+@font-face{font-family:'Bindtopia Roboto';src:url('fonts/Roboto-Variable.woff2') format('woff2'),url('fonts/Roboto-Variable.ttf') format('truetype');font-weight:100 900;font-style:normal;font-display:swap}
 @font-face{font-family:'Bindtopia Flexo';src:local('Flexo-Regular'),local('Flexo Regular');font-weight:400;font-style:normal;font-display:swap}
 @font-face{font-family:'Bindtopia Flexo';src:local('Flexo-Medium'),local('Flexo Medium');font-weight:500;font-style:normal;font-display:swap}
 @font-face{font-family:'Bindtopia Flexo';src:local('Flexo-Demi'),local('Flexo Demi');font-weight:600;font-style:normal;font-display:swap}
