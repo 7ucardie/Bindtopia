@@ -51,9 +51,9 @@ test.describe('in English', () => {
   test('the back button closes the card details instead of leaving the site', async ({page}) => {
     await openHome(page);
     await search(page, '4/102');
+    const url = page.url();
     await page.locator('#grid .card', {hasText: 'base1-4'}).locator('.art').click();
     await expect(page.locator('#modal')).toBeVisible();
-    const url = page.url();
     await page.goBack();
     await expect(page.locator('#modal')).toBeHidden();
     expect(page.url()).toBe(url);

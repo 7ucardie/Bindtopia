@@ -6,7 +6,7 @@ A fan-made, ad-free card catalog with local scanning and collection tools. Stati
 
 - English card/set JSON index, source metadata and validated upstream synchronization.
 - Live TCGdex card details, images and additional card languages.
-- Search by name, source ID or collector number; filters, sorting and detail dialogs.
+- Search by name, source ID or collector number; filters, sorting and detail dialogs. Each card detail has a shareable address (`?card=<id>`) and a share button; `robots.txt`, `sitemap.xml` and a `404.html` page are published with the site.
 - Web OCR on device with name/number/set-total candidate matching, from a chosen photo, the phone camera or a desktop browser webcam; native Apple Vision scanning.
 - Browser-local collection, version-2 backup import/export and scoped deletion controls.
 - Eight interface languages with English as the default (a visitor's own choice is remembered), and a separate card-language choice.

@@ -16,7 +16,7 @@ test('every page and its local assets and links are served', async () => {
     const html = readFileSync(new URL(page, dist), 'utf8');
     for (const [, ref] of html.matchAll(/(?:src|href)="([^"#]+)/g)) {
       if (/^(https?:|mailto:|data:|javascript:)/.test(ref)) continue;
-      const path = ref.replace(/&amp;/g, '&').split('?')[0];
+      const path = ref.replace(/&amp;/g, '&').split('?')[0].replace(/^\//, '');
       if (!path || seen.has(path)) continue;
       seen.add(path);
       assert.equal((await fetch(base + path)).status, 200, `${page} -> ${ref}`);

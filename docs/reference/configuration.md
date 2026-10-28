@@ -11,6 +11,7 @@
 | Setting | Meaning |
 | --- | --- |
 | `?ui=nl` (or another supported interface code) | Interface language |
+| `?card=base1-4` (a catalog card ID) | Opens that card's details once the catalog has loaded; set while a detail is open, removed when it closes. Unknown IDs are ignored |
 | Card-language sidebar choice | Catalog and OCR language; separate from interface |
 | `kaartkompas-saved-v2` | Existing collection localStorage key; preserve for compatibility |
 | `kaartkompas-saved` | Legacy key removed by deletion controls |
