@@ -30,7 +30,7 @@ An ad-free Pokémon card catalog and collection companion. Explore cards, identi
 <p align="center"><img src="dist/assets/bindtopia-cinematic-day-1100.webp" alt="Approved Bindtopia daytime island artwork with the fan-made collector project title"></p>
 <p align="center"><sub>Approved daytime brand artwork; not an application screenshot.</sub></p>
 
-**Status:** live at [bindtopia.com](https://bindtopia.com) on GitHub Pages; no tagged release yet. Every push to `main` is published automatically once CI passes; the daily catalog update publishes when `PAGES_ENABLED` is set. The site is run by the GitHub account 7ucardie (contact through GitHub Issues). Card images and card text belong to their rights holders; see the rights page on the site.
+**Status:** live at [bindtopia.com](https://bindtopia.com) on GitHub Pages; no tagged release yet. Every push to `main` is published automatically once CI passes, and so are new cards from the daily TCGdex update and new picture fingerprints. The site is run by the GitHub account 7ucardie (contact through GitHub Issues). Card images and card text belong to their rights holders; see the rights page on the site.
 
 ## What it does
 

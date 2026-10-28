@@ -25,7 +25,7 @@ A fan-made, ad-free card catalog with local scanning and collection tools. Stati
 ## Delivery
 
 - GitHub: `7ucardie/Bindtopia`, branch `main`; CI runs on every push.
-- Live at https://bindtopia.com through GitHub Pages (custom domain, Enforce HTTPS). Every push to `main` is published automatically once CI passes (only while it is still the newest commit). The daily catalog update validates and commits data; it also publishes when the repository variable `PAGES_ENABLED` is `true` (currently not set).
+- Live at https://bindtopia.com through GitHub Pages (custom domain, Enforce HTTPS). Every push to `main` is published automatically once CI passes (only while it is still the newest commit). The daily catalog update and the weekly fingerprint run validate and commit data; when they committed something, the Pages workflow publishes it.
 - Third-party image and card-text rights stay with their owners (see the rights page).
 - The native app is not built in CI: compile, sign and device-test it in Xcode before TestFlight. It does not yet have the web's trade mode, market prices or picture recognition.
 

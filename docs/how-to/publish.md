@@ -8,4 +8,4 @@ The site is served from `dist/` by GitHub Pages at https://bindtopia.com.
 
 To publish without a new commit (for example after changing Pages settings), use **Actions → Publish catalog to GitHub Pages → Run workflow**.
 
-The daily catalog update commits with the workflow token, which does not start CI; it validates the data itself and publishes when the repository variable `PAGES_ENABLED` is `true`. GitHub Pages is public and serves static files only, not a collection database or server-side secrets.
+The daily catalog update and the weekly fingerprint run validate their data themselves and commit it with the workflow token (which does not start CI). When such a run committed new data and that commit is still the newest on `main`, the Pages workflow publishes it; a run without changes publishes nothing. GitHub Pages is public and serves static files only, not a collection database or server-side secrets.

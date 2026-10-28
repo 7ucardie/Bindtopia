@@ -13,4 +13,4 @@ The updater fetches English cards and sets from TCGdex. It checks minimum covera
 
 The scheduled workflow runs daily at 05:23 UTC, subject to GitHub scheduling delays. It commits changed web/native indexes. Public repositories can have scheduled workflows disabled after 60 days without activity. Enable failure notifications in GitHub.
 
-The repository variable `PAGES_ENABLED=true` lets the same run publish to GitHub Pages; without it the update is only committed. An installed native app receives a new bundled index only with a new app build.
+When the run committed new data, **Publish catalog to GitHub Pages** starts by itself and publishes it; without changes nothing is published. An installed native app receives a new bundled index only with a new app build.

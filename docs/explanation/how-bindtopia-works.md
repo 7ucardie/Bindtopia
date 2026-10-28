@@ -16,6 +16,6 @@ The island is background/brand artwork. Original full card images remain indepen
 
 ## Updates and hosting
 
-The site runs on GitHub Pages at bindtopia.com. The daily workflow fetches and validates source data, and updates the checked-in web/native indexes; it also publishes when `PAGES_ENABLED` is set. Code changes are published automatically once CI passes on `main`. Neither bypasses repository permissions.
+The site runs on GitHub Pages at bindtopia.com. The daily workflow fetches and validates source data, and updates the checked-in web/native indexes; the Pages workflow then publishes the new data. Code changes are published automatically once CI passes on `main`. Neither bypasses repository permissions.
 
 A backend is warranted when accounts, shared collections or cross-device synchronization become requirements. That would require explicit authentication, authorization, retention and privacy design rather than replacing local storage incidentally.

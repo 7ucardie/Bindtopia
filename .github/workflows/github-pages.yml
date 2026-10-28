@@ -1,9 +1,10 @@
 name: Publish catalog to GitHub Pages
-# Publishes the site after CI passes on a push to main, or by hand (Run workflow).
+# Publishes the site after CI passes on a push to main, after the daily catalog update or the weekly fingerprint
+# run committed new data, or by hand (Run workflow). This is the only workflow that publishes.
 on:
   workflow_dispatch:
   workflow_run:
-    workflows: [CI]
+    workflows: [CI, Update TCGdex catalog, Build card image fingerprints]
     types: [completed]
     branches: [main]
 permissions:
@@ -14,26 +15,40 @@ concurrency:
   group: catalog-and-pages
   cancel-in-progress: false
 jobs:
-  # Only a green CI run for a push to main in this repository, never a pull request or a fork; and only while the
-  # tested commit is still the newest on main (a newer push publishes itself after its own CI).
+  # Publishes only after a successful run in this repository: CI for a push to main (never a pull request or a fork),
+  # or a data workflow on schedule or by hand.
   gate:
     if: >-
       github.event_name == 'workflow_dispatch' ||
       (github.event.workflow_run.conclusion == 'success' &&
-       github.event.workflow_run.event == 'push' &&
-       github.event.workflow_run.head_repository.full_name == github.repository)
+       github.event.workflow_run.head_repository.full_name == github.repository &&
+       (github.event.workflow_run.name != 'CI' || github.event.workflow_run.event == 'push'))
     runs-on: ubuntu-latest
-    permissions: {}
+    permissions:
+      contents: read
     outputs:
-      publish: ${{ steps.newest.outputs.publish }}
+      publish: ${{ steps.decide.outputs.publish }}
     steps:
-      - id: newest
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      # CI: the tested commit must still be the newest on main (a newer push publishes itself after its own CI).
+      # Data workflows: main must hold a new data commit by the workflow bot; without changes there is nothing to publish,
+      # and a newer code commit on top waits for its own CI.
+      - id: decide
         env:
-          TESTED: ${{ github.event.workflow_run.head_sha }}
+          EVENT: ${{ github.event_name }}
+          SOURCE: ${{ github.event.workflow_run.name }}
+          STARTED: ${{ github.event.workflow_run.head_sha }}
           NEWEST: ${{ github.sha }}
         run: |
-          if [ -z "$TESTED" ] || [ "$TESTED" = "$NEWEST" ]; then echo "publish=true" >> "$GITHUB_OUTPUT"
-          else echo "main moved on from $TESTED to $NEWEST; its own CI run publishes it"; echo "publish=false" >> "$GITHUB_OUTPUT"; fi
+          author=$(git log -1 --format=%an)
+          if [ "$EVENT" = workflow_dispatch ]; then publish=true
+          elif [ "$SOURCE" = CI ]; then [ "$STARTED" = "$NEWEST" ] && publish=true || publish=false
+          else [ "$STARTED" != "$NEWEST" ] && [ "$author" = 'github-actions[bot]' ] && publish=true || publish=false
+          fi
+          echo "$SOURCE${SOURCE:+: }started on $STARTED, main is $NEWEST by $author; publish=$publish"
+          echo "publish=$publish" >> "$GITHUB_OUTPUT"
   deploy:
     needs: gate
     if: needs.gate.outputs.publish == 'true'

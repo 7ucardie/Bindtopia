@@ -25,7 +25,7 @@ De frontend kan statisch blijven, maar privégegevens horen dan achter authentic
 
 ## Automatische updates, Sponsors en analytics
 
-De dagelijkse catalogusupdate staat in `.github/workflows/catalog-update.yml`; automatische publicatie vereist de repositoryvariabele `PAGES_ENABLED=true`. De workflow valideert de data voordat hij commit en publiceert, en omzeilt geen branchbeveiliging. De sponsorconfiguratie (vrijwillig, via GitHub Sponsors) staat in `.github/FUNDING.yml`. Cloudflare Web Analytics wordt actief zodra `cloudflareAnalyticsToken` in `project.config.json` is ingevuld en `node scripts/configure-project.mjs` is gedraaid. De juridische teksten worden bewaakt door `tests/integration/privacy.test.mjs`.
+De dagelijkse catalogusupdate staat in `.github/workflows/catalog-update.yml`. Die valideert de data voordat hij commit; heeft hij iets gecommit, dan publiceert `github-pages.yml` dat vanzelf (net als na de wekelijkse vingerafdrukken-run). Geen van beide omzeilt branchbeveiliging. De sponsorconfiguratie (vrijwillig, via GitHub Sponsors) staat in `.github/FUNDING.yml`. Cloudflare Web Analytics wordt actief zodra `cloudflareAnalyticsToken` in `project.config.json` is ingevuld en `node scripts/configure-project.mjs` is gedraaid. De juridische teksten worden bewaakt door `tests/integration/privacy.test.mjs`.
 
 ## DNS voor bindtopia.com
 
