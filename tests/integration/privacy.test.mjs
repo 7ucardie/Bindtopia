@@ -25,9 +25,9 @@ test('no cookies, ads, third-party fonts or analytics other than cookieless Clou
 });
 
 test('analytics only loads with a valid token and respects Do Not Track and Global Privacy Control', () => {
-  const fn = read('app.mjs').match(/function loadAnalytics\(token\)\{(.*?)\}\n/)[1];
+  const fn = read('app.mjs').match(/function loadAnalytics\(token\) \{([\s\S]*?)\n\}/)[1];
   assert.match(fn, /\^\[a-f0-9\]\{32\}\$/);
-  assert.match(fn, /doNotTrack==='1'/);
+  assert.match(fn, /doNotTrack === '1'/);
   assert.match(fn, /globalPrivacyControl/);
 });
 

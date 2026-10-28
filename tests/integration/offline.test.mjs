@@ -14,7 +14,8 @@ test('every file in the offline list exists', () => {
 });
 
 test('the offline list covers the modules, styles, data and locales the start page loads', () => {
-  const index = read('index.html'), app = read('app.mjs');
+  const index = read('index.html');
+  const app = readdirSync(dist).filter(f => f.endsWith('.mjs')).map(read).join('\n');
   const used = [
     ...readdirSync(dist).filter(f => f.endsWith('.mjs') && f !== 'privacy-controls.mjs'),
     ...[...index.matchAll(/<(?:script|link rel="stylesheet")[^>]*(?:src|href)="([^"#:?]+)"/g)].map(m => m[1]),

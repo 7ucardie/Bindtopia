@@ -7,12 +7,14 @@ Start with [AGENTS.md](AGENTS.md), the mandatory project design skill, [SPEC.md]
 Run the checks affected by your change:
 
 ```sh
-node --check dist/app.mjs
+node scripts/check-syntax.mjs
 node scripts/check.mjs
 node scripts/check-i18n.mjs
 node scripts/check-sync.mjs
 node scripts/check-docs.mjs
 ```
+
+Browser code in `dist/` is formatted with Prettier using `.prettierrc.json` (`npx prettier@3.3.3 --write "dist/*.mjs" dist/sw.js`); keep one module per part of the page and route shared state through `dist/state.mjs`.
 
 The full suite (checks, unit, integration and Playwright end-to-end tests) runs with `npm ci && npx playwright install chromium && npm test`. CI runs the same suites plus `npm audit`, Gitleaks and Trivy; pin any new workflow action to a commit SHA.
 

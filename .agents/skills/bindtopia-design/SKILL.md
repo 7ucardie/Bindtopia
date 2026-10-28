@@ -10,7 +10,7 @@ Treat the current approved design as the baseline for additional work. Extend it
 ## Load the baseline
 
 1. Read `references/design-system.md` before changing UI or branded assets.
-2. Inspect the affected implementation. For web changes, inspect `dist/index.html`, `dist/style.css`, `dist/themes.css`, `dist/typography.css`, and `dist/theme.js` as appropriate. Read `dist/app.mjs` and `dist/i18n.mjs` when changing behavior or text.
+2. Inspect the affected implementation. For web changes, inspect `dist/index.html`, `dist/style.css`, `dist/themes.css`, `dist/typography.css`, and `dist/theme.js` as appropriate. Read `dist/app.mjs` (it lists which module owns which part of the page), the affected module and `dist/i18n.mjs` when changing behavior or text.
 3. Inspect the approved image or logo asset when making a visual change to it. Use `dist/branding.html` as the brand specimen.
 
 ## Preserve the identity
@@ -44,6 +44,6 @@ Inspect the existing audience and hosting configuration before deployment. Do no
 
 ## Verify and maintain
 
-Run checks proportionate to the actual change: `node --check dist/app.mjs`, `node scripts/check.mjs`, `node scripts/check-i18n.mjs`, and `node scripts/check-sync.mjs` when their behavior is affected. Check local asset links and mobile and desktop presentation for UI work. Report browser or native-build verification limits accurately.
+Run checks proportionate to the actual change: `node scripts/check-syntax.mjs`, `node scripts/check.mjs`, `node scripts/check-i18n.mjs`, and `node scripts/check-sync.mjs` when their behavior is affected. Check local asset links and mobile and desktop presentation for UI work. Report browser or native-build verification limits accurately.
 
 If a user explicitly changes an approved design decision, update the implementation and this skill's reference together. Commit and push to the actual destination before claiming it is saved there; distinguish source-host persistence from GitHub delivery if permissions block one of them.

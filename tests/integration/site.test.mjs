@@ -25,9 +25,17 @@ test('every page and its local assets and links are served', async () => {
   assert.ok(seen.size > 10);
 });
 
-test('module imports in app.mjs resolve', async () => {
-  for (const [, mod] of readFileSync(new URL('app.mjs', dist), 'utf8').matchAll(/from '\.\/([^']+)'/g))
-    assert.equal((await fetch(base + mod)).status, 200, mod);
+test('module imports from app.mjs resolve, through every imported module', async () => {
+  const seen = new Set(), queue = ['app.mjs'];
+  while (queue.length) {
+    const mod = queue.pop();
+    if (seen.has(mod)) continue;
+    seen.add(mod);
+    const r = await fetch(base + mod);
+    assert.equal(r.status, 200, mod);
+    for (const [, next] of (await r.text()).matchAll(/from '\.\/([^']+)'/g)) queue.push(next);
+  }
+  assert.ok(seen.size > 10, 'app.mjs is split into modules');
 });
 
 test('catalog data is consistent and served as JSON', async () => {

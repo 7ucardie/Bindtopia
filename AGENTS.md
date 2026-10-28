@@ -17,7 +17,7 @@ The web portal is buildless HTML/CSS/JavaScript in `dist/`. Read the affected fi
 
 Run the relevant existing checks; do not introduce a framework, package installation or lint pass for a small reversible change. For behavior changes, the available checks are:
 
-- `node --check dist/app.mjs`
+- `node scripts/check-syntax.mjs`
 - `node scripts/check.mjs`
 - `node scripts/check-i18n.mjs`
 - `node scripts/check-sync.mjs`

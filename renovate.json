@@ -22,7 +22,7 @@
       "groupName": "GitHub Actions"
     },
     {
-      "description": "Pinned to the Tesseract versions dist/app.mjs loads from the CDN (with SRI); update together by hand",
+      "description": "Pinned to the Tesseract versions dist/ocr.mjs loads from the CDN (with SRI); update together by hand",
       "matchPackageNames": [
         "tesseract.js",
         "tesseract.js-core",

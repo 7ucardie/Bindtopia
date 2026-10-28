@@ -28,7 +28,7 @@ jobs:
       - name: Fetch ECB exchange rates for price conversions
         run: node scripts/sync-rates.mjs
       - name: Check matching and update guards
-        run: node scripts/check.mjs && node scripts/check-i18n.mjs && node scripts/check-sync.mjs && node --check dist/app.mjs && node scripts/check-docs.mjs
+        run: node scripts/check.mjs && node scripts/check-i18n.mjs && node scripts/check-sync.mjs && node scripts/check-syntax.mjs && node scripts/check-docs.mjs
       - name: Commit changed catalog
         run: |
           git config user.name 'github-actions[bot]'

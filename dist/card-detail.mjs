@@ -1,16 +1,94 @@
 // Pure helpers for the card detail dialog; kept DOM-free so they can be unit tested.
-export const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-export function detailRow(label,value){return value!==undefined&&value!==null&&value!==''?'<tr><th>'+escape(label)+'</th><td>'+escape(value)+'</td></tr>':''}
-export function cardTextHtml(x){const attacks=(x.attacks||[]).map(a=>'<div class="attack"><strong>'+escape(a.name)+' '+escape(a.damage||'')+'</strong><p>'+escape(a.effect||'')+'</p><small>'+escape(a.cost?.join(' · ')||'')+'</small></div>').join('');const abilities=(x.abilities||[]).map(a=>'<div class="attack"><strong>'+escape(a.name)+'</strong><p>'+escape(a.effect)+'</p></div>').join('');return (x.description?'<p>'+escape(x.description)+'</p>':'')+abilities+attacks}
-import {convert} from './markets.mjs';
-const money=(n,cur,locale)=>typeof n==='number'&&isFinite(n)&&n>0?new Intl.NumberFormat(locale,{style:'currency',currency:cur}).format(n):'';
-const priceDay=(v,locale)=>{const t=new Date(v);return v&&!isNaN(t)?t.toLocaleDateString(locale,{timeZone:'UTC'}):''};
-const priceUnit=(u,d)=>/^[A-Z]{3}$/.test(u)?u:d;
-function priceTable(rows,updated,locale){const body=rows.map(([l,v])=>v?detailRow(l,v):'').join('');return body?'<table>'+body+detailRow('Bijgewerkt',priceDay(updated,locale))+'</table>':''}
+export const escape = s =>
+  String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+export function detailRow(label, value) {
+  return value !== undefined && value !== null && value !== ''
+    ? '<tr><th>' + escape(label) + '</th><td>' + escape(value) + '</td></tr>'
+    : '';
+}
+export function cardTextHtml(x) {
+  const attacks = (x.attacks || [])
+    .map(
+      a =>
+        '<div class="attack"><strong>' +
+        escape(a.name) +
+        ' ' +
+        escape(a.damage || '') +
+        '</strong><p>' +
+        escape(a.effect || '') +
+        '</p><small>' +
+        escape(a.cost?.join(' · ') || '') +
+        '</small></div>',
+    )
+    .join('');
+  const abilities = (x.abilities || [])
+    .map(a => '<div class="attack"><strong>' + escape(a.name) + '</strong><p>' + escape(a.effect) + '</p></div>')
+    .join('');
+  return (x.description ? '<p>' + escape(x.description) + '</p>' : '') + abilities + attacks;
+}
+import { convert } from './markets.mjs';
+const money = (n, cur, locale) =>
+  typeof n === 'number' && isFinite(n) && n > 0 ? new Intl.NumberFormat(locale, { style: 'currency', currency: cur }).format(n) : '';
+const priceDay = (v, locale) => {
+  const t = new Date(v);
+  return v && !isNaN(t) ? t.toLocaleDateString(locale, { timeZone: 'UTC' }) : '';
+};
+const priceUnit = (u, d) => (/^[A-Z]{3}$/.test(u) ? u : d);
+function priceTable(rows, updated, locale) {
+  const body = rows.map(([l, v]) => (v ? detailRow(l, v) : '')).join('');
+  return body ? '<table>' + body + detailRow('Bijgewerkt', priceDay(updated, locale)) + '</table>' : '';
+}
 // Amount in the source currency, plus an approximate amount in the visitor's market currency when rates allow it.
-function amount(n,cur,locale,local){const base=money(n,cur,locale);if(!base||!local?.currency||local.currency===cur)return base;const c=convert(n,cur,local.currency,local.rates);return c?base+' (≈ '+money(c,local.currency,locale)+')':base}
-export function priceBlock(p,locale,local={}){if(!p||typeof p!=='object')return '';const parts={};const cm=p.cardmarket;if(cm&&typeof cm==='object'){const cur=priceUnit(cm.unit,'EUR');const t=priceTable([['Laagste',amount(cm.low,cur,locale,local)],['Trend',amount(cm.trend,cur,locale,local)],['Gemiddeld',amount(cm.avg,cur,locale,local)]],cm.updated,locale);if(t)parts.cardmarket='<h4>Cardmarket</h4>'+t}const tp=p.tcgplayer;if(tp&&typeof tp==='object'){const cur=priceUnit(tp.unit,'USD');let out='';for(const [name,v] of Object.entries(tp).filter(([,v])=>v&&typeof v==='object').slice(0,3)){const t=priceTable([['Laagste',amount(v.lowPrice,cur,locale,local)],['Marktprijs',amount(v.marketPrice,cur,locale,local)],['Hoogste',amount(v.highPrice,cur,locale,local)]],tp.updated,locale);if(t)out+='<h4>TCGplayer · '+escape(name)+'</h4>'+t}if(out)parts.tcgplayer=out}const order=local.prefer==='tcgplayer'?['tcgplayer','cardmarket']:['cardmarket','tcgplayer'];return order.map(k=>parts[k]||'').join('')}
+function amount(n, cur, locale, local) {
+  const base = money(n, cur, locale);
+  if (!base || !local?.currency || local.currency === cur) return base;
+  const c = convert(n, cur, local.currency, local.rates);
+  return c ? base + ' (≈ ' + money(c, local.currency, locale) + ')' : base;
+}
+export function priceBlock(p, locale, local = {}) {
+  if (!p || typeof p !== 'object') return '';
+  const parts = {};
+  const cm = p.cardmarket;
+  if (cm && typeof cm === 'object') {
+    const cur = priceUnit(cm.unit, 'EUR');
+    const t = priceTable(
+      [
+        ['Laagste', amount(cm.low, cur, locale, local)],
+        ['Trend', amount(cm.trend, cur, locale, local)],
+        ['Gemiddeld', amount(cm.avg, cur, locale, local)],
+      ],
+      cm.updated,
+      locale,
+    );
+    if (t) parts.cardmarket = '<h4>Cardmarket</h4>' + t;
+  }
+  const tp = p.tcgplayer;
+  if (tp && typeof tp === 'object') {
+    const cur = priceUnit(tp.unit, 'USD');
+    let out = '';
+    for (const [name, v] of Object.entries(tp)
+      .filter(([, v]) => v && typeof v === 'object')
+      .slice(0, 3)) {
+      const t = priceTable(
+        [
+          ['Laagste', amount(v.lowPrice, cur, locale, local)],
+          ['Marktprijs', amount(v.marketPrice, cur, locale, local)],
+          ['Hoogste', amount(v.highPrice, cur, locale, local)],
+        ],
+        tp.updated,
+        locale,
+      );
+      if (t) out += '<h4>TCGplayer · ' + escape(name) + '</h4>' + t;
+    }
+    if (out) parts.tcgplayer = out;
+  }
+  const order = local.prefer === 'tcgplayer' ? ['tcgplayer', 'cardmarket'] : ['cardmarket', 'tcgplayer'];
+  return order.map(k => parts[k] || '').join('');
+}
 // Card IDs may contain characters that are unsafe in a URL path (e.g. "exu-!"); the public API encodes those as _HEX.
 export const fileId = id => id.replace(/[^A-Za-z0-9._-]/g, c => '_' + c.codePointAt(0).toString(16).toUpperCase());
 // The most recent date at which TCGdex updated any of the shown price sources (ISO string or '').
-export function priceDate(p){const d=[p?.cardmarket?.updated,p?.tcgplayer?.updated].filter(v=>v&&!isNaN(new Date(v)));return d.sort().pop()||''}
+export function priceDate(p) {
+  const d = [p?.cardmarket?.updated, p?.tcgplayer?.updated].filter(v => v && !isNaN(new Date(v)));
+  return d.sort().pop() || '';
+}

@@ -5,7 +5,7 @@ Run commands from the repository root.
 | Command | Purpose |
 | --- | --- |
 | `python3 -m http.server 8000 --directory dist` | Serve the static portal locally |
-| `node --check dist/app.mjs` | Check JavaScript syntax |
+| `node scripts/check-syntax.mjs` | Check the syntax of every module in `dist/` and the service worker |
 | `node scripts/check.mjs` | Validate catalog integrity and matching cases |
 | `node scripts/check-i18n.mjs` | Validate interface dictionaries, fallback and Japanese matching |
 | `node scripts/check-sync.mjs` | Validate updater acceptance/rejection cases |

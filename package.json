@@ -13,7 +13,7 @@
     "dist/markets.mjs"
   ],
   "scripts": {
-    "check": "node --check dist/app.mjs && node scripts/check.mjs && node scripts/check-i18n.mjs && node scripts/check-sync.mjs && node scripts/check-docs.mjs",
+    "check": "node scripts/check-syntax.mjs && node scripts/check.mjs && node scripts/check-i18n.mjs && node scripts/check-sync.mjs && node scripts/check-docs.mjs",
     "test:unit": "node --test \"tests/unit/*.test.mjs\"",
     "test:integration": "node scripts/build-api.mjs && node --test \"tests/integration/*.test.mjs\"",
     "test:e2e": "playwright test",

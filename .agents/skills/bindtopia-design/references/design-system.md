@@ -38,7 +38,7 @@ Use real HTML for newly added text/actions. The approved artwork's embedded bran
 - `dist/themes.css`: shared island palette rules.
 - `dist/typography.css`: final approved typography, banner, light palette and wordmarks. 
 - `dist/i18n.mjs` and `dist/locales/`: Dutch, English, German, French, Spanish, Italian, Portuguese and Polish interface text; English fallback.
-- `dist/app.mjs`: catalog, filters, dialogs, local collection and OCR behavior.
+- `dist/app.mjs`: start-up wiring only. Behavior lives in one module per part: `catalog.mjs` (search, filters, grid), `detail.mjs` (card dialog, prices, sharing), `collection.mjs` (saved cards, backups), `scanner.mjs` (photo/camera scan), `trade-mode.mjs`, `ocr.mjs` (shared text/picture recognition), with `state.mjs`, `ui.mjs` and `dialogs.mjs` shared.
 - `dist/branding.html`: approved brand reference.
 
 The repository target is `7ucardie/Bindtopia`; the registered target domain is `bindtopia.com`. Read `project.config.json` and actual hosting state instead of assuming GitHub delivery, Pages activation or public DNS has succeeded. A configured target is not proof of deployment.
