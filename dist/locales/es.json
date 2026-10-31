@@ -83,7 +83,6 @@
   "Open-source-code (MIT)": "Código abierto (MIT)",
   "♡ Steun via GitHub Sponsors": "♡ Apoya en GitHub Sponsors",
   "MIT-licentie": "Licencia MIT",
-  "Engelse index:": "Índice inglés:",
   "Kaartgegevens:": "Datos de cartas:",
   "Fotografeer één kaart recht van boven, zonder reflectie. Zorg dat de naam bovenaan en het nummer onderaan scherp zijn.": "Photograph one card from directly above, without glare. Keep the name at the top and the number at the bottom sharp.",
   "De foto blijft op dit toestel. Tekstherkenning werkt lokaal; bij de eerste scan worden herkenningsbestanden gedownload. Controleer altijd de set, het nummer en de afbeelding. Deze scanner herkent geen echtheid, conditie of drukvariant.": "Your photo stays on this device. Text recognition runs locally after recognition files are downloaded. Always check the set, number and image. This scanner cannot verify authenticity, condition or print variant.",
@@ -91,8 +90,6 @@
   "Kaartinformatie verschijnt bij het openen. Niet elke vermelding heeft al een afbeelding.": "Open a card to see its details. Some entries do not have an image yet.",
   "◈ bindtopia · Onafhankelijk fanproject.": "◈ bindtopia · Independent fan project.",
   "Pokémon-afbeeldingen © hun respectieve rechthebbenden. Geen officiële samenwerking.": "Pokémon images © their respective rights holders. No official affiliation.",
-  "· Andere talen: live opgehaald": "· Other card languages: fetched live",
-  "iPhone: Deel → Zet op beginscherm ·": "iPhone: Share → Add to Home Screen ·",
   "Bindtopia — zoek, scan en verzamel": "Bindtopia — search, scan and collect",
   "Je hebt hier nog geen passende kaarten bewaard.": "You have not saved any matching cards yet.",
   "Gebruik het hartje bij een kaart.": "Use the heart button on a card.",
@@ -224,5 +221,8 @@
   "TCGdex is een open kaartendatabase. Meld de kaart daar, dan komt hij na opname vanzelf in Bindtopia. Alleen naam, set, nummer en taal worden ingevuld; je notitie en prijs niet.": "TCGdex es una base de datos de cartas abierta. Informa allí de la carta y aparecerá en Bindtopia en cuanto se añada. Solo se rellenan el nombre, el set, el número y el idioma; no tu nota ni tu precio.",
   "Meld deze kaart bij TCGdex ↗": "Informar de esta carta a TCGdex ↗",
   "Kaart staat er niet tussen? Handmatig toevoegen": "¿No está la carta? Añádela a mano",
-  "☕ Steun via Ko-fi": "☕ Apoyar en Ko-fi"
+  "☕ Steun via Ko-fi": "☕ Apoyar en Ko-fi",
+  "Engelse index: bijgewerkt": "Índice inglés: actualizado el",
+  ", dagelijks gecontroleerd · Andere talen: live opgehaald": ", comprobado a diario · Otros idiomas de cartas: cargados en directo",
+  "iPhone: Deel → Zet op beginscherm": "iPhone: Compartir → Añadir a pantalla de inicio"
 }

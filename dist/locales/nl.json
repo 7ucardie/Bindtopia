@@ -83,7 +83,6 @@
   "Open-source-code (MIT)": "Open-source-code (MIT)",
   "♡ Steun via GitHub Sponsors": "♡ Steun via GitHub Sponsors",
   "MIT-licentie": "MIT-licentie",
-  "Engelse index:": "Engelse index:",
   "Kaartgegevens:": "Kaartgegevens:",
   "Fotografeer één kaart recht van boven, zonder reflectie. Zorg dat de naam bovenaan en het nummer onderaan scherp zijn.": "Fotografeer één kaart recht van boven, zonder reflectie. Zorg dat de naam bovenaan en het nummer onderaan scherp zijn.",
   "De foto blijft op dit toestel. Tekstherkenning werkt lokaal; bij de eerste scan worden herkenningsbestanden gedownload. Controleer altijd de set, het nummer en de afbeelding. Deze scanner herkent geen echtheid, conditie of drukvariant.": "De foto blijft op dit toestel. Tekstherkenning werkt lokaal; bij de eerste scan worden herkenningsbestanden gedownload. Controleer altijd de set, het nummer en de afbeelding. Deze scanner herkent geen echtheid, conditie of drukvariant.",
@@ -91,8 +90,6 @@
   "Kaartinformatie verschijnt bij het openen. Niet elke vermelding heeft al een afbeelding.": "Kaartinformatie verschijnt bij het openen. Niet elke vermelding heeft al een afbeelding.",
   "◈ bindtopia · Onafhankelijk fanproject.": "◈ bindtopia · Onafhankelijk fanproject.",
   "Pokémon-afbeeldingen © hun respectieve rechthebbenden. Geen officiële samenwerking.": "Pokémon-afbeeldingen © hun respectieve rechthebbenden. Geen officiële samenwerking.",
-  "· Andere talen: live opgehaald": "· Andere talen: live opgehaald",
-  "iPhone: Deel → Zet op beginscherm ·": "iPhone: Deel → Zet op beginscherm ·",
   "Bindtopia — zoek, scan en verzamel": "Bindtopia — zoek, scan en verzamel",
   "Je hebt hier nog geen passende kaarten bewaard.": "Je hebt hier nog geen passende kaarten bewaard.",
   "Gebruik het hartje bij een kaart.": "Gebruik het hartje bij een kaart.",
@@ -224,5 +221,8 @@
   "TCGdex is een open kaartendatabase. Meld de kaart daar, dan komt hij na opname vanzelf in Bindtopia. Alleen naam, set, nummer en taal worden ingevuld; je notitie en prijs niet.": "TCGdex is een open kaartendatabase. Meld de kaart daar, dan komt hij na opname vanzelf in Bindtopia. Alleen naam, set, nummer en taal worden ingevuld; je notitie en prijs niet.",
   "Meld deze kaart bij TCGdex ↗": "Meld deze kaart bij TCGdex ↗",
   "Kaart staat er niet tussen? Handmatig toevoegen": "Kaart staat er niet tussen? Handmatig toevoegen",
-  "☕ Steun via Ko-fi": "☕ Steun via Ko-fi"
+  "☕ Steun via Ko-fi": "☕ Steun via Ko-fi",
+  "Engelse index: bijgewerkt": "Engelse index: bijgewerkt",
+  ", dagelijks gecontroleerd · Andere talen: live opgehaald": ", dagelijks gecontroleerd · Andere talen: live opgehaald",
+  "iPhone: Deel → Zet op beginscherm": "iPhone: Deel → Zet op beginscherm"
 }
