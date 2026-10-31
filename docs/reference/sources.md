@@ -8,7 +8,7 @@
 | jsDelivr | Tesseract.js and recognition core/worker code | After selecting a photo for web OCR |
 | tessdata.projectnaptha.com | OCR language models | When the chosen model is needed |
 | Cloudflare Web Analytics | Cookieless visitor statistics (only with a configured token; off under Do Not Track / Global Privacy Control) | Page load |
-| GitHub Sponsors | Voluntary external support | User follows the link |
+| Ko-fi (and GitHub Sponsors once configured) | Voluntary gifts | User follows the link |
 | TCGdex pricing field | Indicative Cardmarket/TCGplayer prices | Opening a card detail |
 | Offline copy (service worker, Cache Storage on the device) | Site, English catalog, OCR files and viewed card details, prices and images, for use without internet | Saved while browsing; nothing is sent anywhere |
 | External marketplaces | Card-price searches | User follows a price link |

@@ -1,7 +1,9 @@
 import { readFile, writeFile, unlink } from 'node:fs/promises';
 const root = new URL('../', import.meta.url);
 const config = JSON.parse(await readFile(new URL('project.config.json', root), 'utf8'));
-if (!/^[a-z\d](?:[a-z\d-]{0,37}[a-z\d])?$/i.test(config.sponsorsUsername)) throw Error('Invalid Sponsors username');
+// GitHub Sponsors is optional until the account is active; empty hides every Sponsors link.
+const sponsors = (config.sponsorsUsername || '').trim();
+if (sponsors && !/^[a-z\d](?:[a-z\d-]{0,37}[a-z\d])?$/i.test(sponsors)) throw Error('Invalid Sponsors username');
 const analytics = (config.cloudflareAnalyticsToken || '').trim();
 if (analytics && !/^[a-f0-9]{32}$/.test(analytics)) throw Error('Cloudflare Web Analytics token must be 32 hex characters');
 const domain = config.customDomain?.trim().toLowerCase() || '';
@@ -16,11 +18,11 @@ const costs = (config.costs || []).map(c => {
   if (!/^[A-Z]{3}$/.test(c.currency || '')) throw Error('currency must be a 3-letter code');
   return { item: c.item.trim(), itemEn: c.itemEn.trim(), perYear: c.perYear, currency: c.currency };
 });
-await writeFile(new URL('.github/FUNDING.yml', root), 'github: [' + config.sponsorsUsername + ']\n' + (kofi ? 'ko_fi: ' + kofi + '\n' : ''));
+await writeFile(new URL('.github/FUNDING.yml', root), (sponsors ? 'github: [' + sponsors + ']\n' : '') + (kofi ? 'ko_fi: ' + kofi + '\n' : ''));
 await writeFile(
   new URL('dist/project.json', root),
   JSON.stringify({
-    sponsorsUsername: config.sponsorsUsername,
+    sponsorsUsername: sponsors,
     kofiUsername: kofi,
     githubOwner: config.githubOwner,
     repository: config.repository,

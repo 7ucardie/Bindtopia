@@ -18,11 +18,22 @@ test('the rights page lists the costs and shows Ko-fi once configured', async ({
   await expect(page.locator('#kofiLink')).toHaveAttribute('href', 'https://ko-fi.com/bindtopia');
 });
 
-test('without a Ko-fi username the link stays hidden and the costs show without amounts', async ({page}) => {
+test('with the live settings Ko-fi is shown and GitHub Sponsors stays hidden until it is active', async ({page}) => {
   await page.goto('/rechten.html');
   await expect(page.locator('#costs li')).toHaveText(['Domeinnaam bindtopia.com']);
-  await expect(page.locator('.kofi-link')).toBeHidden();
+  await expect(page.locator('.kofi-link')).toHaveAttribute('href', 'https://ko-fi.com/ellertvandervecht');
+  await expect(page.locator('.sponsors-link')).toBeHidden();
   await page.goto('/');
-  await expect(page.locator('#sponsorLink')).toBeVisible();
+  await expect(page.locator('#kofiLink')).toBeVisible();
+  await expect(page.locator('#sponsorLink')).toBeHidden();
+});
+
+test('without a Ko-fi username its links are hidden; a Sponsors username shows GitHub Sponsors', async ({page}) => {
+  await page.route('**/project.json', r => r.fulfill({json: {...config, kofiUsername: '', sponsorsUsername: '7ucardie'}}));
+  await page.goto('/rechten.html');
+  await expect(page.locator('.kofi-link')).toBeHidden();
+  await expect(page.locator('.sponsors-link')).toHaveAttribute('href', 'https://github.com/sponsors/7ucardie');
+  await page.goto('/');
   await expect(page.locator('#kofiLink')).toBeHidden();
+  await expect(page.locator('#sponsorLink')).toBeVisible();
 });

@@ -48,7 +48,7 @@ test('legal pages are final and complete', () => {
   assert.match(legalNl, /zonder verdienmodel/);
   assert.match(legalEn, /no revenue model/);
   assert.match(legalNl, /niet gelieerd aan/);
-  for (const t of [legalNl, legalEn]) { assert.match(t, /GitHub Sponsors/); assert.match(t, /Cloudflare Web Analytics/); assert.match(t, /cloudflareinsights\.com/); }
+  for (const t of [legalNl, legalEn]) { assert.match(t, /Ko-fi/); assert.match(t, /ko-fi\.com\/ellertvandervecht/); assert.match(t, /Cloudflare Web Analytics/); assert.match(t, /cloudflareinsights\.com/); }
 });
 
 test('fetches send no credentials or referrer', () => {

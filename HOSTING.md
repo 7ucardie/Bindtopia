@@ -23,9 +23,9 @@ GitHub Pages is openbaar. Zet geen persoonlijke gegevens, exports, tokens of sle
 
 De frontend kan statisch blijven, maar privégegevens horen dan achter authenticatie in een beheerde backend. Een GitHub-repository is geen geschikte gebruikersdatabase. Er is nu geen cloudverzameling.
 
-## Automatische updates, Sponsors en analytics
+## Automatische updates, giften en analytics
 
-De dagelijkse catalogusupdate staat in `.github/workflows/catalog-update.yml`. Die valideert de data voordat hij commit; heeft hij iets gecommit, dan publiceert `github-pages.yml` dat vanzelf (net als na de wekelijkse vingerafdrukken-run). Geen van beide omzeilt branchbeveiliging. Vrijwillige steun loopt via GitHub Sponsors en, zodra `kofiUsername` in `project.config.json` is ingevuld, via Ko-fi; de kosten onder *Kosten en steun* op de rechtenpagina komen uit `costs` in hetzelfde bestand. Draai daarna `node scripts/configure-project.mjs`. Cloudflare Web Analytics wordt actief zodra `cloudflareAnalyticsToken` in `project.config.json` is ingevuld en `node scripts/configure-project.mjs` is gedraaid. De juridische teksten worden bewaakt door `tests/integration/privacy.test.mjs`.
+De dagelijkse catalogusupdate staat in `.github/workflows/catalog-update.yml`. Die valideert de data voordat hij commit; heeft hij iets gecommit, dan publiceert `github-pages.yml` dat vanzelf (net als na de wekelijkse vingerafdrukken-run). Geen van beide omzeilt branchbeveiliging. Vrijwillige steun loopt via Ko-fi (`kofiUsername` in `project.config.json`); GitHub Sponsors volgt zodra dat account actief is en `sponsorsUsername` is ingevuld; de kosten onder *Kosten en steun* op de rechtenpagina komen uit `costs` in hetzelfde bestand. Draai daarna `node scripts/configure-project.mjs`. Cloudflare Web Analytics wordt actief zodra `cloudflareAnalyticsToken` in `project.config.json` is ingevuld en `node scripts/configure-project.mjs` is gedraaid. De juridische teksten worden bewaakt door `tests/integration/privacy.test.mjs`.
 
 ## DNS voor bindtopia.com
 

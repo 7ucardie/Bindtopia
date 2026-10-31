@@ -1,5 +1,5 @@
 // Costs and voluntary support on the rights pages, filled from dist/project.json (generated from project.config.json).
-// The static list in the page is the fallback; a donation link stays hidden until its username is configured.
+// The static list and Ko-fi link in the page are the fallback; a gift link is shown only while its username is configured.
 const en = document.documentElement.lang === 'en';
 const money = (amount, currency) =>
   new Intl.NumberFormat(en ? 'en' : 'nl', { style: 'currency', currency, maximumFractionDigits: amount % 1 ? 2 : 0 }).format(amount);
@@ -18,11 +18,16 @@ fetch('project.json', { credentials: 'omit', referrerPolicy: 'no-referrer' })
         }),
       );
     }
-    if (/^[A-Za-z0-9_]{1,40}$/.test(config.kofiUsername || '')) {
-      for (const link of document.querySelectorAll('.kofi-link')) {
-        link.href = 'https://ko-fi.com/' + config.kofiUsername;
-        link.hidden = false;
-      }
+    const kofi = /^[A-Za-z0-9_]{1,40}$/.test(config.kofiUsername || '') ? config.kofiUsername : '';
+    for (const link of document.querySelectorAll('.kofi-link')) {
+      if (kofi) link.href = 'https://ko-fi.com/' + kofi;
+      link.hidden = !kofi;
+    }
+    // GitHub Sponsors appears only once its username is configured (the account must be active first).
+    const sponsors = /^[a-z0-9-]{1,39}$/i.test(config.sponsorsUsername || '') ? config.sponsorsUsername : '';
+    for (const link of document.querySelectorAll('.sponsors-link')) {
+      if (sponsors) link.href = 'https://github.com/sponsors/' + sponsors;
+      link.hidden = !sponsors;
     }
   })
   .catch(() => {});
