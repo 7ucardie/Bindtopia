@@ -1,0 +1,7 @@
+# Gitleaks configuration: the default rules, plus one documented exception.
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Cloudflare Web Analytics site token: public by design, it is sent in the beacon script of every page (see docs/reference/configuration.md)"
+regexes = ['''^e052c6a07923450bb2ca262be0a6dd13$''']
