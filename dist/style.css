@@ -31,3 +31,4 @@ dialog.trade{max-width:760px;width:96vw;max-height:96vh;max-height:96dvh;overflo
 @media(max-width:700px){footer a,.legal-nav a{display:inline-flex;align-items:center;min-height:24px;padding:2px 0}}
 .add-form{display:grid;gap:12px;margin:8px 0 4px}.add-form .field{display:grid;gap:6px;font-weight:600;color:var(--ink)}.add-form input,.add-form select{padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--field,#fff);color:var(--ink);font:inherit;font-weight:400}.tag.custom{background:#fff2c9;color:#5a4300}.empty .textbutton,.empty .outline{margin-top:12px}
 .trade-manual{grid-column:1/-1}
+.cost-total{font-weight:700;list-style:none;margin-left:-1.2em;margin-top:6px}

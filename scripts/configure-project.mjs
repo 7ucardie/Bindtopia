@@ -11,12 +11,13 @@ if (domain && !/^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,63}$/.test(d
 // Optional second, voluntary donation channel; empty keeps the Ko-fi link hidden.
 const kofi = (config.kofiUsername || '').trim();
 if (kofi && !/^[A-Za-z0-9_]{1,40}$/.test(kofi)) throw Error('Ko-fi username may contain letters, digits and underscores only');
-// Running costs shown on the rights page: what the operator pays for; perYear may stay null until known.
+// Running costs shown on the rights page: what the operator pays for, per year or per month (null while unknown).
+const amount = v => v === undefined || v === null || (typeof v === 'number' && v >= 0);
 const costs = (config.costs || []).map(c => {
   if (typeof c.item !== 'string' || !c.item.trim() || typeof c.itemEn !== 'string' || !c.itemEn.trim()) throw Error('Each cost needs item and itemEn');
-  if (c.perYear !== null && !(typeof c.perYear === 'number' && c.perYear >= 0)) throw Error('perYear must be a number or null');
+  if (!amount(c.perYear) || !amount(c.perMonth) || (c.perYear != null && c.perMonth != null)) throw Error('Give perYear or perMonth as a number, or neither');
   if (!/^[A-Z]{3}$/.test(c.currency || '')) throw Error('currency must be a 3-letter code');
-  return { item: c.item.trim(), itemEn: c.itemEn.trim(), perYear: c.perYear, currency: c.currency };
+  return { item: c.item.trim(), itemEn: c.itemEn.trim(), perYear: c.perYear ?? null, perMonth: c.perMonth ?? null, currency: c.currency };
 });
 await writeFile(new URL('.github/FUNDING.yml', root), (sponsors ? 'github: [' + sponsors + ']\n' : '') + (kofi ? 'ko_fi: ' + kofi + '\n' : ''));
 await writeFile(

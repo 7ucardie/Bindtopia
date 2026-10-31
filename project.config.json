@@ -11,7 +11,13 @@
     {
       "item": "Domeinnaam bindtopia.com",
       "itemEn": "Domain name bindtopia.com",
-      "perYear": null,
+      "perYear": 15,
+      "currency": "EUR"
+    },
+    {
+      "item": "AI-codeerassistent (Claude) voor onderhoud en verbetering van de code, richtbedrag",
+      "itemEn": "AI coding assistant (Claude) for maintaining and improving the code, indicative amount",
+      "perMonth": 20,
       "currency": "EUR"
     }
   ]
