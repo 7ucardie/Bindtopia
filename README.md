@@ -38,7 +38,7 @@ An ad-free Pokémon card catalog and collection companion. Explore cards, identi
 - **Trade mode:** point the phone at a card, see its price straight away, and keep a running give/get total at card shows and trades, also without internet after one visit (last known prices, kept on the device). Cards are recognised by their printed name and number and by their picture, which also finds the English print of a card in another language.
 - **Reads a photo:** perform OCR on the device and suggest matches using the name and collector number.
 - **Shows card details:** fetch set information, illustrator, HP, abilities and attacks when available.
-- **Saves a collection:** use browser-local storage, with backup export/import and explicit deletion.
+- **Saves a collection:** use browser-local storage, with backup export/import and explicit deletion. Cards missing from TCGdex can be added by hand (also in trade mode, with your own price) and reported to TCGdex.
 - **Prices by market:** indicative Cardmarket/TCGplayer prices from TCGdex, ordered for your market (US, UK, Australia, Canada, Europe or International) with approximate amounts in your local currency (ECB rates) and regional marketplace links; no price history or transaction handling.
 - **Release years:** every card and set shows the year its set came out.
 - **Public API and MCP server:** a free read-only JSON API at `bindtopia.com/api/v1/` and an MCP server so AI assistants can look up cards (see below).

@@ -3,6 +3,7 @@ import { localize } from './i18n.mjs';
 import { state } from './state.mjs';
 import { $, toast } from './ui.mjs';
 import { render } from './catalog.mjs';
+import { validBackupCard } from './custom-cards.mjs';
 
 let saved = [];
 export const savedCards = () => saved;
@@ -15,8 +16,21 @@ export function isSaved(card) {
 }
 
 export function toggleSaved(card) {
+  // A card entered by hand exists only here, so removing it deletes it: ask first.
+  if (
+    isSaved(card) &&
+    card.custom &&
+    !confirm(localize('Deze zelf toegevoegde kaart verwijderen? Hij staat alleen in je eigen verzameling.'))
+  )
+    return;
   if (isSaved(card)) saved = saved.filter(x => key(x) !== key(card));
   else saved.push({ ...card, lang: card.lang || state.language, setName: card.setName || state.sets[card.setId]?.name });
+  persist();
+  render();
+}
+
+export function addCustom(card) {
+  saved.push(card);
   persist();
   render();
 }
@@ -50,15 +64,7 @@ async function importSaved(e) {
     if (f.size > 10e6) throw Error();
     const data = JSON.parse(await f.text());
     if (data.version !== 2 || !Array.isArray(data.cards)) throw Error();
-    const valid = data.cards.filter(
-      c =>
-        typeof c.id === 'string' &&
-        typeof c.name === 'string' &&
-        typeof c.localId === 'string' &&
-        typeof c.setId === 'string' &&
-        /^[a-z]{2}(-[a-z]{2})?$/.test(c.lang) &&
-        (!c.image || /^https:\/\/assets\.tcgdex\.net\//.test(c.image)),
-    );
+    const valid = data.cards.filter(validBackupCard);
     if (valid.length !== data.cards.length) throw Error();
     const merged = new Map(saved.map(c => [key(c), c]));
     valid.forEach(c => merged.set(key(c), c));

@@ -9,6 +9,7 @@ A fan-made, ad-free card catalog with local scanning and collection tools. Stati
 - Search by name, source ID or collector number; filters, sorting and detail dialogs. Each card detail has a shareable address (`?card=<id>`) and a share button; `robots.txt`, `sitemap.xml` and a `404.html` page are published with the site.
 - Web OCR on device with name/number/set-total candidate matching, from a chosen photo, the phone camera or a desktop browser webcam; native Apple Vision scanning.
 - Browser-local collection, version-2 backup import/export and scoped deletion controls.
+- Cards missing from TCGdex can be added by hand to the collection or the trade list (name, optional set, number, language, own price and note), marked as own entries, kept in version-2 backups (`custom: true`) and reportable to the TCGdex card database through a prefilled GitHub issue (card fields only).
 - Eight interface languages with English as the default (a visitor's own choice is remembered), and a separate card-language choice.
 - Approved sunny island theme (single theme; the dark theme was removed). Original card images remain separate CSS-positioned layers.
 - Original ocean-orb brand, light/dark outlined wordmarks, favicon, PWA and native icon assets.

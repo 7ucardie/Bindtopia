@@ -9,6 +9,7 @@ import { OCR_PASSES } from './ocr-prep.mjs';
 import { state, getJSON, year } from './state.mjs';
 import { $, toast, pic, protectImage } from './ui.mjs';
 import { openDialog } from './dialogs.mjs';
+import { customCard } from './custom-cards.mjs';
 import { getWorker, setOcrProgress, readCanvas, ocrCanvas, pictureHits, distanceText, guideRect } from './ocr.mjs';
 
 const trade = {
@@ -280,6 +281,48 @@ async function showTradeResult(card, alts, { by = 'text', english = false } = {}
   tradeState('Gevonden: ' + card.name + '. Voeg toe of scan de volgende kaart.', { found: true });
 }
 
+// A card the catalog lacks, entered by name with an optional price agreed at the table; it counts in the totals.
+function showManual() {
+  trade.paused = true;
+  trade.current = null;
+  $('#tradeGuide').textContent = '';
+  const box = $('#tradeResult');
+  box.hidden = false;
+  box.innerHTML =
+    '<form class="add-form trade-manual" id="tradeManualForm"><label class="field">Naam <input name="name" required maxlength="80" autocomplete="off"></label>' +
+    '<label class="field"><span>Eigen prijs (<span data-no-translate>' +
+    tradeCurrency() +
+    '</span>)</span><input name="amount" inputmode="decimal" autocomplete="off" placeholder="Optioneel"></label>' +
+    '<div class="scan-tools"><button class="primary" data-side="get">+ Ik krijg</button><button class="outline" data-side="give">+ Ik geef</button>' +
+    '<button class="textbutton" type="button" id="tradeManualCancel">Annuleren</button></div></form>';
+  const form = $('#tradeManualForm');
+  form.elements.name.value = $('#tradeQuery').value.trim();
+  form.elements.name.focus();
+  $('#tradeManualCancel').onclick = resumeTrade;
+  // The clicked button decides the side (a click runs before the form submits; Enter adds to "I get").
+  let side = 'get';
+  form.querySelectorAll('[data-side]').forEach(b => (b.onclick = () => (side = b.dataset.side)));
+  form.onsubmit = e => {
+    e.preventDefault();
+    const amount = form.elements.amount.value.trim();
+    let card;
+    try {
+      card = customCard({ name: form.elements.name.value, lang: state.language, amount, currency: tradeCurrency() });
+    } catch {
+      form.elements.name.focus();
+      return;
+    }
+    if (amount && !card.price) {
+      toast('Vul een geldige prijs in, bijvoorbeeld 12,50, of laat het veld leeg.');
+      form.elements.amount.focus();
+      return;
+    }
+    trade.items.push({ card, price: card.price || null, side });
+    renderTrade();
+    resumeTrade();
+  };
+}
+
 function resumeTrade() {
   trade.current = null;
   trade.paused = false;
@@ -331,10 +374,11 @@ function renderTrade() {
       if (item.side !== side) return;
       const li = document.createElement('li');
       li.innerHTML =
-        '<span data-no-translate>' +
+        '<span><span data-no-translate>' +
         escape(item.card.name) +
-        ' #' +
-        escape(item.card.localId) +
+        (item.card.localId ? ' #' + escape(item.card.localId) : '') +
+        '</span>' +
+        (item.card.custom ? ' <small>· eigen invoer</small>' : '') +
         '</span><span>' +
         escape(priceText(item.price)) +
         '</span>';
@@ -389,4 +433,5 @@ export function wireTrade() {
     renderTrade();
   };
   $('#tradeSearch').onsubmit = searchTrade;
+  $('#tradeManual').onclick = showManual;
 }

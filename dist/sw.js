@@ -19,6 +19,8 @@ const SHELL = [
   'ocr.mjs',
   'scanner.mjs',
   'trade-mode.mjs',
+  'custom-cards.mjs',
+  'add-card.mjs',
   'card-detail.mjs',
   'fingerprint.mjs',
   'i18n.mjs',

@@ -7,6 +7,7 @@ import { $, fmt, pic, protectImage } from './ui.mjs';
 import { takePendingCard } from './dialogs.mjs';
 import { savedCards, isSaved, toggleSaved } from './collection.mjs';
 import { show } from './detail.mjs';
+import { openAddCard } from './add-card.mjs';
 
 const PAGE = 24;
 let view = 'all',
@@ -33,14 +34,16 @@ function cardElement(c) {
     '</button><div class="info"><h3>' +
     escape(c.name) +
     '</h3><div class="meta"><span>' +
-    escape(c.setName || state.sets[c.setId]?.name || c.setId) +
+    escape(c.custom ? c.setName || 'Set onbekend' : c.setName || state.sets[c.setId]?.name || c.setId) +
     (year(c.setId) ? ' · ' + year(c.setId) : '') +
     '</span><span>#' +
     escape(c.localId) +
-    '</span></div><span class="tag">' +
+    '</span></div><span class="tag' +
+    (c.custom ? ' custom' : '') +
+    '">' +
     escape((c.lang || state.language).toUpperCase()) +
     ' · ' +
-    escape(c.id) +
+    (c.custom ? 'Eigen invoer' : escape(c.id)) +
     '</span></div>';
   el.querySelector('.heart').onclick = () => toggleSaved(c);
   el.querySelector('.art').onclick = () => show(c);
@@ -110,6 +113,14 @@ export function render() {
         ? 'Je hebt hier nog geen passende kaarten bewaard.<br>Gebruik het hartje bij een kaart.'
         : 'Geen kaarten gevonden. Probeer een andere naam of wis de filters.') +
       '</div>';
+    // A card TCGdex does not have can still go into the visitor's own collection.
+    if (view !== 'saved' && $('#query').value.trim()) {
+      const add = document.createElement('button');
+      add.className = 'outline';
+      add.textContent = 'Staat je kaart er niet tussen? Voeg hem zelf toe';
+      add.onclick = () => openAddCard({ name: $('#query').value.trim() });
+      $('#grid .empty').append(document.createElement('br'), add);
+    }
     return;
   }
   const frag = document.createDocumentFragment();

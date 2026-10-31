@@ -2,6 +2,7 @@
 //   catalog.mjs     search, filters and the card grid      detail.mjs      card detail dialog, prices, sharing
 //   collection.mjs  saved cards, backup import/export      scanner.mjs     photo and camera scanning
 //   trade-mode.mjs  live camera trade mode                  ocr.mjs         text and picture recognition (shared)
+//   add-card.mjs    cards entered by hand (custom-cards.mjs: their rules)
 //   state.mjs       shared state and data requests         ui.mjs, dialogs.mjs  DOM helpers and dialog history
 import { startI18n } from './i18n.mjs';
 import { getJSON, loadRates } from './state.mjs';
@@ -12,6 +13,7 @@ import { render, loadCatalog, loadCardLanguages, wireCatalog } from './catalog.m
 import { wireDetail } from './detail.mjs';
 import { wireScanner } from './scanner.mjs';
 import { wireTrade } from './trade-mode.mjs';
+import { wireAddCard } from './add-card.mjs';
 
 await startI18n();
 wireDialogs();
@@ -20,6 +22,7 @@ wireCatalog();
 wireDetail();
 wireScanner();
 wireTrade();
+wireAddCard();
 loadRates();
 loadCatalog('en');
 loadCardLanguages();

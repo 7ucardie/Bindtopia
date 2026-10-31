@@ -6,6 +6,7 @@ import { state, getJSON, setMarket } from './state.mjs';
 import { $, toast, pic, protectImage } from './ui.mjs';
 import { openDialog, cardUrl } from './dialogs.mjs';
 import { isSaved, toggleSaved } from './collection.mjs';
+import { reportUrl } from './custom-cards.mjs';
 
 // Only the newest opened card may fill the dialog; closing it also invalidates a pending request.
 let detailTicket = 0;
@@ -69,7 +70,45 @@ function marketplaceLinks(d, hasImage) {
   );
 }
 
+// A card the visitor entered by hand: shown from the collection only, clearly marked, with a link to report it to TCGdex.
+// It gets no shareable address, because nobody else has this card.
+function showCustom(c) {
+  ++detailTicket;
+  openDialog($('#modal'));
+  const price = c.price
+    ? new Intl.NumberFormat(currentLocale(), { style: 'currency', currency: c.price.currency }).format(c.price.amount)
+    : '';
+  $('#detail').innerHTML =
+    '<div class="detail">' +
+    pic(c, true) +
+    '<div class="detail-content"><div class="eyebrow">' +
+    escape(c.lang.toUpperCase()) +
+    ' · Eigen invoer</div><h1 style="font-size:30px">' +
+    escape(c.name) +
+    '</h1><div class="detail-actions"><button id="detailSave" class="outline">' +
+    saveLabel(c) +
+    '</button></div><table>' +
+    detailRow('Set', c.setName) +
+    detailRow('Kaartnummer', c.localId) +
+    detailRow('Eigen prijs', price) +
+    detailRow('Notitie', c.note) +
+    '</table><p class="notice">Deze kaart heb je zelf toegevoegd. De gegevens komen niet van TCGdex en zijn niet gecontroleerd.</p>' +
+    '<h3>Bekijk prijzen bij de bron</h3><div class="links">' +
+    marketplaceLinks({ name: c.name, localId: c.localId, set: { name: c.setName } }, false) +
+    '</div><p class="notice">De links openen zoekresultaten bij de aanbieder. Controleer taal, conditie en drukvariant.</p>' +
+    '<h3>Ontbreekt deze kaart in de catalogus?</h3><p class="notice">TCGdex is een open kaartendatabase. Meld de kaart daar, dan komt hij na opname vanzelf in Bindtopia. Alleen naam, set, nummer en taal worden ingevuld; je notitie en prijs niet.</p>' +
+    '<div class="links"><a id="reportCard" href="' +
+    escape(reportUrl(c)) +
+    '" target="_blank" rel="noopener noreferrer">Meld deze kaart bij TCGdex ↗</a></div></div></div>';
+  $('#detailSave').onclick = () => {
+    toggleSaved(c);
+    if (!isSaved(c)) $('#modal').close();
+    else $('#detailSave').textContent = saveLabel(c);
+  };
+}
+
 export async function show(c) {
+  if (c.custom) return showCustom(c);
   const ticket = ++detailTicket;
   const lang = c.lang || state.language;
   $('#detail').innerHTML = '<div class="api-spinner">Kaartinformatie ophalen…</div>';

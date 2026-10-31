@@ -6,7 +6,7 @@ Open **Saved → Export saved cards**. The portal downloads a JSON backup with v
 
 ## Import
 
-Open **Saved → Import backup** and select a valid version-2 backup. Import merges cards by language and card ID rather than deleting the existing collection. Files over the current 10 MB limit or invalid records are rejected.
+Open **Saved → Import backup** and select a valid version-2 backup. Cards you added yourself are included and marked `"custom": true` (see [add a missing card](add-a-missing-card.md)). Import merges cards by language and card ID rather than deleting the existing collection. Files over the current 10 MB limit or invalid records are rejected.
 
 ## Delete
 
