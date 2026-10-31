@@ -17,7 +17,7 @@ export function buildApi(cards, sets, meta) {
   for (const c of cards) bySet.get(c.setId)?.push(c);
   const setMap = new Map(sets.map(s => [s.id, s]));
   files.set('index.json', {
-    name: 'Bindtopia API', version: 1, language: 'en', updated: meta.updated, cards: cards.length, sets: sets.length,
+    name: 'Bindtopia API', version: 1, language: 'en', updated: meta.updated, checked: meta.checked || meta.updated, cards: cards.length, sets: sets.length,
     endpoints: {sets: BASE + 'sets.json', set: BASE + 'sets/{setId}.json', cards: BASE + 'cards.json', card: BASE + 'cards/{cardFileId}.json', openapi: BASE + 'openapi.json'},
     source: 'Card data from TCGdex (https://tcgdex.dev, MIT). Card images belong to their rights holders and are not licensed by Bindtopia.',
     terms: 'https://bindtopia.com/voorwaarden.html',
@@ -36,7 +36,7 @@ export async function writeApi(root = new URL('../', import.meta.url)) {
   files.set('openapi.json', JSON.parse(await readFile(new URL('scripts/openapi.json', root), 'utf8')));
   // A landing page so the bare base URL answers 200 for people and API-directory health checks.
   const index = files.get('index.json');
-  files.set('index.html', `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Free, read-only JSON API for the English Pokémon card catalog of Bindtopia."><title>Bindtopia API v1</title></head><body><h1>Bindtopia API v1</h1><p>Free, read-only JSON API: ${index.cards} cards and ${index.sets} sets, no key required. Updated ${index.updated}.</p><ul>${Object.entries(index.endpoints).map(([k, v]) => `<li>${k}: ${v.includes('{') ? `<code>${v}</code>` : `<a href="${v}">${v}</a>`}</li>`).join('')}</ul><p><a href="https://github.com/7ucardie/Bindtopia/blob/main/docs/reference/api.md">Documentation and usage policy</a> · Data: <a href="https://tcgdex.dev">TCGdex</a></p></body></html>`);
+  files.set('index.html', `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Free, read-only JSON API for the English Pokémon card catalog of Bindtopia."><title>Bindtopia API v1</title></head><body><h1>Bindtopia API v1</h1><p>Free, read-only JSON API: ${index.cards} cards and ${index.sets} sets, no key required. Last changed ${index.updated}, checked daily (last ${index.checked}).</p><ul>${Object.entries(index.endpoints).map(([k, v]) => `<li>${k}: ${v.includes('{') ? `<code>${v}</code>` : `<a href="${v}">${v}</a>`}</li>`).join('')}</ul><p><a href="https://github.com/7ucardie/Bindtopia/blob/main/docs/reference/api.md">Documentation and usage policy</a> · Data: <a href="https://tcgdex.dev">TCGdex</a></p></body></html>`);
   await rm(out, {recursive: true, force: true});
   await mkdir(new URL('sets/', out), {recursive: true});
   await mkdir(new URL('cards/', out), {recursive: true});

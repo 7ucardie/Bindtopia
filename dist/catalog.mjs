@@ -191,14 +191,16 @@ export async function loadCatalog(lang) {
         .map(s => new Option(s.name, s.id)),
     );
     state.ready = true;
-    if (lang === 'en') $('#indexDate').textContent = new Date(meta.updated).toLocaleDateString(currentLocale());
+    // The index is checked against TCGdex daily; meta.checked is the last check, meta.updated the last change.
+    const checked = new Date(meta.checked || meta.updated).toLocaleDateString(currentLocale());
+    if (lang === 'en') $('#indexDate').textContent = checked;
     $('#catalogStatus').textContent =
       fmt(state.cards.length) +
       ' kaartvermeldingen · ' +
       fmt(ss.length) +
       ' sets · ' +
       (lang === 'en'
-        ? 'Eigen index van TCGdex, bijgewerkt ' + new Date(meta.updated).toLocaleDateString(currentLocale())
+        ? 'Eigen index van TCGdex, bijgewerkt ' + checked
         : 'Live catalogus van TCGdex') +
       ' · Beschikbaarheid verschilt per taal.';
     limit = PAGE;
