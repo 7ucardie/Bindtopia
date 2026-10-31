@@ -192,7 +192,7 @@ export async function loadCatalog(lang) {
     );
     state.ready = true;
     // The index is checked against TCGdex daily; meta.checked is the last check, meta.updated the last change.
-    const checked = new Date(meta.checked || meta.updated).toLocaleDateString(currentLocale());
+    const checked = lang === 'en' ? new Date(meta.checked || meta.updated).toLocaleDateString(currentLocale()) : '';
     if (lang === 'en') $('#indexDate').textContent = checked;
     $('#catalogStatus').textContent =
       fmt(state.cards.length) +
