@@ -21,7 +21,7 @@ test('the rights page lists the costs and shows Ko-fi once configured', async ({
 test('with the live settings Ko-fi is shown and GitHub Sponsors stays hidden until it is active', async ({page}) => {
   await page.goto('/rechten.html');
   await expect(page.locator('#costs li')).toHaveText(['Domeinnaam bindtopia.com']);
-  await expect(page.locator('.kofi-link')).toHaveAttribute('href', 'https://ko-fi.com/ellertvandervecht');
+  await expect(page.locator('.kofi-link')).toHaveAttribute('href', 'https://ko-fi.com/7ucardie');
   await expect(page.locator('.sponsors-link')).toBeHidden();
   await page.goto('/');
   await expect(page.locator('#kofiLink')).toBeVisible();

@@ -16,7 +16,7 @@
   <a href="https://github.com/7ucardie/Bindtopia/issues"><img alt="Issues" src="https://img.shields.io/github/issues/7ucardie/Bindtopia?color=F44336&style=for-the-badge"></a>
   <a href="https://github.com/7ucardie/Bindtopia/stargazers"><img alt="Stars" src="https://img.shields.io/github/stars/7ucardie/Bindtopia?color=FFEB3B&style=for-the-badge"></a>
   <a href="https://github.com/7ucardie/Bindtopia/forks"><img alt="Forks" src="https://img.shields.io/github/forks/7ucardie/Bindtopia?color=2196F3&style=for-the-badge"></a>
-  <a href="https://ko-fi.com/ellertvandervecht"><img alt="Support on Ko-fi" src="https://img.shields.io/badge/Ko--fi-support-FF5E5B?logo=kofi&logoColor=white&style=for-the-badge"></a>
+  <a href="https://ko-fi.com/7ucardie"><img alt="Support on Ko-fi" src="https://img.shields.io/badge/Ko--fi-support-FF5E5B?logo=kofi&logoColor=white&style=for-the-badge"></a>
 </p>
 <p align="center">
   <img alt="HTML5" src="https://img.shields.io/badge/HTML5-buildless-E34F26?logo=html5&logoColor=white&style=for-the-badge">
@@ -131,7 +131,7 @@ Scope and launch conditions are in [SPEC.md](SPEC.md).
 
 ## Support
 
-The original code is MIT-licensed. Support development through [Ko-fi](https://ko-fi.com/ellertvandervecht). Gifts are voluntary and do not unlock any functionality. GitHub Sponsors follows once that account is active. What the project costs and how gifts are used is listed under [Costs and support](https://bindtopia.com/legal-en.html#costs-support).
+The original code is MIT-licensed. Support development through [Ko-fi](https://ko-fi.com/7ucardie). Gifts are voluntary and do not unlock any functionality. GitHub Sponsors follows once that account is active. What the project costs and how gifts are used is listed under [Costs and support](https://bindtopia.com/legal-en.html#costs-support).
 
 ## Backers
 
