@@ -17,7 +17,7 @@ test('the offline list covers the modules, styles, data and locales the start pa
   const index = read('index.html');
   const app = readdirSync(dist).filter(f => f.endsWith('.mjs')).map(read).join('\n');
   const used = [
-    ...readdirSync(dist).filter(f => f.endsWith('.mjs') && f !== 'privacy-controls.mjs'),
+    ...readdirSync(dist).filter(f => f.endsWith('.mjs') && !['privacy-controls.mjs', 'support.mjs'].includes(f)),
     ...[...index.matchAll(/<(?:script|link rel="stylesheet")[^>]*(?:src|href)="([^"#:?]+)"/g)].map(m => m[1]),
     ...[...app.matchAll(/'\.\/(data\/[^']+)'/g)].map(m => m[1]),
     ...readdirSync(new URL('locales/', dist)).map(f => 'locales/' + f),

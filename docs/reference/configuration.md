@@ -2,9 +2,9 @@
 
 ## Project settings
 
-`project.config.json` holds `githubOwner`, `repository`, `sponsorsUsername`, `customDomain`, `cloudflareAnalyticsToken` (empty disables analytics), `license` and `publicationStatus`. Treat publicationStatus as a recorded state, not independent evidence of successful hosting.
+`project.config.json` holds `githubOwner`, `repository`, `sponsorsUsername`, `customDomain`, `cloudflareAnalyticsToken` (empty disables analytics), `kofiUsername` (empty hides the Ko-fi link), `costs` (the running costs listed under *Costs and support* on the rights page: `item`, `itemEn`, `perYear` as a number or `null`, `currency`), `license` and `publicationStatus`. Treat publicationStatus as a recorded state, not independent evidence of successful hosting.
 
-`node scripts/configure-project.mjs` generates `.github/FUNDING.yml`, `dist/project.json` and `dist/CNAME` when a valid domain is configured. It does not register a domain, change DNS or configure Pages through the GitHub API.
+`node scripts/configure-project.mjs` validates these values and generates `.github/FUNDING.yml` (GitHub Sponsors, plus Ko-fi when set), `dist/project.json` and `dist/CNAME` when a valid domain is configured. It does not register a domain, change DNS or configure Pages through the GitHub API.
 
 ## Browser URL and storage
 

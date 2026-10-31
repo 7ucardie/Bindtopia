@@ -44,6 +44,12 @@ getJSON('./project.json')
       link.href = 'https://github.com/sponsors/' + config.sponsorsUsername;
       link.hidden = false;
     }
+    // A second, voluntary donation channel, shown only once a Ko-fi username is configured.
+    if (/^[A-Za-z0-9_]{1,40}$/.test(config.kofiUsername || '')) {
+      const link = $('#kofiLink');
+      link.href = 'https://ko-fi.com/' + config.kofiUsername;
+      link.hidden = false;
+    }
     loadAnalytics(config.cloudflareAnalyticsToken);
   })
   .catch(() => {});

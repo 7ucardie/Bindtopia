@@ -1,1 +1,18 @@
-{"githubOwner": "7ucardie", "repository": "Bindtopia", "sponsorsUsername": "7ucardie", "customDomain": "bindtopia.com", "license": "MIT", "publicationStatus": "awaiting-github-write-access", "cloudflareAnalyticsToken": "e052c6a07923450bb2ca262be0a6dd13"}
+{
+  "githubOwner": "7ucardie",
+  "repository": "Bindtopia",
+  "sponsorsUsername": "7ucardie",
+  "customDomain": "bindtopia.com",
+  "license": "MIT",
+  "publicationStatus": "live",
+  "cloudflareAnalyticsToken": "e052c6a07923450bb2ca262be0a6dd13",
+  "kofiUsername": "",
+  "costs": [
+    {
+      "item": "Domeinnaam bindtopia.com",
+      "itemEn": "Domain name bindtopia.com",
+      "perYear": null,
+      "currency": "EUR"
+    }
+  ]
+}

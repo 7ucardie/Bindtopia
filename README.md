@@ -131,7 +131,7 @@ Scope and launch conditions are in [SPEC.md](SPEC.md).
 
 ## Support
 
-The original code is MIT-licensed. Support development through [GitHub Sponsors](https://github.com/sponsors/7ucardie?metadata_project=Bindtopia). Sponsoring is voluntary and does not unlock exclusive catalog functionality. The account's Sponsors activation still needs owner verification.
+The original code is MIT-licensed. Support development through [GitHub Sponsors](https://github.com/sponsors/7ucardie?metadata_project=Bindtopia). Sponsoring is voluntary and does not unlock exclusive catalog functionality. The account's Sponsors activation still needs owner verification. What the project costs and how gifts are used is listed under [Costs and support](https://bindtopia.com/legal-en.html#costs-support).
 
 ## Backers
 
