@@ -18,11 +18,13 @@ import {
   guideRect,
   fullRect,
   GUIDE_MARGIN,
+  energyTypeOf,
 } from './ocr.mjs';
 
 let photo = null,
   photoUrl = null,
   photoFromGuide = false,
+  energyType = '',
   webcamStream = null;
 
 // Suggestions only: the visitor checks image, set and number; this is never proof of a card.
@@ -36,7 +38,7 @@ function doMatch() {
     $('#matchStatus').textContent = 'Kies een foto of vul een naam / kaartnummer in.';
     return;
   }
-  const hits = matchCards(text, state.cards, state.sets, { setId: $('#setFilter').value, limit: 16 });
+  const hits = matchCards(text, state.cards, state.sets, { setId: $('#setFilter').value, limit: 16, energyType });
   $('#matches').replaceChildren();
   $('#matchStatus').textContent = hits.length
     ? 'Mogelijke overeenkomsten — controleer zelf de afbeelding, set en het nummer. Dit is geen definitieve identificatie.'
@@ -87,6 +89,7 @@ async function recognize() {
     });
     await getWorker();
     const bitmap = await createImageBitmap(photo);
+    energyType = energyTypeOf(bitmap);
     const byPicture = photoFromGuide && (await recognizeByPicture(bitmap));
     if (byPicture) {
       bitmap.close();
@@ -111,7 +114,7 @@ async function recognize() {
       const r = await readCanvas(ocrCanvas(bitmap, fullRect(bitmap), OCR_PASSES[pass]));
       first ??= r;
       text += '\n' + r.text;
-      sure = !!confident(matchCards(text, state.cards, state.sets, { limit: 4 }));
+      sure = !!confident(matchCards(text, state.cards, state.sets, { limit: 4, energyType }));
     }
     bitmap.close();
     const hint = sure || first.hint === 'ok' ? '' : first.hint;
@@ -155,6 +158,7 @@ function clearScan() {
     return false;
   }
   photo = null;
+  energyType = '';
   if (photoUrl) {
     URL.revokeObjectURL(photoUrl);
     photoUrl = null;

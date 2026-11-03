@@ -27,8 +27,15 @@ dialog.trade{max-width:760px;width:96vw;max-height:96vh;max-height:96dvh;overflo
 .trade-how{color:#1f7a45;font-weight:600}
 .price-date{margin:4px 0 2px;font-size:14px}.trade-live{font-weight:600;font-size:14px}
 .detail-content .price-date{font-size:14px;color:var(--ink)}
-.detail-actions{display:flex;flex-wrap:wrap;gap:10px;margin:4px 0 12px}
+.detail-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;max-width:520px;margin:4px 0 12px}.detail-actions .outline{display:flex;align-items:center;justify-content:center;gap:6px;min-height:48px;padding:10px 12px;text-align:center;line-height:1.25}
 @media(max-width:700px){footer a,.legal-nav a{display:inline-flex;align-items:center;min-height:24px;padding:2px 0}}
 .add-form{display:grid;gap:12px;margin:8px 0 4px}.add-form .field{display:grid;gap:6px;font-weight:600;color:var(--ink)}.add-form input,.add-form select{padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--field,#fff);color:var(--ink);font:inherit;font-weight:400}.tag.custom{background:#fff2c9;color:#5a4300}.empty .textbutton,.empty .outline{margin-top:12px}
 .trade-manual{grid-column:1/-1}
 .cost-total{font-weight:700;list-style:none;margin-left:-1.2em;margin-top:6px}
+/* The camera dialog fits one screen: the camera view shrinks so the guide, the tip and "Foto maken" stay visible together. */
+#webcam[open]{display:flex;flex-direction:column}
+#webcam .camera-view{flex:0 1 min(60vh,520px);min-height:220px}
+#webcam .camera-view video{position:absolute;inset:0;height:100%}
+#webcam>.notice{margin:4px 0 10px}
+#webcam .scan-tools{flex:none;margin:0}
+@media(max-width:700px){#webcam>.notice{font-size:13px;line-height:1.45}}

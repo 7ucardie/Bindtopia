@@ -1,6 +1,6 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {binarize, ocrSizes, readableText, guideToSource, distanceHint, wordsOf} from '../../dist/ocr-prep.mjs';
+import {binarize, ocrSizes, readableText, guideToSource, distanceHint, wordsOf, energyTypeFromPixels} from '../../dist/ocr-prep.mjs';
 
 function image(w, h, pixel) {
   const data = new Uint8ClampedArray(w * h * 4);
@@ -55,4 +55,14 @@ test('distanceHint judges distance from the size of confident words', () => {
 test('wordsOf flattens Tesseract blocks', () => {
   assert.deepEqual(wordsOf({blocks: [{paragraphs: [{lines: [{words: [{text: 'a'}, {text: 'b'}]}]}]}]}).map(w => w.text), ['a', 'b']);
   assert.deepEqual(wordsOf({}), []);
+});
+
+test('energyTypeFromPixels tells energy types apart by colour', () => {
+  const fill = ([r, g, b]) => {
+    const data = new Uint8ClampedArray(40 * 56 * 4);
+    for (let i = 0; i < data.length; i += 4) [data[i], data[i + 1], data[i + 2], data[i + 3]] = [r, g, b, 255];
+    return {data, width: 40, height: 56};
+  };
+  const swatches = {lightning: [245, 175, 30], fire: [200, 40, 30], water: [40, 110, 200], grass: [60, 150, 60], psychic: [140, 70, 170], darkness: [35, 35, 45], metal: [160, 160, 165]};
+  for (const [type, rgb] of Object.entries(swatches)) assert.equal(energyTypeFromPixels(fill(rgb)), type);
 });
