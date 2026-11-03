@@ -1,6 +1,6 @@
 // Recognition on the device, shared by the photo scanner and trade mode: Tesseract text reading and picture fingerprints.
 import { cardFingerprint, decode as decodePrints, nearest } from './fingerprint.mjs';
-import { binarize, ocrSizes, guideToSource, distanceHint, wordsOf } from './ocr-prep.mjs';
+import { binarize, ocrSizes, guideToSource, distanceHint, wordsOf, energyTypeFromPixels } from './ocr-prep.mjs';
 import { state, getJSON } from './state.mjs';
 
 // Subresource integrity for the pinned CDN copy; tests/integration/cdn.test.mjs checks it in CI.
@@ -138,4 +138,16 @@ function printOf(src, r) {
 export async function pictureHits(src, r) {
   const p = await loadPrints();
   return p ? nearest(printOf(src, r), p.table, p.ids, 20) : [];
+}
+
+// Energy type from the colour of a small copy of the photo; only used when the text reads "Basic … Energy".
+export function energyTypeOf(src) {
+  const w = 120,
+    h = Math.max(1, Math.round((src.height * w) / src.width)),
+    c = document.createElement('canvas');
+  c.width = w;
+  c.height = h;
+  const x = c.getContext('2d', { willReadFrequently: true });
+  x.drawImage(src, 0, 0, w, h);
+  return energyTypeFromPixels(x.getImageData(0, 0, w, h));
 }

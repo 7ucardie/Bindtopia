@@ -86,3 +86,46 @@ export function distanceHint(words, imageHeight) {
 }
 
 export const wordsOf = data => (data?.blocks || []).flatMap(b => b.paragraphs.flatMap(p => p.lines.flatMap(l => l.words)));
+
+// The type of a Basic Energy card from its colour: the symbol in the middle is a picture, not text.
+// Samples the centre of the image (the energy orb and its glow) and averages the hue of the coloured pixels.
+export function energyTypeFromPixels({ data, width: w, height: h }) {
+  const x0 = Math.round(w * 0.3),
+    x1 = Math.round(w * 0.7),
+    y0 = Math.round(h * 0.35),
+    y1 = Math.round(h * 0.65);
+  let sx = 0,
+    sy = 0,
+    coloured = 0,
+    total = 0,
+    value = 0;
+  for (let y = y0; y < y1; y += 2)
+    for (let x = x0; x < x1; x += 2) {
+      const i = 4 * (y * w + x),
+        r = data[i] / 255,
+        g = data[i + 1] / 255,
+        b = data[i + 2] / 255;
+      const max = Math.max(r, g, b),
+        min = Math.min(r, g, b),
+        d = max - min;
+      total++;
+      value += max;
+      if (max < 0.2 || d / max < 0.35) continue;
+      const hue = max === r ? ((g - b) / d + 6) % 6 : max === g ? (b - r) / d + 2 : (r - g) / d + 4;
+      const a = (hue / 6) * 2 * Math.PI;
+      sx += Math.cos(a);
+      sy += Math.sin(a);
+      coloured++;
+    }
+  if (!total) return '';
+  if (value / total < 0.3) return 'darkness';
+  if (coloured / total < 0.25) return 'metal';
+  const hue = ((Math.atan2(sy, sx) * 180) / Math.PI + 360) % 360;
+  if (hue < 12 || hue >= 335) return 'fire';
+  if (hue < 32) return 'fighting';
+  if (hue < 70) return 'lightning';
+  if (hue < 170) return 'grass';
+  if (hue < 250) return 'water';
+  if (hue < 310) return 'psychic';
+  return 'fairy';
+}

@@ -20,8 +20,28 @@ function distance(a, b) {
   }
   return r[b.length];
 }
-export function matchCards(text, cards, sets, { setId = '', limit = 20 } = {}) {
-  const numbers = extractNumbers(text),
+// Basic Energy cards print their type as a symbol ("Basic ⚡ Energy"), which OCR cannot read; the catalog calls them "Lightning Energy".
+export const ENERGY_TYPES = ['grass', 'fire', 'water', 'lightning', 'psychic', 'fighting', 'darkness', 'metal', 'fairy'];
+const energyName = new RegExp('^(?:basic)?(' + ENERGY_TYPES.join('|') + ')energy$');
+// Returns {type} when the text reads as a Basic Energy card; type is '' when only the symbol was printed.
+export function basicEnergy(text) {
+  const words = String(text || '')
+    .split(/\s+/)
+    .map(normalize)
+    .filter(Boolean);
+  const near = (w, t) => w === t || (w.length >= t.length - 1 && w.length <= t.length + 1 && distance(w, t) <= 1);
+  if (!words.some(w => near(w, 'basic')) || !words.some(w => near(w, 'energy'))) return null;
+  return { type: ENERGY_TYPES.find(t => words.some(w => w === t || w === t + 'energy')) || '' };
+}
+// Newer prints carry no set total, only a set code and number at the bottom: "MEE 004", "SVE 012".
+export function extractSetNumbers(text) {
+  return [...String(text || '').matchAll(/\b([a-z]{2,5})\s*(?:en\s+)?(\d{1,3})\b/gi)].map(m => ({ code: m[1].toLowerCase(), localId: m[2] }));
+}
+export function matchCards(text, cards, sets, { setId = '', limit = 20, energyType = '' } = {}) {
+  const energy = basicEnergy(text),
+    wantedEnergy = energy && (energy.type || energyType),
+    setNumbers = extractSetNumbers(text),
+    numbers = extractNumbers(text),
     n = normalize(text),
     words = text
       .split(/\s+/)
@@ -44,9 +64,17 @@ export function matchCards(text, cards, sets, { setId = '', limit = 20 } = {}) {
             : 0;
       nameCache.set(name, ns);
     }
-    if (ns) {
+    if (!ns && wantedEnergy && energyName.exec(name)?.[1] === wantedEnergy) {
+      ns = 65;
+      reasons.push(energy.type ? 'Basisenergie herkend' : 'Basisenergie herkend aan de kleur');
+      score += ns;
+    } else if (ns) {
       score += ns;
       reasons.push(ns === 65 ? 'Naam herkend' : 'Naam lijkt erop');
+    }
+    if (!numbers.length && setNumbers.some(p => p.code === c.setId && numberKey(p.localId) === numberKey(c.localId))) {
+      score += 80;
+      reasons.push('Setcode en kaartnummer gelijk');
     }
     let hit = numbers.find(p => numberKey(p.localId) === numberKey(c.localId));
     if (hit) {
@@ -63,5 +91,9 @@ export function matchCards(text, cards, sets, { setId = '', limit = 20 } = {}) {
     }
     if (score >= 32) scored.push({ card: c, score, reasons });
   }
-  return scored.sort((a, b) => b.score - a.score || a.card.name.localeCompare(b.card.name)).slice(0, limit);
+  // Equal scores for a Basic Energy (reprinted in many sets) list the newest set first.
+  const released = c => (wantedEnergy && sets[c.setId]?.releaseDate) || '';
+  return scored
+    .sort((a, b) => b.score - a.score || released(b.card).localeCompare(released(a.card)) || a.card.name.localeCompare(b.card.name))
+    .slice(0, limit);
 }
