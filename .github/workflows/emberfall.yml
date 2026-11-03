@@ -1,0 +1,34 @@
+name: Emberfall (Rust game)
+# Builds and tests the Rust game in emberfall/ on Linux and on macOS (the Mac is the target platform).
+on:
+  push:
+    paths:
+      - 'emberfall/**'
+      - '.github/workflows/emberfall.yml'
+  pull_request:
+    paths:
+      - 'emberfall/**'
+      - '.github/workflows/emberfall.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        working-directory: emberfall
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Format
+        run: cargo fmt --check
+      - name: Lint
+        run: cargo clippy --all-targets -- -D warnings
+      - name: Test
+        run: cargo test
+      - name: Release build
+        run: cargo build --release
