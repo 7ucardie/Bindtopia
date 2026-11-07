@@ -4,8 +4,8 @@ import { binarize, ocrSizes, guideToSource, distanceHint, wordsOf, energyTypeFro
 import { state, getJSON } from './state.mjs';
 
 // Subresource integrity for the pinned CDN copy; tests/integration/cdn.test.mjs checks it in CI.
-const TESSERACT_SRI = 'sha384-r1ru3tcf6FhnCFR4B7pIFG+BhFF9LlFtz/P1y4pblWn3AGs9y3lBx5SKLNf4+rED';
-const TESSERACT_URL = 'https://cdn.jsdelivr.net/npm/tesseract.js@6.0.1/dist/tesseract.min.js';
+const TESSERACT_SRI = 'sha384-2BQ3U3OdKOb0Uczxqr41I9UvZkzr4V9Hv8uSzMMZAlmhsFClvdZX5wi5fDCzG+tM';
+const TESSERACT_URL = 'https://cdn.jsdelivr.net/npm/tesseract.js@7.0.0/dist/tesseract.min.js';
 
 let scriptPromise = null,
   worker = null,
@@ -48,14 +48,15 @@ export async function getWorker() {
     workerLanguage = ocrLanguage;
     worker = await Tesseract.createWorker(ocrLanguage, 1, {
       cacheMethod: 'none',
-      workerPath: 'https://cdn.jsdelivr.net/npm/tesseract.js@6.0.1/dist/worker.min.js',
-      corePath: 'https://cdn.jsdelivr.net/npm/tesseract.js-core@6.0.0',
+      workerPath: 'https://cdn.jsdelivr.net/npm/tesseract.js@7.0.0/dist/worker.min.js',
+      corePath: 'https://cdn.jsdelivr.net/npm/tesseract.js-core@7.0.0',
       langPath: 'https://tessdata.projectnaptha.com/4.0.0',
       logger: m => {
         if (m.status === 'recognizing text') ocrProgress(m.progress);
       },
     });
-    await worker.setParameters({ tessedit_pageseg_mode: '11' });
+    // Tesseract 7 prints its diagnostics ("Estimating resolution …") as console errors; they go nowhere instead.
+    await worker.setParameters({ tessedit_pageseg_mode: '11', debug_file: '/dev/null' });
   }
   return worker;
 }
