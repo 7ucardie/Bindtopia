@@ -194,15 +194,18 @@ export async function loadCatalog(lang) {
     // The index is checked against TCGdex daily; meta.checked is the last check, meta.updated the last change.
     const checked = lang === 'en' ? new Date(meta.checked || meta.updated).toLocaleDateString(currentLocale()) : '';
     if (lang === 'en') $('#indexDate').textContent = checked;
-    $('#catalogStatus').textContent =
-      fmt(state.cards.length) +
-      ' kaartvermeldingen · ' +
-      fmt(ss.length) +
-      ' sets · ' +
-      (lang === 'en'
-        ? 'Eigen index van TCGdex, bijgewerkt ' + checked
-        : 'Live catalogus van TCGdex') +
-      ' · Beschikbaarheid verschilt per taal.';
+    const counts = fmt(state.cards.length) + ' kaartvermeldingen · ' + fmt(ss.length) + ' sets · ';
+    if (lang === 'en') {
+      // The TCGdex database release current at the last check (meta.tcgdex), kept out of translation.
+      const version = document.createElement('span');
+      version.dataset.noTranslate = '';
+      version.textContent = /^\d+\.\d+\.\d+$/.test(meta.tcgdex || '') ? ' v' + meta.tcgdex : '';
+      $('#catalogStatus').replaceChildren(
+        counts + 'Eigen index van TCGdex',
+        version,
+        ', bijgewerkt ' + checked + ' · Beschikbaarheid verschilt per taal.',
+      );
+    } else $('#catalogStatus').textContent = counts + 'Live catalogus van TCGdex · Beschikbaarheid verschilt per taal.';
     limit = PAGE;
     render();
     const pending = takePendingCard();
