@@ -11,7 +11,7 @@ Bindtopia publishes its English card catalog as a free, read-only JSON API. The 
 
 | Path | Returns |
 | --- | --- |
-| `index.json` | API metadata: update time, card and set counts, endpoint list, source and terms |
+| `index.json` | API metadata: update time, card and set counts, TCGdex database release (`tcgdex`), endpoint list, source and terms |
 | `sets.json` | All sets: `id`, `name`, `releaseDate`, `year`, `cardCount`, `logo`, `symbol`, `url` |
 | `sets/{setId}.json` | One set plus its `cards` |
 | `cards.json` | All cards in brief: `id`, `localId`, `name`, `setId`, `images`, `url` (about 6 MB) |

@@ -17,7 +17,7 @@ export function buildApi(cards, sets, meta) {
   for (const c of cards) bySet.get(c.setId)?.push(c);
   const setMap = new Map(sets.map(s => [s.id, s]));
   files.set('index.json', {
-    name: 'Bindtopia API', version: 1, language: 'en', updated: meta.updated, checked: meta.checked || meta.updated, cards: cards.length, sets: sets.length,
+    name: 'Bindtopia API', version: 1, language: 'en', ...(meta.tcgdex ? {tcgdex: meta.tcgdex} : {}), updated: meta.updated, checked: meta.checked || meta.updated, cards: cards.length, sets: sets.length,
     endpoints: {sets: BASE + 'sets.json', set: BASE + 'sets/{setId}.json', cards: BASE + 'cards.json', card: BASE + 'cards/{cardFileId}.json', openapi: BASE + 'openapi.json'},
     source: 'Card data from TCGdex (https://tcgdex.dev, MIT). Card images belong to their rights holders and are not licensed by Bindtopia.',
     terms: 'https://bindtopia.com/voorwaarden.html',
