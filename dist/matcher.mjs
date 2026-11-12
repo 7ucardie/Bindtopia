@@ -35,7 +35,114 @@ export function basicEnergy(text) {
 }
 // Newer prints carry no set total, only a set code and number at the bottom: "MEE 004", "SVE 012".
 export function extractSetNumbers(text) {
-  return [...String(text || '').matchAll(/\b([a-z]{2,5})\s*(?:en\s+)?(\d{1,3})\b/gi)].map(m => ({ code: m[1].toLowerCase(), localId: m[2] }));
+  return [...String(text || '').matchAll(/\b([a-z]{2,5})\s*(?:en\s+)?(\d{1,3})\b/gi)].map(m => ({
+    code: m[1].toLowerCase(),
+    localId: m[2],
+  }));
+}
+// Words that appear on cards: every word of a card name, plus the fixed print on a card. Built once per catalog.
+const CARD_WORDS = [
+  'Basic',
+  'Stage',
+  'Energy',
+  'Trainer',
+  'Item',
+  'Supporter',
+  'Stadium',
+  'Tool',
+  'Pokémon',
+  'Ability',
+  'Weakness',
+  'Resistance',
+  'Retreat',
+  'Evolves',
+  'from',
+  'Special',
+  'HP',
+];
+const SHORT_WORDS = new Set(['ex', 'gx', 'v', 'vmax', 'vstar', 'mr', 'jr', 'hp']);
+const vocabularies = new WeakMap();
+function vocabulary(cards) {
+  let v = vocabularies.get(cards);
+  if (v) return v;
+  const words = new Map();
+  for (const w of [...CARD_WORDS, ...cards.flatMap(c => String(c.name || '').split(/[\s\-–]+/))]) {
+    const key = normalize(w);
+    if (key && (key.length >= 4 || SHORT_WORDS.has(key)) && !words.has(key))
+      words.set(key, w.replace(/[(),:!?]+$/g, '').replace(/^[(]+/, ''));
+  }
+  const byLength = new Map();
+  for (const key of words.keys()) (byLength.get(key.length) || byLength.set(key.length, []).get(key.length)).push(key);
+  v = { words, byLength };
+  vocabularies.set(cards, v);
+  return v;
+}
+// Edit distance that also counts two swapped letters as one edit ("nymbel" → "nymble").
+function swapDistance(a, b) {
+  const d = Array.from({ length: a.length + 1 }, (_, i) => [i, ...Array(b.length).fill(0)]);
+  for (let j = 1; j <= b.length; j++) d[0][j] = j;
+  for (let i = 1; i <= a.length; i++)
+    for (let j = 1; j <= b.length; j++) {
+      d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+      if (i > 1 && j > 1 && a[i - 1] === b[j - 2] && a[i - 2] === b[j - 1]) d[i][j] = Math.min(d[i][j], d[i - 2][j - 2] + 1);
+    }
+  return d[a.length][b.length];
+}
+// A read word as the card spells it, or null. Exact words need some OCR confidence; a one-letter correction
+// (for words of five letters or more) needs a confident reading, so letters read into artwork are not "corrected" into names.
+const SURE = 50,
+  FIX = 75;
+function cardWord(token, confidence, { words, byLength }) {
+  const key = normalize(token);
+  if (!key || /\d/.test(key) || confidence < SURE) return null;
+  if (words.has(key)) return words.get(key);
+  if (key.length < 5 || confidence < FIX) return null;
+  for (const len of [key.length - 1, key.length, key.length + 1])
+    for (const w of byLength.get(len) || []) if (swapDistance(key, w) <= 1) return words.get(w);
+  return null;
+}
+// Fine print that is never part of a name: the copyright line and everything after "Illus." (the artist).
+const FINE_PRINT = /©|nintendo|creatures|game\s*freak|pok[eé]mon\s*\//i;
+// OCR of a whole card also reads letters into the artwork and the fine print. Keeps only what is on cards:
+// words from card names and card print (spelled as on the card), full collector numbers (024/128, TG05/TG30)
+// and a set code with its number (MEE 004). One line per printed line, without repeats from several readings.
+// `reading` is OCR lines of words ({text, confidence}), or plain text (read as fully confident).
+export function cleanReading(reading, cards, sets = {}) {
+  const lines =
+      typeof reading === 'string'
+        ? reading.split('\n').map(l =>
+            l
+              .split(/\s+/)
+              .filter(Boolean)
+              .map(text => ({ text, confidence: 100 })),
+          )
+        : reading || [],
+    vocab = vocabulary(cards),
+    out = [],
+    seen = new Set();
+  for (const line of lines) {
+    const raw = line.map(w => w.text).join(' '),
+      kept = [];
+    for (const m of raw.matchAll(/\b([a-z]{0,4}\d{1,4}[a-z]?)\s*[\/／]\s*([a-z]{0,4}\d{1,4})\b/gi))
+      kept.push((m[1] + '/' + m[2]).toUpperCase());
+    for (const m of raw.matchAll(/\b([a-z]{2,5})\s+(\d{3})\b/gi)) if (sets[m[1].toLowerCase()]) kept.push(m[1].toUpperCase() + ' ' + m[2]);
+    const words = [];
+    if (!FINE_PRINT.test(raw))
+      for (const w of line) {
+        if (/^illus/i.test(w.text)) break;
+        if (/\d/.test(w.text)) continue;
+        for (const part of w.text.split(/[^\p{L}'’.\-]+/u)) {
+          const word = cardWord(part.replace(/^[.'’\-]+|[.'’\-]+$/g, ''), w.confidence, vocab);
+          if (word) words.push(word);
+        }
+      }
+    const all = [...words, ...kept].join(' ');
+    if (all && !seen.has(all.toLowerCase())) {
+      seen.add(all.toLowerCase());
+      out.push(all);
+    }
+  }
+  return out.join('\n');
 }
 export function matchCards(text, cards, sets, { setId = '', limit = 20, energyType = '' } = {}) {
   const energy = basicEnergy(text),

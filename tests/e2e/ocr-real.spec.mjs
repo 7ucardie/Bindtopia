@@ -15,6 +15,9 @@ test.describe('real OCR on a phone photo', () => {
     const text = await page.locator('#scanText').inputValue();
     expect(text).toMatch(/Nymble/i);
     expect(text).toMatch(/009\s*\/\s*094/);
+    // Only card words and full numbers: no fragments read into the artwork or fine print.
+    for (const line of text.split('\n')) expect(line).toMatch(/^([\p{L}'’.\-]+|[A-Z]{0,4}\d{1,4}[A-Z]?\/[A-Z]{0,4}\d{1,4}|[A-Z]{2,5} \d{3})( ([\p{L}'’.\-]+|[A-Z]{0,4}\d{1,4}[A-Z]?\/[A-Z]{0,4}\d{1,4}|[A-Z]{2,5} \d{3}))*$/u);
+    console.log('Scanner text:\n' + text);
     await expect(page.locator('#matches .match').first()).toContainText('Phantasmal Flames · #009');
     await expect(page.locator('#matches .match').first()).toContainText('Card number matches');
   });

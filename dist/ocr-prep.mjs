@@ -45,14 +45,6 @@ export function ocrSizes(sourceWidth, sourceHeight, target = 2200) {
   return { work: [w, h], output: [Math.round(w * f), Math.round(h * f)] };
 }
 
-// Sparse-text recognition returns lots of fragments from artwork; keep the lines a person would want to read and correct.
-export const readableText = text =>
-  String(text || '')
-    .split('\n')
-    .map(l => l.trim())
-    .filter(l => /[\p{L}]{3,}/u.test(l) || /\d{1,3}\s*\/\s*\d{2,3}/.test(l))
-    .join('\n');
-
 // Maps the on-screen card guide (inside a video shown with object-fit: cover) to a rectangle of the camera frame, plus a margin.
 export function guideToSource({ videoWidth: vw, videoHeight: vh }, box, guide, margin = 0.06) {
   const s = Math.max(box.width / vw, box.height / vh),
