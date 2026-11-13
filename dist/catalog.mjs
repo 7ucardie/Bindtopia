@@ -56,15 +56,42 @@ function nav() {
   $('#collectionTools').hidden = view !== 'saved';
 }
 
+// Normalized card names and ids are remembered, so a search or filter change does not redo that work for every card
+// in the catalog (keeps typing and tapping responsive on phones). Cleared when a card language loads.
+const normalized = new Map();
+function normalizedOnce(s) {
+  let v = normalized.get(s);
+  if (v === undefined) normalized.set(s, (v = normalize(s)));
+  return v;
+}
+// Fills that memory in short steps while the browser is idle after a catalog loads, so the first search is fast too.
+const whenIdle = step => (window.requestIdleCallback ? requestIdleCallback(step, { timeout: 2000 }) : setTimeout(step, 50));
+function prepareSearch(ticket) {
+  let i = 0;
+  const step = () => {
+    if (ticket !== catalogTicket) return;
+    const cards = state.cards,
+      end = Math.min(cards.length, i + 1500);
+    for (; i < end; i++) {
+      normalizedOnce(cards[i].name);
+      normalizedOnce(cards[i].id);
+    }
+    if (i < cards.length) whenIdle(step);
+  };
+  whenIdle(step);
+}
+
 // A collector number such as 4/102 must match number and set total; a bare number matches the number; otherwise the name or id.
 function filtered() {
   const q = $('#query').value.trim(),
     n = normalize(q),
-    nums = extractNumbers(q);
+    nums = extractNumbers(q),
+    setId = $('#setFilter').value,
+    imagesOnly = $('#imagesOnly').checked;
   const source = view === 'saved' ? savedCards() : state.cards;
   return source.filter(c => {
-    if ($('#setFilter').value && c.setId !== $('#setFilter').value) return false;
-    if ($('#imagesOnly').checked && !c.image) return false;
+    if (setId && c.setId !== setId) return false;
+    if (imagesOnly && !c.image) return false;
     if (!q) return true;
     if (nums.length) {
       const p = nums[0];
@@ -74,7 +101,7 @@ function filtered() {
       );
     }
     if (/^\d+$/.test(q)) return Number(c.localId) === Number(q);
-    return normalize(c.name).includes(n) || normalize(c.id) === n;
+    return normalizedOnce(c.name).includes(n) || normalizedOnce(c.id) === n;
   });
 }
 
@@ -164,6 +191,15 @@ function renderSets() {
   $('#shownCount').textContent = fmt(Math.min(limit, list.length)) + ' van ' + fmt(list.length);
 }
 
+// The English index files. app.mjs starts them before the interface language loads (prefetchCatalog), so the
+// download runs alongside it; the first English load uses those requests, any later load or retry fetches again.
+const englishIndex = () => [getJSON('./data/cards-en.json'), getJSON('./data/sets-en.json'), getJSON('./data/meta.json')];
+let prefetched = null;
+export function prefetchCatalog() {
+  prefetched ??= englishIndex();
+  prefetched.forEach(p => p.catch(() => {}));
+}
+
 // English comes from our own index; other card languages are loaded live from TCGdex. A newer request wins (catalogTicket).
 export async function loadCatalog(lang) {
   const ticket = ++catalogTicket;
@@ -171,12 +207,15 @@ export async function loadCatalog(lang) {
   state.language = lang;
   state.cards = [];
   state.sets = {};
+  normalized.clear();
   $('#catalogStatus').textContent = 'Kaartencatalogus laden…';
   render();
+  const early = lang === 'en' ? prefetched : null;
+  prefetched = null;
   try {
     const [cs, ss, meta] = await Promise.all(
       lang === 'en'
-        ? [getJSON('./data/cards-en.json'), getJSON('./data/sets-en.json'), getJSON('./data/meta.json')]
+        ? early || englishIndex()
         : [getJSON('https://api.tcgdex.net/v2/' + lang + '/cards'), getJSON('https://api.tcgdex.net/v2/' + lang + '/sets')],
     );
     if (ticket !== catalogTicket) return;
@@ -208,6 +247,7 @@ export async function loadCatalog(lang) {
     } else $('#catalogStatus').textContent = counts + 'Live catalogus van TCGdex · Beschikbaarheid verschilt per taal.';
     limit = PAGE;
     render();
+    prepareSearch(ticket);
     const pending = takePendingCard();
     if (pending) {
       const c = state.cards.find(x => x.id === pending);
