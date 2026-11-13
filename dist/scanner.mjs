@@ -1,8 +1,8 @@
 // The photo scanner: a chosen photo or an in-site camera shot is read on the device and matched against the catalog.
-import { matchCards } from './matcher.mjs';
+import { matchCards, cleanReading } from './matcher.mjs';
 import { escape } from './card-detail.mjs';
 import { confident, decide } from './trade.mjs';
-import { readableText, OCR_PASSES } from './ocr-prep.mjs';
+import { OCR_PASSES } from './ocr-prep.mjs';
 import { state } from './state.mjs';
 import { $, toast, pic, protectImage } from './ui.mjs';
 import { openDialog } from './dialogs.mjs';
@@ -104,6 +104,7 @@ async function recognize() {
       text = '',
       sure = false,
       first = null;
+    const lines = [];
     const n = OCR_PASSES.length;
     setOcrProgress(p => {
       $('#scanProgress').value = (pass + p) / n;
@@ -113,15 +114,20 @@ async function recognize() {
     for (; pass < n && !sure; pass++) {
       const r = await readCanvas(ocrCanvas(bitmap, fullRect(bitmap), OCR_PASSES[pass]));
       first ??= r;
-      text += '\n' + r.text;
+      lines.push(...r.lines);
+      text = cleanReading(lines, state.cards, state.sets);
       sure = !!confident(matchCards(text, state.cards, state.sets, { limit: 4, energyType }));
     }
     bitmap.close();
     const hint = sure || first.hint === 'ok' ? '' : first.hint;
-    $('#scanText').value = readableText(text) || text.trim();
+    // Only words that appear on cards and full card numbers; the rest of what OCR saw is noise.
+    $('#scanText').value = text;
     $('#scanProgress').value = 1;
     $('#scanStatus').textContent =
-      'Tekst gelezen. Controleer de naam en het kaartnummer hieronder.' + (hint ? ' Tip: ' + distanceText[hint] : '');
+      (text
+        ? 'Tekst gelezen. Controleer de naam en het kaartnummer hieronder.'
+        : 'Geen kaarttekst gevonden. Voer de naam en het nummer zelf in of maak een nieuwe foto.') +
+      (hint ? ' Tip: ' + distanceText[hint] : '');
     doMatch();
   } catch {
     $('#scanStatus').textContent =

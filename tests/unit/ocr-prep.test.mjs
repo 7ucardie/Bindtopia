@@ -1,6 +1,6 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {binarize, ocrSizes, readableText, guideToSource, distanceHint, wordsOf, energyTypeFromPixels} from '../../dist/ocr-prep.mjs';
+import {binarize, ocrSizes, guideToSource, distanceHint, wordsOf, energyTypeFromPixels} from '../../dist/ocr-prep.mjs';
 
 function image(w, h, pixel) {
   const data = new Uint8ClampedArray(w * h * 4);
@@ -25,11 +25,6 @@ test('ocrSizes caps the working size and enlarges small images', () => {
   assert.deepEqual(ocrSizes(4032, 3024, 2800), {work: [2000, 1500], output: [2800, 2100]});
   assert.deepEqual(ocrSizes(300, 400), {work: [300, 400], output: [900, 1200]}, 'never more than 3x');
   assert.deepEqual(ocrSizes(3000, 4000, 1000), {work: [1500, 2000], output: [1500, 2000]}, 'never shrunk below the working size');
-});
-
-test('readableText drops artwork noise but keeps names and collector numbers', () => {
-  assert.equal(readableText('Is\nNymble\nLd 50 (7)\n& | o 8\n009/094 ®\nFlail Around'), 'Nymble\n009/094 ®\nFlail Around');
-  assert.equal(readableText(''), '');
 });
 
 test('guideToSource maps the on-screen guide through object-fit: cover', () => {

@@ -72,7 +72,11 @@ export async function resetWorker() {
 
 export async function readCanvas(canvas) {
   const { data } = await worker.recognize(canvas, {}, { text: true, blocks: true });
-  return { text: data.text || '', hint: distanceHint(wordsOf(data), canvas.height) };
+  // Lines of words with Tesseract's confidence, so noise read into the artwork can be dropped word by word.
+  const lines = (data?.blocks || []).flatMap(b =>
+    b.paragraphs.flatMap(p => p.lines.map(l => l.words.map(w => ({ text: w.text, confidence: w.confidence })))),
+  );
+  return { text: data.text || '', lines, hint: distanceHint(wordsOf(data), canvas.height) };
 }
 
 export const distanceText = {
