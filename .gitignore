@@ -17,3 +17,10 @@ dist/api/
 
 # Temporary agent worktrees
 .claude/worktrees/
+
+# Built at deploy by scripts/build-pages.mjs
+dist/card/
+dist/set/
+dist/sets/
+dist/sitemap-sets.xml
+dist/sitemap-cards-*.xml

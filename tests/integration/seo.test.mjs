@@ -13,8 +13,12 @@ test('robots.txt allows crawling and names the sitemap', () => {
   assert.match(robots, /^Sitemap: https:\/\/bindtopia\.com\/sitemap\.xml$/m);
 });
 
-test('every sitemap URL is an absolute bindtopia.com address of an existing page', () => {
-  const urls = [...read('sitemap.xml').matchAll(/<loc>([^<]+)<\/loc>/g)].map(m => m[1]);
+test('sitemap.xml is an index; the committed site sitemap lists only existing pages', () => {
+  const index = [...read('sitemap.xml').matchAll(/<loc>([^<]+)<\/loc>/g)].map(m => m[1]);
+  assert.match(read('sitemap.xml'), /<sitemapindex /);
+  // sitemap-sets.xml and sitemap-cards-N.xml are built at deploy by scripts/build-pages.mjs (tests/unit/build-pages.test.mjs).
+  assert.deepEqual(index, ['https://bindtopia.com/sitemap-site.xml', 'https://bindtopia.com/sitemap-sets.xml', 'https://bindtopia.com/sitemap-cards-1.xml']);
+  const urls = [...read('sitemap-site.xml').matchAll(/<loc>([^<]+)<\/loc>/g)].map(m => m[1]);
   assert.ok(urls.includes('https://bindtopia.com/'));
   for (const url of urls) {
     assert.match(url, /^https:\/\/bindtopia\.com\//, url);
