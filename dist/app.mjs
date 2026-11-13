@@ -9,12 +9,14 @@ import { getJSON, loadRates } from './state.mjs';
 import { $ } from './ui.mjs';
 import { wireDialogs } from './dialogs.mjs';
 import { wireCollection } from './collection.mjs';
-import { render, loadCatalog, loadCardLanguages, wireCatalog } from './catalog.mjs';
+import { render, loadCatalog, loadCardLanguages, wireCatalog, prefetchCatalog } from './catalog.mjs';
 import { wireDetail } from './detail.mjs';
 import { wireScanner } from './scanner.mjs';
 import { wireTrade } from './trade-mode.mjs';
 import { wireAddCard } from './add-card.mjs';
 
+// The English card index downloads while the interface language loads; loadCatalog('en') below uses it.
+prefetchCatalog();
 await startI18n();
 wireDialogs();
 wireCollection();
