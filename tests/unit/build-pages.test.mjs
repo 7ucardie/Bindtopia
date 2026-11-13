@@ -29,7 +29,8 @@ test('every card gets its own page with a unique title, canonical address, image
   assert.match(html, /src="https:\/\/assets\.tcgdex\.net\/en\/x\/new\/002\/high\.webp"/);
   assert.match(html, /href="\/\?card=new-002&ui=en"/);
   assert.match(html, /rel="prev" href="\/card\/new-001\/"/);
-  assert.match(html, /rel="next" href="\/card\/new-004\/"/);
+  assert.match(html, /rel="next" href="\/card\/new-004\/" data-card="new-004"/);
+  assert.match(html, /<script src="\/pages\.js" defer><\/script>/);
   assert.match(page('new-004'), /Image not yet available/);
   assert.equal([...files.keys()].filter(k => k.startsWith('card/')).length, cards.length);
 });

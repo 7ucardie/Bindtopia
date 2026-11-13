@@ -10,7 +10,9 @@ The catalog is a single-page app: a card detail opens at `?card=<id>` and is dra
 
 `cardFileId` and `setFileId` are the IDs with characters that are unsafe in a path encoded as `_HEX`, as in the [public API](api.md) (`exu-!` → `exu-_21`).
 
-Every page is English (`lang="en"`, the default interface language), has a unique title and description, a canonical address, Open Graph tags with the card image, and `BreadcrumbList` structured data (Bindtopia › Sets › set › card). Pages load only the site's own stylesheets (`style.css`, `themes.css`, `typography.css`, `pages.css`) and card images from TCGdex; they run no scripts.
+Every page is English (`lang="en"`, the default interface language), has a unique title and description, a canonical address, Open Graph tags with the card image, and `BreadcrumbList` structured data (Bindtopia › Sets › set › card). Pages load only the site's own stylesheets (`style.css`, `themes.css`, `typography.css`, `pages.css`), card images from TCGdex and one small script, `pages.js`.
+
+The pages are entry points from search engines, not a second way to browse. In the app a card always opens as a popover over the catalog. On these pages every card link (set grid, previous/next, other prints) is a real link to `/card/<id>/` for crawlers, but `pages.js` sends a visitor who clicks it into the app at `/?card=<id>&ui=en`, where the card opens as that popover. The start page footer's **All sets** link (`/sets/`) likewise opens the app's own sets view in place.
 
 ## Sitemaps
 
