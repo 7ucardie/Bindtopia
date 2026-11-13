@@ -8,7 +8,8 @@ const read = f => readFileSync(new URL(f, dist), 'utf8');
 const code = readdirSync(dist).filter(f => /\.(mjs|js)$/.test(f)).map(read).join('\n') + read('index.html');
 const legalNl = ['privacy.html', 'cookies.html', 'voorwaarden.html', 'rechten.html'].map(read).join('\n');
 const legalEn = read('legal-en.html');
-const ownLinks = new Set(['tcgdex.dev']);
+// schema.org is only the vocabulary name inside the JSON-LD in index.html; the browser never contacts it.
+const ownLinks = new Set(['tcgdex.dev', 'schema.org']);
 const hosts = [...new Set([...code.matchAll(/https:\/\/([a-z0-9.-]+\.[a-z]{2,})/g)].map(m => m[1].replace(/^www\./, '')))].filter(h => !ownLinks.has(h));
 
 test('every external host contacted by the site is named in both privacy statements', () => {
