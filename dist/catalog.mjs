@@ -52,7 +52,7 @@ function cardElement(c) {
 }
 
 function nav() {
-  document.querySelectorAll('[data-view]').forEach(b => b.classList.toggle('active', b.dataset.view === view));
+  document.querySelectorAll('button[data-view]').forEach(b => b.classList.toggle('active', b.dataset.view === view));
   $('#collectionTools').hidden = view !== 'saved';
 }
 
@@ -319,9 +319,15 @@ export function wireCatalog() {
         showFirstPage();
       }),
   );
+  // The footer's "All sets" is a real link (/sets/, for search engines); in the app it opens the sets view in place.
   document.querySelectorAll('[data-view]').forEach(
     b =>
-      (b.onclick = () => {
+      (b.onclick = e => {
+        if (b.tagName === 'A') {
+          if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+          e.preventDefault();
+          scrollTo({ top: 0 });
+        }
         view = b.dataset.view;
         showFirstPage();
       }),
