@@ -106,7 +106,7 @@ Or to **Claude Desktop, Cursor or VS Code** (`claude_desktop_config.json`, `.cur
 }
 ```
 
-From a clone instead: `npm ci` and point the client at `node /path/to/Bindtopia/mcp/server.mjs`. Optional environment variables: `BINDTOPIA_API` (another API base URL) and `BINDTOPIA_TCGDEX` (another TCGdex base URL). Try it interactively with `npx @modelcontextprotocol/inspector node mcp/server.mjs`.
+From a clone instead: `pnpm install --frozen-lockfile` and point the client at `node /path/to/Bindtopia/mcp/server.mjs`. Optional environment variables: `BINDTOPIA_API` (another API base URL) and `BINDTOPIA_TCGDEX` (another TCGdex base URL). Try it interactively with `npx @modelcontextprotocol/inspector node mcp/server.mjs`.
 
 Example prompts: *"What year did Charizard 4/102 come out and what is it worth in pounds?"* · *"List all Pokémon sets from 1999."*
 

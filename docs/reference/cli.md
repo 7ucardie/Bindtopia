@@ -10,13 +10,13 @@ Run commands from the repository root.
 | `node scripts/check-i18n.mjs` | Validate interface dictionaries, fallback and Japanese matching |
 | `node scripts/check-sync.mjs` | Validate updater acceptance/rejection cases |
 | `node scripts/check-docs.mjs` | Validate local documentation links |
-| `npm ci` | Install the test tooling (Playwright) from the lockfile |
-| `npm run test:unit` | Unit tests for matching, translation and card-detail helpers |
-| `npm run test:integration` | Serve `dist/` locally and check pages, assets, catalog and locales |
-| `npx playwright install chromium` then `npm run test:e2e` | Browser tests on desktop and phone viewports with mocked TCGdex responses |
-| `npm test` | All checks and test suites |
+| `pnpm install --frozen-lockfile` | Install the test tooling (Playwright) from `pnpm-lock.yaml` |
+| `pnpm run test:unit` | Unit tests for matching, translation and card-detail helpers |
+| `pnpm run test:integration` | Serve `dist/` locally and check pages, assets, catalog and locales |
+| `pnpm exec playwright install chromium` then `pnpm run test:e2e` | Browser tests on desktop and phone viewports with mocked TCGdex responses |
+| `pnpm test` | All checks and test suites |
 | `node scripts/sync-catalog.mjs` | Fetch and validate an English catalog update |
-| `npm run mcp` | Start the MCP server over stdio (normally started by an AI client) |
+| `pnpm run mcp` | Start the MCP server over stdio (normally started by an AI client) |
 | `node scripts/sync-languages.mjs` | Measure which TCGdex card languages have a usable catalog |
 | `node scripts/build-fingerprints.mjs [--evaluate]` | Fingerprint catalog images (incremental) or measure recognition accuracy |
 | `node scripts/sync-rates.mjs` | Fetch the ECB exchange rates used for price conversions |
@@ -24,4 +24,6 @@ Run commands from the repository root.
 | `node scripts/configure-project.mjs` | Generate sponsor/project/domain files from project.config.json |
 | `python3 scripts/create-brand.py` | Regenerate brand vectors/raster icons; requires Pillow and fontTools |
 
-Ordinary web use and catalog validation do not require npm installation; only the test suites do. Brand regeneration requires its Python dependencies; keep the checked-in assets when not changing the brand. The native app requires Xcode on macOS.
+Ordinary web use and catalog validation do not require a package installation; only the test suites do. Brand regeneration requires its Python dependencies; keep the checked-in assets when not changing the brand. The native app requires Xcode on macOS.
+
+The package manager is pnpm; `packageManager` in `package.json` pins the version (`corepack enable` picks it up). `pnpm-workspace.yaml` only installs package versions that are at least three days old (`minimumReleaseAge`) and blocks the tesseract.js install script, which only prints a funding message (`allowBuilds`).
