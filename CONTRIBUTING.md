@@ -16,7 +16,7 @@ node scripts/check-docs.mjs
 
 Browser code in `dist/` is formatted with Prettier using `.prettierrc.json` (`npx prettier@3.3.3 --write "dist/*.mjs" dist/sw.js`); keep one module per part of the page and route shared state through `dist/state.mjs`.
 
-The full suite (checks, unit, integration and Playwright end-to-end tests) runs with `npm ci && npx playwright install chromium && npm test`. CI runs the same suites plus `npm audit`, Gitleaks and Trivy; pin any new workflow action to a commit SHA.
+The full suite (checks, unit, integration and Playwright end-to-end tests) runs with `pnpm install --frozen-lockfile && pnpm exec playwright install chromium && pnpm test`. CI runs the same suites plus `pnpm audit`, Gitleaks and Trivy; pin any new workflow action to a commit SHA.
 
 Validate changed skill frontmatter with the available skill validator. Rebuild the source archive when its inputs change. Test UI changes in the island theme and at a phone-sized viewport; report when browser QA is unavailable. Native changes require a separate Xcode/device validation step.
 

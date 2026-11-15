@@ -22,7 +22,7 @@ Run the relevant existing checks; do not introduce a framework, package installa
 - `node scripts/check-i18n.mjs`
 - `node scripts/check-sync.mjs`
 - `node scripts/check-docs.mjs`
-- `npm run test:unit`, `npm run test:integration` and `npm run test:e2e` (after `npm ci`)
+- `npm run test:unit`, `npm run test:integration` and `npm run test:e2e` (after `pnpm install --frozen-lockfile`)
 
 The source is published through the GitHub repository; there is no separate download archive.
 

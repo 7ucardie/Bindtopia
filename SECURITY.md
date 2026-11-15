@@ -15,7 +15,7 @@ Treat source data and imported JSON as untrusted. Preserve escaping, allowed ima
 
 ## Builds and automation
 
-CI runs source/catalog/localization/update and documentation checks, unit, integration and end-to-end tests, `npm audit`, a Gitleaks secret scan and a Trivy vulnerability/secret/misconfiguration scan. All workflow actions are pinned to commit SHAs; Renovate keeps them and the npm lockfile current and merges updates only after CI passes. macOS signing and native compilation are not part of CI. Secrets and Apple signing files belong outside the repository and source archives.
+CI runs source/catalog/localization/update and documentation checks, unit, integration and end-to-end tests, `pnpm audit` (with registry signature verification), a Gitleaks secret scan and a Trivy vulnerability/secret/misconfiguration scan. All workflow actions are pinned to commit SHAs; Renovate keeps them and the npm lockfile current and merges updates only after CI passes. macOS signing and native compilation are not part of CI. Secrets and Apple signing files belong outside the repository and source archives.
 
 ## Downloads
 
