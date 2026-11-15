@@ -73,8 +73,13 @@ export async function resetWorker() {
 export async function readCanvas(canvas) {
   const { data } = await worker.recognize(canvas, {}, { text: true, blocks: true });
   // Lines of words with Tesseract's confidence, so noise read into the artwork can be dropped word by word.
+  // rel: a word's height against the tallest clearly read word of this reading (the name or HP), so the small
+  // "evolves from" line is told from the name at any image scale.
+  const words = (data?.blocks || []).flatMap(b => b.paragraphs.flatMap(p => p.lines.flatMap(l => l.words)));
+  const height = w => (w.bbox ? w.bbox.y1 - w.bbox.y0 : 0),
+    tallest = Math.max(1, ...words.filter(w => w.confidence >= 60).map(height));
   const lines = (data?.blocks || []).flatMap(b =>
-    b.paragraphs.flatMap(p => p.lines.map(l => l.words.map(w => ({ text: w.text, confidence: w.confidence })))),
+    b.paragraphs.flatMap(p => p.lines.map(l => l.words.map(w => ({ text: w.text, confidence: w.confidence, rel: height(w) / tallest })))),
   );
   return { text: data.text || '', lines, hint: distanceHint(wordsOf(data), canvas.height) };
 }
