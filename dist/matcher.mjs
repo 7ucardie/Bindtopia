@@ -71,11 +71,48 @@ function vocabulary(cards) {
     if (key && (key.length >= 4 || SHORT_WORDS.has(key)) && !words.has(key))
       words.set(key, w.replace(/[(),:!?]+$/g, '').replace(/^[(]+/, ''));
   }
-  const byLength = new Map();
-  for (const key of words.keys()) (byLength.get(key.length) || byLength.set(key.length, []).get(key.length)).push(key);
-  v = { words, byLength };
+  const byLength = new Map(),
+    fixed = new Set(CARD_WORDS.map(normalize));
+  for (const key of words.keys()) if (!fixed.has(key)) (byLength.get(key.length) || byLength.set(key.length, []).get(key.length)).push(key);
+  // Japanese and Chinese names are matched whole: OCR returns those scripts character by character, without spaces.
+  const cjk = new Map();
+  for (const c of cards) {
+    const key = normalize(c.name);
+    if (CJK.test(key) && !cjk.has(key)) cjk.set(key, c.name);
+  }
+  v = { words, byLength, cjk: [...cjk].sort((a, b) => b[0].length - a[0].length) };
   vocabularies.set(cards, v);
   return v;
+}
+// Scripts written without spaces between words (Japanese, Chinese, Korean, Thai).
+// "Evolves from" lines: Japanese …から進化 (から alone also covers 手札から-style rules text), Chinese 從/从…進化, Thai …จาก.
+const EVOLVES_FROM = /から|[從从].*[進进]化|ววฒนาการ|จาก/u;
+const CJK = /[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Hangul}\p{Script=Thai}]/u;
+// The Japanese OCR model reads digits as circled numbers (①, ⑥0); back to plain digits.
+const plainDigits = s =>
+  String(s)
+    .replace(/[\u2460-\u2473]/g, c => String(c.charCodeAt(0) - 0x245f))
+    .replace(/\u24ea/g, '0');
+// The card name in a line of Japanese or Chinese characters: the longest name it contains, or else the one name
+// within a few read errors of a stretch of the line (at most 40% of the name's characters), or null.
+function cjkName(run, { cjk }) {
+  for (const [key, name] of cjk) if (run.includes(key)) return name;
+  if (run.length > 16) return null;
+  let best = null,
+    bestScore = Infinity,
+    tie = false;
+  for (const [key, name] of cjk) {
+    const limit = Math.max(1, Math.floor(key.length * 0.4));
+    for (let len = Math.max(2, key.length - 1); len <= key.length + 1; len++)
+      for (let i = 0; i + len <= run.length; i++) {
+        const d = swapDistance(run.slice(i, i + len), key);
+        if (d > limit) continue;
+        const score = d / key.length;
+        if (score < bestScore) [best, bestScore, tie] = [name, score, false];
+        else if (score === bestScore && name !== best) tie = true;
+      }
+  }
+  return tie ? null : best;
 }
 // Edit distance that also counts two swapped letters as one edit ("nymbel" → "nymble").
 function swapDistance(a, b) {
@@ -88,10 +125,14 @@ function swapDistance(a, b) {
     }
   return d[a.length][b.length];
 }
-// A read word as the card spells it, or null. Exact words need some OCR confidence; a one-letter correction
+// A read word as the card spells it, or null. An exact card word needs only a little OCR confidence; a one-letter correction
 // (for words of five letters or more) needs a confident reading, so letters read into artwork are not "corrected" into names.
-const SURE = 50,
-  FIX = 75;
+const SURE = 30,
+  FIX = 75,
+  // Japanese and Chinese characters get a lower bar: a run only counts when it matches a card name.
+  CJK_SURE = 30,
+  // Below this share of the reading's tallest text a name is fine print (an evolves-from line), not the card's name.
+  SMALL = 0.45;
 function cardWord(token, confidence, { words, byLength }) {
   const key = normalize(token);
   if (!key || /\d/.test(key) || confidence < SURE) return null;
@@ -116,33 +157,78 @@ export function cleanReading(reading, cards, sets = {}) {
               .filter(Boolean)
               .map(text => ({ text, confidence: 100 })),
           )
-        : reading || [],
+        : [...(reading || [])],
     vocab = vocabulary(cards),
     out = [],
     seen = new Set();
+  // Sparse OCR can put the two halves of a split name on lines of their own ("ika" / "chu"): such neighbours are merged
+  // when together they make a card word.
+  const piece = l => l.length === 1 && /^\p{L}{2,5}$/u.test(l[0].text);
+  for (let i = 0; i + 1 < lines.length; i++)
+    if (piece(lines[i]) && piece(lines[i + 1])) {
+      const [a, b] = [lines[i][0], lines[i + 1][0]];
+      if (cardWord(a.text + b.text, Math.min(a.confidence, b.confidence), vocab))
+        lines.splice(i, 2, [{ ...a, text: a.text + b.text, confidence: Math.min(a.confidence, b.confidence) }]);
+    }
   for (const line of lines) {
-    const raw = line.map(w => w.text).join(' '),
+    const raw = plainDigits(line.map(w => w.text).join(' ')),
       kept = [];
     for (const m of raw.matchAll(/\b([a-z]{0,4}\d{1,4}[a-z]?)\s*[\/／]\s*([a-z]{0,4}\d{1,4})\b/gi))
       kept.push((m[1] + '/' + m[2]).toUpperCase());
     for (const m of raw.matchAll(/\b([a-z]{2,5})\s+(\d{3})\b/gi)) if (sets[m[1].toLowerCase()]) kept.push(m[1].toUpperCase() + ' ' + m[2]);
     const words = [];
+    const run = normalize(
+      line
+        .filter(w => CJK.test(w.text) && w.confidence >= CJK_SURE)
+        .map(w => w.text)
+        .join(''),
+    );
+    // "evolves from" names the previous stage (マグマラシから進化, 從火岩鼠進化, วิวัฒนาการจาก…), not this card.
+    // Checked on every character of the line, however unsure: から in an evolves-from line is often read faintly.
+    const anyRun = normalize(
+      line
+        .filter(w => CJK.test(w.text))
+        .map(w => w.text)
+        .join(''),
+    );
+    // A Japanese, Chinese or Thai name is printed large; a small one is the stage it evolves from, split off from its から.
+    const cjkWords = line.filter(w => CJK.test(w.text)),
+      small = cjkWords.length > 0 && cjkWords.every(w => w.rel !== undefined && w.rel < SMALL);
+    if (run.length >= 2 && CJK.test(run) && !EVOLVES_FROM.test(anyRun) && !small) {
+      const name = cjkName(run, vocab);
+      if (name) words.push({ cjk: name, rel: Math.max(0, ...cjkWords.map(w => w.rel ?? 1)) });
+    }
     if (!FINE_PRINT.test(raw))
-      for (const w of line) {
+      for (let i = 0; i < line.length; i++) {
+        const w = line[i];
         if (/^illus/i.test(w.text)) break;
-        if (/\d/.test(w.text)) continue;
+        if (/\d/.test(w.text) || CJK.test(w.text)) continue;
+        let found = false;
         for (const part of w.text.split(/[^\p{L}'’.\-]+/u)) {
           const word = cardWord(part.replace(/^[.'’\-]+|[.'’\-]+$/g, ''), w.confidence, vocab);
-          if (word) words.push(word);
+          if (word) (words.push(word), (found = true));
+        }
+        // Holo foil can split a name in two ("ika" "chu"): two short neighbours are tried as one word.
+        const next = line[i + 1];
+        if (!found && next && /^\p{L}{2,5}$/u.test(w.text) && /^\p{L}{2,5}$/u.test(next.text)) {
+          const joined = cardWord(w.text + next.text, Math.min(w.confidence, next.confidence), vocab);
+          if (joined) (words.push(joined), i++);
         }
       }
-    const all = [...words, ...kept].join(' ');
-    if (all && !seen.has(all.toLowerCase())) {
-      seen.add(all.toLowerCase());
-      out.push(all);
-    }
+    out.push([...words, ...kept]);
   }
-  return out.join('\n');
+  // Several Japanese, Chinese or Thai names: the card's own is the largest; a clearly smaller one is the stage it
+  // evolves from or an attack, so names below 75% of the largest one's height are left out.
+  const largest = Math.max(0, ...out.flat().map(w => w.rel ?? 0));
+  return out
+    .map(parts =>
+      parts
+        .filter(w => typeof w === 'string' || w.rel >= largest * 0.75)
+        .map(w => (typeof w === 'string' ? w : w.cjk))
+        .join(' '),
+    )
+    .filter(line => line && !seen.has(line.toLowerCase()) && seen.add(line.toLowerCase()))
+    .join('\n');
 }
 export function matchCards(text, cards, sets, { setId = '', limit = 20, energyType = '' } = {}) {
   const energy = basicEnergy(text),

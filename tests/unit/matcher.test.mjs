@@ -91,3 +91,33 @@ test('cleanReading only corrects a word that was read confidently, and drops rep
   assert.equal(cleanReading([line(['Nymble', 90], ['009/094', 80]), line(['nymble', 95], ['009', 50], ['/', 50], ['094', 50])], readingCards, readingSets), 'Nymble 009/094');
   assert.equal(cleanReading('Nymble 9/94', readingCards, readingSets), 'Nymble 9/94');
 });
+
+// Japanese, Chinese and Thai OCR comes back character by character, without spaces, often with one character misread.
+const asianCards = [
+  {id: 'ja-025', localId: '025', name: 'ピカチュウ', setId: 's'},
+  {id: 'ja-026', localId: '026', name: 'ライチュウ', setId: 's'},
+  {id: 'tw-025', localId: '025', name: '皮卡丘', setId: 't'},
+  {id: 'tw-026', localId: '026', name: '雷丘', setId: 't'},
+];
+const chars = (text, confidence = 96) => [...text].map(c => ({text: c, confidence}));
+
+test('cleanReading finds Japanese and Chinese names in character-by-character OCR, with a misread character', () => {
+  const ja = [chars('ビカテチュウ'), [{text: 'HP', confidence: 93}, {text: '⑥0', confidence: 92}], chars('コインを1回投げオモテなら、相手のバトルポケモンをマヒにする。')];
+  assert.equal(cleanReading(ja, asianCards, {s: {}}), 'ピカチュウ\nHP');
+  const tw = [[{text: '庾', confidence: 86}, {text: '卡', confidence: 88}, {text: '丘', confidence: 37}], [{text: '025/165', confidence: 84}]];
+  assert.equal(cleanReading(tw, asianCards, {t: {}}), '皮卡丘\n025/165');
+  assert.equal(cleanReading([chars('皮卡丘')], asianCards, {t: {}}), '皮卡丘');
+  assert.equal(cleanReading([chars('擲1次硬幣若為正面')], asianCards, {t: {}}), '');
+});
+
+test('circled digits from the Japanese model count as digits, and card words are never corrected into English', () => {
+  assert.equal(cleanReading([[{text: '⓪②⑤/①⑥⑤', confidence: 90}]], asianCards, {s: {}}), '025/165');
+  assert.equal(cleanReading('BÁSICO\nPikachu', [{id: 'x', localId: '1', name: 'Pikachu', setId: 'x'}], {x: {}}), 'Pikachu');
+});
+
+test('a name split in two by holo foil is read as one word', () => {
+  const cards = [{id: 'p', localId: '073', name: 'Pikachu', setId: 's'}];
+  assert.equal(cleanReading([[{text: 'ika', confidence: 95}, {text: 'chu', confidence: 85}]], cards, {s: {}}), 'Pikachu');
+  assert.equal(cleanReading([[{text: 'ika', confidence: 95}], [{text: 'chu', confidence: 85}]], cards, {s: {}}), 'Pikachu');
+  assert.equal(cleanReading([[{text: 'ika', confidence: 60}, {text: 'chu', confidence: 60}]], cards, {s: {}}), '');
+});
