@@ -19,6 +19,8 @@ import {
   fullRect,
   GUIDE_MARGIN,
   energyTypeOf,
+  photoQuality,
+  qualityText,
 } from './ocr.mjs';
 
 let photo = null,
@@ -79,6 +81,7 @@ async function recognizeByPicture(bitmap) {
 
 async function recognize() {
   if (!photo || state.busy) return;
+  $('#scanStatus').classList.remove('warn');
   setScanning(true);
   $('#scanProgress').value = 0;
   $('#scanStatus').textContent = 'Tekstherkenning laden. De eerste keer kan dit wat langer duren…';
@@ -90,6 +93,8 @@ async function recognize() {
     await getWorker();
     const bitmap = await createImageBitmap(photo);
     energyType = energyTypeOf(bitmap);
+    // Too blurry or too few pixels: said with the result, so the user knows why reading failed and what helps.
+    const quality = photoQuality(bitmap);
     const byPicture = photoFromGuide && (await recognizeByPicture(bitmap));
     if (byPicture) {
       bitmap.close();
@@ -123,11 +128,15 @@ async function recognize() {
     // Only words that appear on cards and full card numbers; the rest of what OCR saw is noise.
     $('#scanText').value = text;
     $('#scanProgress').value = 1;
+    // A blurry photo is always reported; softness or few pixels only when the card was not recognised for sure.
+    const tip = quality === 'blurry' || (quality && !sure) ? qualityText[quality] : hint ? distanceText[hint] : '';
     $('#scanStatus').textContent =
-      (text
-        ? 'Tekst gelezen. Controleer de naam en het kaartnummer hieronder.'
-        : 'Geen kaarttekst gevonden. Voer de naam en het nummer zelf in of maak een nieuwe foto.') +
-      (hint ? ' Tip: ' + distanceText[hint] : '');
+      quality === 'blurry' && !text
+        ? qualityText.blurry
+        : (text
+            ? 'Tekst gelezen. Controleer de naam en het kaartnummer hieronder.'
+            : 'Geen kaarttekst gevonden. Voer de naam en het nummer zelf in of maak een nieuwe foto.') + (tip ? ' Tip: ' + tip : '');
+    $('#scanStatus').classList.toggle('warn', quality === 'blurry');
     doMatch();
   } catch {
     $('#scanStatus').textContent =

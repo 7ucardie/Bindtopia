@@ -1,6 +1,6 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {binarize, ocrSizes, guideToSource, distanceHint, wordsOf, energyTypeFromPixels} from '../../dist/ocr-prep.mjs';
+import {binarize, ocrSizes, guideToSource, distanceHint, wordsOf, energyTypeFromPixels, sharpness} from '../../dist/ocr-prep.mjs';
 
 function image(w, h, pixel) {
   const data = new Uint8ClampedArray(w * h * 4);
@@ -60,4 +60,18 @@ test('energyTypeFromPixels tells energy types apart by colour', () => {
   };
   const swatches = {lightning: [245, 175, 30], fire: [200, 40, 30], water: [40, 110, 200], grass: [60, 150, 60], psychic: [140, 70, 170], darkness: [35, 35, 45], metal: [160, 160, 165]};
   for (const [type, rgb] of Object.entries(swatches)) assert.equal(energyTypeFromPixels(fill(rgb)), type);
+});
+
+test('sharpness is high for crisp edges and drops when the same image is blurred', () => {
+  const w = 64, h = 64, crisp = new Uint8ClampedArray(w * h * 4), soft = new Uint8ClampedArray(w * h * 4);
+  for (let y = 0; y < h; y++)
+    for (let x = 0; x < w; x++) {
+      const i = 4 * (y * w + x), on = (x >> 2) % 2 ? 255 : 0, ramp = Math.round(127 + 127 * Math.sin((x / 32) * Math.PI));
+      crisp.fill(on, i, i + 3), (crisp[i + 3] = 255);
+      soft.fill(ramp, i, i + 3), (soft[i + 3] = 255);
+    }
+  const sharpOne = sharpness({data: crisp, width: w, height: h}), blurredOne = sharpness({data: soft, width: w, height: h});
+  assert.ok(sharpOne > 1000, String(sharpOne));
+  assert.ok(blurredOne < 20, String(blurredOne));
+  assert.equal(sharpness({data: new Uint8ClampedArray(w * h * 4).fill(200), width: w, height: h}), 0);
 });

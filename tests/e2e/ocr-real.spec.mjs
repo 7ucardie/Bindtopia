@@ -18,8 +18,22 @@ test.describe('real OCR on a phone photo', () => {
     // Only card words and full numbers: no fragments read into the artwork or fine print.
     for (const line of text.split('\n')) expect(line).toMatch(/^([\p{L}'’.\-]+|[A-Z]{0,4}\d{1,4}[A-Z]?\/[A-Z]{0,4}\d{1,4}|[A-Z]{2,5} \d{3})( ([\p{L}'’.\-]+|[A-Z]{0,4}\d{1,4}[A-Z]?\/[A-Z]{0,4}\d{1,4}|[A-Z]{2,5} \d{3}))*$/u);
     console.log('Scanner text:\n' + text);
+    await expect(page.locator('#scanStatus')).not.toHaveClass(/warn/);
+    await expect(page.locator('#scanStatus')).not.toContainText('blurry');
     await expect(page.locator('#matches .match').first()).toContainText('Phantasmal Flames · #009');
     await expect(page.locator('#matches .match').first()).toContainText('Card number matches');
+  });
+
+  test('a blurry photo is reported as too blurry, with what to do', async ({page, context}) => {
+    test.skip(test.info().project.name !== 'desktop', 'one browser is enough for the slow real-OCR run');
+    test.setTimeout(180000);
+    await serveOcr(page, context);
+    await openHome(page);
+    await page.click('#openScan');
+    await page.setInputFiles('#uploadInput', 'tests/fixtures/card-nymble-blurred.jpg');
+    await expect(page.locator('#scanStatus')).toContainText('too blurry', {timeout: 150000});
+    await expect(page.locator('#scanStatus')).toContainText('tap the card to focus');
+    await expect(page.locator('#scanStatus')).toHaveClass(/warn/);
   });
 });
 

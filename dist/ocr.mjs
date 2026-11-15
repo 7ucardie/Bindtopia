@@ -1,6 +1,6 @@
 // Recognition on the device, shared by the photo scanner and trade mode: Tesseract text reading and picture fingerprints.
 import { cardFingerprint, decode as decodePrints, nearest } from './fingerprint.mjs';
-import { binarize, ocrSizes, guideToSource, distanceHint, wordsOf, energyTypeFromPixels } from './ocr-prep.mjs';
+import { binarize, ocrSizes, guideToSource, distanceHint, wordsOf, energyTypeFromPixels, sharpness, SHARPNESS_WIDTH } from './ocr-prep.mjs';
 import { state, getJSON } from './state.mjs';
 
 // Subresource integrity for the pinned CDN copy; tests/integration/cdn.test.mjs checks it in CI.
@@ -161,3 +161,25 @@ export function energyTypeOf(src) {
   x.drawImage(src, 0, 0, w, h);
   return energyTypeFromPixels(x.getImageData(0, 0, w, h));
 }
+
+// Whether a photo is good enough to read: 'blurry' (even large text is unreadable), 'soft' (the small card number
+// often is), 'small' (too few pixels) or '' (fine). Thresholds come from real photos blurred step by step:
+// names stay readable down to a sharpness of about 20, collector numbers need about 80.
+export function photoQuality(src) {
+  if (Math.min(src.width, src.height) < 500) return 'small';
+  const w = SHARPNESS_WIDTH,
+    h = Math.max(1, Math.round((src.height * w) / src.width)),
+    c = document.createElement('canvas');
+  c.width = w;
+  c.height = h;
+  const x = c.getContext('2d', { willReadFrequently: true });
+  x.drawImage(src, 0, 0, w, h);
+  const s = sharpness(x.getImageData(0, 0, w, h));
+  return s < 20 ? 'blurry' : s < 80 ? 'soft' : '';
+}
+
+export const qualityText = {
+  blurry: 'De foto is te wazig om de tekst te lezen. Houd je telefoon stil, tik op de kaart om scherp te stellen en maak een nieuwe foto.',
+  soft: 'De foto is wat onscherp, waardoor het kaartnummer vaak niet leesbaar is. Een scherpere foto helpt.',
+  small: 'De foto heeft weinig pixels. Maak een foto van dichterbij of met een hogere resolutie.',
+};
