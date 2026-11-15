@@ -39,3 +39,5 @@ dialog.trade{max-width:760px;width:96vw;max-height:96vh;max-height:96dvh;overflo
 #webcam>.notice{margin:4px 0 10px}
 #webcam .scan-tools{flex:none;margin:0}
 @media(max-width:700px){#webcam>.notice{font-size:13px;line-height:1.45}}
+/* A photo too blurry to read: the scan status is said firmly, in a dark warning colour (7:1 on the panel). */
+#scanStatus.warn{color:#8a2c0d;font-weight:600}

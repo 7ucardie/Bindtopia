@@ -121,3 +121,23 @@ export function energyTypeFromPixels({ data, width: w, height: h }) {
   if (hue < 310) return 'psychic';
   return 'fairy';
 }
+
+// How sharp a photo is: the variance of the Laplacian (edge strength) of the grey image, over the middle 80%.
+// Measured on a copy scaled to SHARPNESS_WIDTH so the number does not depend on the camera's resolution.
+export const SHARPNESS_WIDTH = 640;
+export function sharpness({ data, width: w, height: h }) {
+  const grey = new Float32Array(w * h);
+  for (let i = 0; i < w * h; i++) grey[i] = 0.299 * data[4 * i] + 0.587 * data[4 * i + 1] + 0.114 * data[4 * i + 2];
+  let n = 0,
+    sum = 0,
+    sq = 0;
+  for (let y = Math.max(1, Math.round(h * 0.1)); y < Math.min(h - 1, Math.round(h * 0.9)); y++)
+    for (let x = Math.max(1, Math.round(w * 0.1)); x < Math.min(w - 1, Math.round(w * 0.9)); x++) {
+      const i = y * w + x,
+        l = grey[i - 1] + grey[i + 1] + grey[i - w] + grey[i + w] - 4 * grey[i];
+      n++;
+      sum += l;
+      sq += l * l;
+    }
+  return n ? sq / n - (sum / n) ** 2 : 0;
+}
