@@ -40,3 +40,12 @@ test('a static card page links its next card into the app as well', async ({page
   await page.locator('a[rel="next"]').click();
   await expect(page.locator('#detail h1')).toHaveText('Charizard', {timeout: 20000});
 });
+
+test('an opened card names its static page as canonical, and closing it restores the start page', async ({page}) => {
+  await page.goto('/?card=base1-4');
+  await expect(page.locator('#detail h1')).toHaveText('Charizard', {timeout: 20000});
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://bindtopia.com/card/base1-4/');
+  await page.keyboard.press('Escape');
+  await expect(page.locator('#modal')).toBeHidden();
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://bindtopia.com/');
+});

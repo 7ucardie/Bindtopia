@@ -4,7 +4,7 @@ import { escape, detailRow, cardTextHtml, priceBlock, priceDate } from './card-d
 import { markets, marketLinks } from './markets.mjs';
 import { state, getJSON, setMarket } from './state.mjs';
 import { $, toast, pic, protectImage } from './ui.mjs';
-import { openDialog, cardUrl } from './dialogs.mjs';
+import { openDialog, cardUrl, setCanonical } from './dialogs.mjs';
 import { isSaved, toggleSaved } from './collection.mjs';
 import { reportUrl } from './custom-cards.mjs';
 
@@ -114,6 +114,7 @@ export async function show(c) {
   $('#detail').innerHTML = '<div class="api-spinner">Kaartinformatie ophalen…</div>';
   openDialog($('#modal'), cardUrl(c.id));
   if (history.state?.dialog === 'modal') history.replaceState(history.state, '', cardUrl(c.id));
+  setCanonical(c.id);
   try {
     const [d, released] = await Promise.all([
       getJSON('https://api.tcgdex.net/v2/' + lang + '/cards/' + encodeURIComponent(c.id)),

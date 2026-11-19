@@ -1,3 +1,5 @@
+import { fileId } from './card-detail.mjs';
+
 // On phones the back button or swipe should close an open dialog, not leave the site: each dialog gets a history entry.
 export function openDialog(dialog, url) {
   if (dialog.open) return;
@@ -14,6 +16,13 @@ export function cardUrl(id) {
   return u.href;
 }
 
+// While a catalog card is open, the page's canonical address is that card's static page (/card/<id>/), so a link
+// to ?card=<id> counts for the card page in search engines instead of for the start page.
+export function setCanonical(id) {
+  const link = document.querySelector('link[rel="canonical"]');
+  if (link) link.href = 'https://bindtopia.com/' + (id ? 'card/' + fileId(id) + '/' : '');
+}
+
 // A shared card link is opened once the catalog is ready; the address is cleaned now so closing that card returns to the plain site.
 let pendingCard = null;
 export function takePendingCard() {
@@ -27,6 +36,7 @@ export function wireDialogs() {
   if (pendingCard) history.replaceState(history.state, '', cardUrl(''));
   for (const d of document.querySelectorAll('dialog'))
     d.addEventListener('close', () => {
+      if (d.id === 'modal') setCanonical('');
       if (history.state?.dialog === d.id) history.back();
     });
   window.addEventListener('popstate', () => {
